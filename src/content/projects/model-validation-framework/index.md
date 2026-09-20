@@ -8,11 +8,25 @@ tags: ["model-risk", "validation", "python"]
 
 ## Problem
 
-Model validation is usually bespoke: every review reinvents checklists, backtests, and report formats. That makes validation slow, inconsistent, and hard to challenge — the opposite of what independent review should be.
+Model validation is usually bespoke. Every review reinvents its checklists, rebuilds its backtests from scratch, and formats its findings differently. That makes validation slow, inconsistent across reviewers, and hard to challenge — which is the opposite of what independent review is supposed to deliver. Worse, the ad-hoc nature means the same blind spots recur: conceptual soundness gets skipped in favor of whatever backtest was easiest to run, and the documentation that would let a third party reproduce the review never quite gets written.
+
+The insight behind this framework: the validation *workflow* is largely model-agnostic. Conceptual-soundness review, backtesting discipline, sensitivity analysis, and structured reporting apply whether the model is a regression, a simulation, or an ML pipeline. Encoding that workflow once — as software rather than a checklist document — makes rigorous validation the path of least resistance.
 
 ## Approach
 
-A reusable Python framework that encodes the validation workflow itself: structured conceptual-soundness checklists, a backtesting harness with walk-forward discipline, sensitivity and scenario analysis, and a report generator that produces reviewer-ready documentation.
+The framework encodes the independent-validation workflow as a reusable Python library: structured conceptual-soundness checklists, a backtesting harness with real walk-forward discipline, sensitivity and scenario analysis, and a report generator that produces reviewer-ready documentation. It's designed for the validator's side of the table — the person whose job is to challenge the model, not to build it.
+
+### Conceptual soundness, structured
+
+The soundness module turns the most-skipped step of validation into a structured exercise: an assumption inventory (every material assumption the model makes, stated explicitly), checks against the model's intended use versus its approved scope, and prompts that force the reviewer to confront what the model *can't* do. Assumptions that aren't written down can't be challenged; the module makes writing them down unavoidable.
+
+### A backtesting harness with bias guards
+
+The backtesting module enforces walk-forward discipline — expanding or rolling windows, no peeking — with built-in guards against the classic biases: lookahead (features timestamped after the decision point), survivorship (universes that only contain today's winners), and the multiple-testing problem that turns a hundred backtests into one "significant" result. The harness doesn't just run backtests; it makes the dishonest ones hard to run by accident.
+
+### Sensitivity, monitoring, and reporting
+
+Parameter perturbation and scenario grids quantify how much the model's conclusions depend on its least-certain inputs. The monitoring module provides stability metrics (population stability index and related drift measures) with hooks into ongoing surveillance. And the report generator assembles the whole review — soundness findings, backtest results, sensitivity analysis, limitations — into structured, reviewer-ready documentation, because a validation nobody can reproduce is an opinion, not a review.
 
 ## Architecture
 
@@ -31,10 +45,12 @@ Python · pandas · NumPy · SciPy · Matplotlib
 
 ## Status
 
-In development — the backtesting harness and soundness checklists are the first modules being built out.
+In development. The backtesting harness and soundness checklists are the first modules being built out, since they're the core of the validation workflow. No public release yet.
 
 ## Related
 
 - [Model Risk & Validation](/model-risk) — the practice this framework encodes
 - [Conceptual Soundness: The Most Skipped Step in Model Validation](/research/conceptual-soundness-model-validation)
-- Backtesting Quantitative Strategies Without Fooling Yourself — *coming soon*
+- [SR 11-7 Concepts Applied to AI/ML Model Risk](/research/sr-11-7-ai-ml-model-risk)
+- [ML Validation Toolkit](/projects/ml-validation-toolkit)
+- Backtesting Quantitative Strategies Without Fooling Yourself — in the research pipeline
