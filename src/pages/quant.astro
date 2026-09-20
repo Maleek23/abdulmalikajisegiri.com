@@ -1,0 +1,60 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { QUANT } from "@consts"
+---
+
+<PageLayout title={QUANT.TITLE} description={QUANT.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        Quantitative Work
+      </h1>
+      <div class="mt-1">
+        {QUANT.DESCRIPTION}
+      </div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <p>
+        Alongside my engineering practice, I do quantitative research and
+        analytics: market-data pipelines, backtesting with honest validation
+        discipline, Monte Carlo risk simulation, and the tooling that makes
+        quant work reproducible.
+      </p>
+
+      <div class="not-prose my-8 p-6 rounded-lg border border-black/10 dark:border-white/20 text-center">
+        <p class="font-semibold text-black dark:text-white text-lg">Quant Edge</p>
+        <p class="text-sm opacity-75 mt-1">
+          My quantitative research platform — currently being rebuilt.
+        </p>
+        <p class="mt-4">
+          <span class="inline-block py-2 px-4 rounded text-sm border border-black/25 dark:border-white/25 opacity-60 cursor-not-allowed">
+            Launching soon
+          </span>
+        </p>
+        <!-- TODO: replace the badge above with a real CTA link once the Quant Edge domain is live -->
+      </div>
+
+      <h2>Related research</h2>
+      <ul>
+        <li>Backtesting Quantitative Strategies Without Fooling Yourself — <em>coming soon</em></li>
+        <li>Stress Testing and Scenario Analysis for Quantitative Models — <em>coming soon</em></li>
+      </ul>
+
+      <h2>Related projects</h2>
+      <ul>
+        <li><a href="/projects/market-data-engine">Market Data Engine</a> — price action, economic events, news, volatility, options flow, technicals</li>
+        <li><a href="/projects/monte-carlo-risk-engine">Monte Carlo Risk Engine</a> — simulation for risk and quantitative analytics</li>
+        <li><a href="/projects/model-validation-framework">Model Validation Framework</a> — the validation discipline quant work needs</li>
+      </ul>
+
+      <p>
+        <em>This page is a signpost — methodology depth, documentation, and
+        dashboards live on the Quant Edge property itself, once it's live.</em>
+      </p>
+    </article>
+  </BottomLayout>
+</PageLayout>

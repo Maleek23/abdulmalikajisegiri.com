@@ -1,0 +1,90 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+
+const title = "Systems Engineering"
+const description = "Systems engineering work by Abdulmalik Ajisegiri: requirements engineering, systems architecture, verification and validation, and lifecycle engineering."
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulmalikajisegiri.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Engineering", "item": "https://abdulmalikajisegiri.com/engineering" },
+    { "@type": "ListItem", "position": 3, "name": "Systems Engineering", "item": "https://abdulmalikajisegiri.com/systems-engineering" },
+  ],
+}
+---
+
+<PageLayout title={title} description={description} schema={breadcrumbSchema}>
+  <TopLayout>
+    <div class="animate">
+      <p class="text-sm opacity-75"><a href="/engineering" class="underline underline-offset-2">Engineering</a> / Systems Engineering</p>
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">Systems Engineering</h1>
+      <div class="mt-1">{description}</div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <p>
+        Systems engineering is the discipline of making sure complex things
+        work — not just the parts, but the interactions between them, and not
+        just at delivery, but across the whole life of the system. My practice
+        centers on four activities that reinforce each other.
+      </p>
+
+      <h2>Requirements engineering</h2>
+      <p>
+        Most system failures trace back to requirements: vague, unverifiable,
+        contradictory, or simply missing. I work from stakeholder needs down to
+        verifiable requirements — written so that each one can actually be
+        tested, traced, and changed without breaking the web around it. See
+        the research note on
+        requirements engineering for complex systems — <em>coming soon</em>.
+      </p>
+
+      <h2>Systems architecture</h2>
+      <p>
+        Architecture is the set of decisions that are expensive to reverse.
+        I focus on decomposing systems into modules with clean interfaces,
+        making trade-offs explicit, and documenting the reasoning so future
+        engineers inherit understanding, not just diagrams.
+      </p>
+
+      <h2>Verification & validation</h2>
+      <p>
+        Verification asks "did we build it right?" — validation asks "did we
+        build the right thing?" Both run as a thread through the lifecycle,
+        not as a phase at the end. Test planning starts from requirements,
+        and every requirement should know how it will be verified before
+        design begins. More in
+        verification and validation across the systems lifecycle — <em>coming soon</em>.
+      </p>
+
+      <h2>Lifecycle thinking</h2>
+      <p>
+        A system is conceived, developed, produced, operated, and retired —
+        and decisions made early echo through every later phase. Lifecycle
+        thinking means designing for operations, maintenance, and eventual
+        retirement from the start, not discovering those needs during a
+        2 a.m. incident.
+      </p>
+
+      <h2>Related projects</h2>
+      <ul>
+        <li><a href="/projects/mbse-toolkit">MBSE Toolkit</a> — requirements parsing, traceability matrices, SysML helpers</li>
+        <li><a href="/projects/optimization-engine">Optimization Engine</a> — metaheuristics for engineering decision problems</li>
+      </ul>
+
+      <h2>Related research</h2>
+      <ul>
+        <li>Model-Based Systems Engineering and Requirements Traceability — <em>coming soon</em></li>
+        <li>From Stakeholder Needs to Verification: Requirements Engineering for Complex Systems — <em>coming soon</em></li>
+        <li>Verification and Validation Across the Systems Lifecycle — <em>coming soon</em></li>
+      </ul>
+
+      <p><a href="/engineering">← Back to Engineering</a></p>
+    </article>
+  </BottomLayout>
+</PageLayout>

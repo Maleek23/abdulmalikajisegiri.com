@@ -1,0 +1,92 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { ABOUT } from "@consts"
+
+const profileSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Abdulmalik Ajisegiri",
+    "url": "https://abdulmalikajisegiri.com/about",
+  },
+}
+
+const focusAreas = [
+  { title: "Systems Engineering", href: "/systems-engineering", description: "Requirements, architecture, verification and validation across the lifecycle." },
+  { title: "Model Risk & Validation", href: "/model-risk", description: "Conceptual soundness, backtesting, stress testing, and ongoing monitoring." },
+  { title: "AI/ML", href: "/ai-ml", description: "ML model validation, governance for AI systems, reproducible machine learning." },
+  { title: "MBSE", href: "/mbse", description: "SysML modeling, requirements traceability, model-based verification." },
+]
+---
+
+<PageLayout title={ABOUT.TITLE} description={ABOUT.DESCRIPTION} schema={profileSchema}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        About Abdulmalik Ajisegiri
+      </h1>
+      <div class="mt-1">
+        Systems Engineer · Model Risk & Validation · AI/ML · Advanced Analytics
+      </div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <p>
+        Abdulmalik Ajisegiri is a systems engineering and model risk professional
+        specializing in model validation, advanced analytics, AI/ML governance,
+        and model-based systems engineering.
+      </p>
+      <p>
+        He builds validation frameworks, MBSE tooling, optimization engines, and
+        quantitative research platforms — the practical infrastructure that lets
+        organizations trust complex models in production. His work sits at the
+        intersection of engineering rigor and statistical discipline: if a model
+        drives a decision, he wants to know why it should be believed.
+      </p>
+      <p>
+        His sharpest focus is <a href="/model-risk">model risk and validation</a>:
+        interrogating a model's conceptual soundness before the numbers are run,
+        stress-testing it against scenarios designed to break it, and monitoring
+        it for decay once it is live.
+      </p>
+
+      <h2>Background</h2>
+      <!-- TODO: fill in degree, years, and roles. Keep entries factual and
+           free of employer-confidential detail. -->
+      <ul>
+        <li><strong>Education:</strong> University of Oklahoma — <em>degree and years to be added</em></li>
+        <li><strong>Experience:</strong> <em>career timeline to be added</em></li>
+      </ul>
+
+      <h2>Technical focus areas</h2>
+      <div class="not-prose grid gap-4 sm:grid-cols-2 my-6">
+        {focusAreas.map((area) => (
+          <a href={area.href} class="group block p-4 rounded-lg border border-black/10 dark:border-white/20 hover:border-black/30 hover:dark:border-white/40 transition-colors duration-300">
+            <div class="font-semibold text-black dark:text-white">{area.title}</div>
+            <p class="text-sm mt-1 opacity-75">{area.description}</p>
+          </a>
+        ))}
+      </div>
+
+      <h2>Outside of work</h2>
+      <p>
+        Fitness, and photography and filmmaking under the
+        <a href="/photography">Leekshotit</a> brand — a different kind of
+        systems thinking, with light instead of models.
+      </p>
+
+      <div class="not-prose flex flex-wrap gap-4 mt-8">
+        <a href="/resume" class="py-2 px-4 rounded text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 transition-opacity">
+          View resume
+        </a>
+        <a href="/contact" class="py-2 px-4 rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 transition-colors">
+          Get in touch
+        </a>
+      </div>
+    </article>
+  </BottomLayout>
+</PageLayout>

@@ -8,15 +8,15 @@ import SearchBar from "@components/SearchBar"
 type Props = {
   entry_name: string
   tags: string[]
-  data: CollectionEntry<"blog">[] | CollectionEntry<'projects'>[]
+  data: CollectionEntry<"research">[] | CollectionEntry<'projects'>[]
 }
 
 export default function SearchCollection({ entry_name, data, tags }: Props) {
-  const coerced = data.map((entry) => entry as CollectionEntry<'blog'>);
+  const coerced = data.map((entry) => entry as CollectionEntry<'research'>);
 
   const [query, setQuery] = createSignal("");
   const [filter, setFilter] = createSignal(new Set<string>())
-  const [collection, setCollection] = createSignal<CollectionEntry<'blog'>[]>([])
+  const [collection, setCollection] = createSignal<CollectionEntry<'research'>[]>([])
   const [descending, setDescending] = createSignal(false);
 
   const fuse = new Fuse(coerced, {

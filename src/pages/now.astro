@@ -1,0 +1,50 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { NOW } from "@consts"
+---
+
+<PageLayout title={NOW.TITLE} description={NOW.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        Now
+      </h1>
+      <div class="mt-1">
+        What I'm focused on — updated September 2026.
+      </div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <ul>
+        <li>
+          <strong>Building this site</strong> — turning my engineering,
+          model-risk, and quantitative work into a public body of work, one
+          research note at a time.
+        </li>
+        <li>
+          <strong>Model validation tooling</strong> — developing the
+          <a href="/projects/model-validation-framework">Model Validation Framework</a>
+          and <a href="/projects/ml-validation-toolkit">ML Validation Toolkit</a>:
+          the checklists, harnesses, and report generators I wish every
+          validation had.
+        </li>
+        <li>
+          <strong>Writing the model-risk series</strong> — starting with
+          <a href="/research/conceptual-soundness-model-validation">conceptual soundness</a>,
+          the most skipped step in validation.
+        </li>
+        <li>
+          <strong>Quant Edge rebuild</strong> — reworking my quantitative
+          research platform from the ground up.
+        </li>
+      </ul>
+      <p>
+        <em>This page is updated monthly. For the full picture, see
+        <a href="/about">about</a> and <a href="/projects">projects</a>.</em>
+      </p>
+    </article>
+  </BottomLayout>
+</PageLayout>

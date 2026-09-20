@@ -1,0 +1,89 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { ENGINEERING } from "@consts"
+
+const specialties = [
+  {
+    title: "Systems Engineering",
+    href: "/systems-engineering",
+    description: "Requirements engineering, systems architecture, verification and validation, and lifecycle thinking for complex systems.",
+  },
+  {
+    title: "Model Risk & Validation",
+    href: "/model-risk",
+    description: "Conceptual soundness, backtesting, stress testing, ongoing monitoring, and governance for models that drive decisions.",
+  },
+  {
+    title: "AI/ML",
+    href: "/ai-ml",
+    description: "ML model validation, governance for AI systems, and reproducible machine learning practice.",
+  },
+  {
+    title: "MBSE",
+    href: "/mbse",
+    description: "Model-based systems engineering: SysML modeling, requirements traceability, and model-based verification.",
+  },
+]
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": specialties.map((s, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": s.title,
+    "url": `https://abdulmalikajisegiri.com${s.href}`,
+  })),
+}
+---
+
+<PageLayout title={ENGINEERING.TITLE} description={ENGINEERING.DESCRIPTION} schema={itemListSchema}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        Engineering
+      </h1>
+      <div class="mt-1">
+        {ENGINEERING.DESCRIPTION}
+      </div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <p>
+        "Engineering" here means the full discipline of building systems that
+        can be trusted: defining what a system must do, architecting how it
+        does it, verifying that it was built right, and validating that the
+        right thing was built. That thread runs through everything I do —
+        from validating a statistical model to tracing a requirement through
+        a SysML model to production monitoring.
+      </p>
+
+      <h2>Specialties</h2>
+      <div class="not-prose grid gap-4 sm:grid-cols-2 my-6">
+        {specialties.map((s) => (
+          <a href={s.href} class="group block p-4 rounded-lg border border-black/10 dark:border-white/20 hover:border-black/30 hover:dark:border-white/40 transition-colors duration-300">
+            <div class="font-semibold text-black dark:text-white">{s.title}</div>
+            <p class="text-sm mt-1 opacity-75">{s.description}</p>
+          </a>
+        ))}
+      </div>
+
+      <h2>From practice to code</h2>
+      <p>
+        Each specialty is backed by working tooling — see
+        <a href="/projects">projects</a> — and written up in my
+        <a href="/research">research notes</a>, where I work through the
+        methods in public.
+      </p>
+
+      <div class="not-prose mt-6">
+        <a href="https://github.com/Maleek23" target="_blank" class="inline-block py-2 px-4 rounded text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 transition-opacity">
+          GitHub — Maleek23 ↗
+        </a>
+      </div>
+    </article>
+  </BottomLayout>
+</PageLayout>

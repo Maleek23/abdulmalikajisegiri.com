@@ -6,19 +6,19 @@ import BottomLayout from "@layouts/BottomLayout.astro"
 import ArticleTopLayout from "@layouts/ArticleTopLayout.astro"
 import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
 
-// Create the static projects pages (drafts are excluded from the build)
+// Create the static research pages (drafts are excluded from the build)
 export async function getStaticPaths() {
-	const projects = (await getCollection("projects")).filter((project) => !project.data.draft)
-	return projects.map((project) => ({
-		params: { slug: project.slug },
-		props: project,
+	const posts = (await getCollection("research")).filter((post) => !post.data.draft)
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
 	}))
 }
 
-// Get the requested project
-type Props = CollectionEntry<"projects">
-const project = Astro.props
-const { title, summary } = project.data
+// Get the requested post
+type Props = CollectionEntry<"research">
+const post = Astro.props
+const { title, summary } = post.data
 
 const articleSchema = [
   {
@@ -31,17 +31,17 @@ const articleSchema = [
       "name": "Abdulmalik Ajisegiri",
       "url": "https://abdulmalikajisegiri.com/about",
     },
-    "datePublished": project.data.date.toISOString(),
-    "dateModified": project.data.date.toISOString(),
-    "mainEntityOfPage": `https://abdulmalikajisegiri.com/projects/${project.slug}/`,
+    "datePublished": post.data.date.toISOString(),
+    "dateModified": post.data.date.toISOString(),
+    "mainEntityOfPage": `https://abdulmalikajisegiri.com/research/${post.slug}/`,
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulmalikajisegiri.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://abdulmalikajisegiri.com/projects" },
-      { "@type": "ListItem", "position": 3, "name": title, "item": `https://abdulmalikajisegiri.com/projects/${project.slug}/` },
+      { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://abdulmalikajisegiri.com/research" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": `https://abdulmalikajisegiri.com/research/${post.slug}/` },
     ],
   },
 ]
@@ -50,12 +50,12 @@ const articleSchema = [
 <PageLayout title={title} description={summary} schema={articleSchema}>
   <TopLayout>
     <div class="animate">
-      <ArticleTopLayout entry={project} />
+      <ArticleTopLayout entry={post}/>
     </div>
   </TopLayout>
   <BottomLayout>
     <div class="animate">
-      <ArticleBottomLayout entry={project} />
+      <ArticleBottomLayout entry={post} />
     </div>
   </BottomLayout>
 </PageLayout>

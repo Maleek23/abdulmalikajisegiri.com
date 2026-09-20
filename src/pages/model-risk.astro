@@ -1,0 +1,99 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+
+const title = "Model Risk & Validation"
+const description = "Model risk management and validation by Abdulmalik Ajisegiri: AI/ML model validation, model governance, backtesting, stress testing, and ongoing monitoring."
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulmalikajisegiri.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Engineering", "item": "https://abdulmalikajisegiri.com/engineering" },
+    { "@type": "ListItem", "position": 3, "name": "Model Risk & Validation", "item": "https://abdulmalikajisegiri.com/model-risk" },
+  ],
+}
+---
+
+<PageLayout title={title} description={description} schema={breadcrumbSchema}>
+  <TopLayout>
+    <div class="animate">
+      <p class="text-sm opacity-75"><a href="/engineering" class="underline underline-offset-2">Engineering</a> / Model Risk & Validation</p>
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">Model Risk & Validation</h1>
+      <div class="mt-1">{description}</div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <p>
+        Every model used in a consequential decision carries risk: the risk
+        that it is wrong, misapplied, or quietly decaying. Model validation
+        is the independent discipline of finding those problems before
+        reality does. It is my sharpest area of practice.
+      </p>
+      <p>
+        <em>Note: I discuss regulatory concepts such as SR 11-7 here in
+        general, public-knowledge terms only. Nothing on this site describes
+        any employer's internal processes or proprietary work.</em>
+      </p>
+
+      <h2>Validation philosophy</h2>
+      <p>
+        Validation is not a rubber stamp at the end of development — it is an
+        independent, skeptical review of the whole modeling enterprise. The
+        validator's job is to try to break the model intellectually: to find
+        the assumption that doesn't hold, the data that leaks the future,
+        the scenario nobody tested. A validation that can't fail isn't a
+        validation.
+      </p>
+
+      <h2>Conceptual soundness</h2>
+      <p>
+        The most skipped step in validation, and the most important. Before
+        any backtest is run: does the model's theory make sense? Are the
+        assumptions documented and defensible? Is the methodology appropriate
+        for the problem, or just familiar? A model can be mathematically
+        flawless and still wrong about the world. Read
+        <a href="/research/conceptual-soundness-model-validation">Conceptual Soundness: The Most Skipped Step in Model Validation</a>.
+      </p>
+
+      <h2>Ongoing monitoring</h2>
+      <p>
+        Models rot. Populations shift, relationships decay, feedback loops
+        form. Validation doesn't end at approval — production monitoring
+        with stability metrics, performance drift detection, and clear
+        escalation thresholds is what keeps an approved model honest. More in
+        Detecting Model Decay: Ongoing Monitoring in Production — <em>coming soon</em>.
+      </p>
+
+      <h2>Governance & documentation</h2>
+      <p>
+        A model nobody can understand is a model nobody can govern. Good
+        documentation records what was decided, what was assumed, what was
+        tested, and what the limits of the model are — written for the
+        reviewer who has to challenge it, not the developer who already
+        believes it. On the regulatory backdrop, see
+        <a href="/research/sr-11-7-ai-ml-model-risk">SR 11-7 Concepts Applied to AI/ML Model Risk</a>.
+      </p>
+
+      <h2>Related projects</h2>
+      <ul>
+        <li><a href="/projects/model-validation-framework">Model Validation Framework</a> — conceptual-soundness checks, backtesting harness, sensitivity analysis, validation-report generator</li>
+        <li><a href="/projects/ml-validation-toolkit">ML Validation Toolkit</a> — data validation, leakage detection, performance monitoring for ML models</li>
+        <li><a href="/projects/monte-carlo-risk-engine">Monte Carlo Risk Engine</a> — simulation for risk and quantitative analytics</li>
+      </ul>
+
+      <h2>Related research</h2>
+      <ul>
+        <li><a href="/research/conceptual-soundness-model-validation">Conceptual Soundness: The Most Skipped Step in Model Validation</a></li>
+        <li><a href="/research/ml-model-validation-framework">Model Validation in AI/ML Systems: A Practical Framework</a></li>
+        <li><a href="/research/sr-11-7-ai-ml-model-risk">SR 11-7 Concepts Applied to AI/ML Model Risk</a></li>
+        <li>Stress Testing and Scenario Analysis for Quantitative Models — <em>coming soon</em></li>
+      </ul>
+
+      <p><a href="/engineering">← Back to Engineering</a></p>
+    </article>
+  </BottomLayout>
+</PageLayout>

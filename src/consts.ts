@@ -2,80 +2,121 @@ import type { Site, Page, Links, Socials } from "@types"
 
 // Global
 export const SITE: Site = {
-  TITLE: "Astro Sphere",
-  DESCRIPTION: "Welcome to Astro Sphere, a portfolio and blog for designers and developers.",
-  AUTHOR: "Mark Horn",
+  TITLE: "Abdulmalik Ajisegiri",
+  DESCRIPTION: "Abdulmalik Ajisegiri is a systems engineering and model risk professional specializing in model validation, AI/ML governance, advanced analytics, and MBSE.",
+  AUTHOR: "Abdulmalik Ajisegiri",
 }
 
-// Work Page
-export const WORK: Page = {
-  TITLE: "Work",
-  DESCRIPTION: "Places I have worked.",
+// About Page
+export const ABOUT: Page = {
+  TITLE: "About",
+  DESCRIPTION: "Professional background of Abdulmalik Ajisegiri: systems engineering, model risk and validation, AI/ML, advanced analytics, and an M.S.-level engineering foundation.",
 }
 
-// Blog Page
-export const BLOG: Page = {
-  TITLE: "Blog",
-  DESCRIPTION: "Writing on topics I am passionate about.",
+// Engineering Page
+export const ENGINEERING: Page = {
+  TITLE: "Engineering",
+  DESCRIPTION: "Engineering practice of Abdulmalik Ajisegiri: model-based systems engineering, model risk and validation, AI/ML systems, and optimization.",
 }
 
-// Projects Page 
+// Research Page
+export const RESEARCH: Page = {
+  TITLE: "Research",
+  DESCRIPTION: "Technical research notes by Abdulmalik Ajisegiri on model validation, systems engineering, MBSE, optimization, and quantitative methods.",
+}
+
+// Projects Page
 export const PROJECTS: Page = {
   TITLE: "Projects",
-  DESCRIPTION: "Recent projects I have worked on.",
+  DESCRIPTION: "Engineering and quantitative projects by Abdulmalik Ajisegiri: model validation frameworks, MBSE tooling, optimization engines, and market-data platforms.",
+}
+
+// Quant Page
+export const QUANT: Page = {
+  TITLE: "Quantitative Work",
+  DESCRIPTION: "Quantitative research and analytics by Abdulmalik Ajisegiri, including the Quant Edge project.",
+}
+
+// Photography Page
+export const PHOTOGRAPHY: Page = {
+  TITLE: "Photography & Film",
+  DESCRIPTION: "Photography and filmmaking by Abdulmalik Ajisegiri under the Leekshotit brand.",
+}
+
+// Resume Page
+export const RESUME: Page = {
+  TITLE: "Resume",
+  DESCRIPTION: "Resume of Abdulmalik Ajisegiri: systems engineering, model risk and validation, AI/ML, and advanced analytics.",
+}
+
+// Contact Page
+export const CONTACT: Page = {
+  TITLE: "Contact",
+  DESCRIPTION: "Contact Abdulmalik Ajisegiri about engineering, quantitative research, or photography and film work.",
+}
+
+// Now Page
+export const NOW: Page = {
+  TITLE: "Now",
+  DESCRIPTION: "What Abdulmalik Ajisegiri is focused on right now.",
 }
 
 // Search Page
 export const SEARCH: Page = {
   TITLE: "Search",
-  DESCRIPTION: "Search all posts and projects by keyword.",
+  DESCRIPTION: "Search all research notes and projects by keyword.",
 }
 
 // Links
 export const LINKS: Links = [
-  { 
-    TEXT: "Home", 
-    HREF: "/", 
+  {
+    TEXT: "About",
+    HREF: "/about",
   },
-  { 
-    TEXT: "Work", 
-    HREF: "/work", 
+  {
+    TEXT: "Engineering",
+    HREF: "/engineering",
   },
-  { 
-    TEXT: "Blog", 
-    HREF: "/blog", 
+  {
+    TEXT: "Projects",
+    HREF: "/projects",
   },
-  { 
-    TEXT: "Projects", 
-    HREF: "/projects", 
+  {
+    TEXT: "Research",
+    HREF: "/research",
+  },
+  {
+    TEXT: "Quant",
+    HREF: "/quant",
+  },
+  {
+    TEXT: "Photography",
+    HREF: "/photography",
+  },
+  {
+    TEXT: "Resume",
+    HREF: "/resume",
+  },
+  {
+    TEXT: "Contact",
+    HREF: "/contact",
   },
 ]
 
 // Socials
+// TODO: add real handles — LinkedIn, X, YouTube, Instagram — then
+// also add them to the sameAs array in BaseHead.astro.
 export const SOCIALS: Socials = [
-  { 
+  {
     NAME: "Email",
-    ICON: "email", 
-    TEXT: "markhorn.dev@gmail.com",
-    HREF: "mailto:markhorn.dev@gmail.com",
+    ICON: "email",
+    TEXT: "me@abdulmalikajisegiri.com",
+    HREF: "mailto:me@abdulmalikajisegiri.com",
   },
-  { 
+  {
     NAME: "Github",
     ICON: "github",
-    TEXT: "markhorn-dev",
-    HREF: "https://github.com/markhorn-dev/astro-sphere"
-  },
-  { 
-    NAME: "LinkedIn",
-    ICON: "linkedin",
-    TEXT: "markhorn-dev",
-    HREF: "https://www.linkedin.com/in/markhorn-dev/",
-  },
-  { 
-    NAME: "Twitter",
-    ICON: "twitter-x",
-    TEXT: "markhorn_dev",
-    HREF: "https://twitter.com/markhorn_dev",
+    TEXT: "Maleek23",
+    HREF: "https://github.com/Maleek23",
   },
 ]
-

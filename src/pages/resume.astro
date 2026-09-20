@@ -1,0 +1,79 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { RESUME } from "@consts"
+---
+
+<PageLayout title={RESUME.TITLE} description={RESUME.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate flex items-start justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+          Resume
+        </h1>
+        <div class="mt-1">
+          {RESUME.DESCRIPTION}
+        </div>
+      </div>
+      <button onclick="window.print()" class="shrink-0 mt-2 py-2 px-4 rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 transition-colors print:hidden">
+        Print / Save as PDF
+      </button>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <h2>Abdulmalik Ajisegiri</h2>
+      <p>
+        Systems Engineer · Model Risk & Validation · AI/ML · Advanced Analytics<br />
+        <a href="mailto:me@abdulmalikajisegiri.com">me@abdulmalikajisegiri.com</a> ·
+        <a href="https://github.com/Maleek23" target="_blank">github.com/Maleek23</a> ·
+        <a href="https://abdulmalikajisegiri.com">abdulmalikajisegiri.com</a>
+      </p>
+
+      <h2>Summary</h2>
+      <p>
+        Systems engineering and model risk professional specializing in model
+        validation, advanced analytics, AI/ML governance, and model-based
+        systems engineering. Builds validation frameworks, MBSE tooling,
+        optimization engines, and quantitative research platforms.
+      </p>
+
+      <h2>Technical skills</h2>
+      <ul>
+        <li><strong>Model risk & validation:</strong> conceptual soundness review, backtesting, stress testing, ongoing monitoring, model governance</li>
+        <li><strong>Systems engineering:</strong> requirements engineering, systems architecture, verification & validation, lifecycle engineering</li>
+        <li><strong>MBSE:</strong> SysML modeling, requirements traceability, model-based verification</li>
+        <li><strong>AI/ML:</strong> ML model validation, leakage detection, challenger benchmarking, reproducibility</li>
+        <li><strong>Quantitative:</strong> Monte Carlo simulation, optimization & metaheuristics, market-data pipelines</li>
+        <li><strong>Tools:</strong> Python (pandas, NumPy, SciPy, scikit-learn), Git</li>
+      </ul>
+
+      <h2>Experience</h2>
+      <!-- TODO: add roles, organizations, dates, and 2–4 bullets each.
+           Keep entries factual; no employer-confidential detail. -->
+      <p><em>Experience entries to be added.</em></p>
+
+      <h2>Education</h2>
+      <!-- TODO: add degree, field, and years. -->
+      <ul>
+        <li>University of Oklahoma — <em>degree and years to be added</em></li>
+      </ul>
+
+      <h2>Selected projects</h2>
+      <ul>
+        <li><a href="/projects/model-validation-framework">Model Validation Framework</a> — conceptual-soundness checks, backtesting harness, validation-report generator</li>
+        <li><a href="/projects/ml-validation-toolkit">ML Validation Toolkit</a> — data validation, leakage detection, performance monitoring</li>
+        <li><a href="/projects/mbse-toolkit">MBSE Toolkit</a> — requirements parsing, traceability matrices, SysML helpers</li>
+        <li><a href="/projects/market-data-engine">Market Data Engine</a> — unified market-data research pipeline</li>
+      </ul>
+    </article>
+  </BottomLayout>
+</PageLayout>
+
+<style>
+  @media print {
+    header, footer, #drawer { display: none !important; }
+    main { padding-top: 0 !important; }
+  }
+</style>

@@ -5,11 +5,36 @@ interface Props {
   title: string
   description: string
   image?: string
+  schema?: Record<string, any> | Record<string, any>[]
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = "/open-graph.jpg" } = Astro.props
+const { title, description, image = "/open-graph.jpg", schema } = Astro.props
+
+// Global entity signal: every page declares who this site is about.
+// TODO: extend sameAs with real LinkedIn / X / YouTube / Instagram URLs
+// once the handles are known. Only list profiles that actually exist.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Abdulmalik Ajisegiri",
+  "url": "https://abdulmalikajisegiri.com/",
+  "jobTitle": "Systems Engineer",
+  "description": "Systems engineering and model risk professional specializing in model validation, advanced analytics, AI/ML governance, and model-based systems engineering.",
+  "sameAs": [
+    "https://github.com/Maleek23",
+  ],
+  "knowsAbout": [
+    "Systems Engineering",
+    "Model Risk Management",
+    "Model Validation",
+    "Machine Learning",
+    "Model-Based Systems Engineering",
+    "Optimization",
+    "Quantitative Analytics",
+  ],
+}
 ---
 
 <!-- Global Metadata -->
@@ -45,6 +70,10 @@ const { title, description, image = "/open-graph.jpg" } = Astro.props
 
 <!-- Sitemap -->
 <link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Structured data: global Person entity + page-specific schema -->
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
 <!-- RSS Feed -->
 <link rel="alternate" type="application/rss+xml" title={title} href={`${Astro.site}rss.xml`}/>

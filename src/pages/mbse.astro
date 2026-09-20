@@ -1,0 +1,86 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+
+const title = "Model-Based Systems Engineering"
+const description = "MBSE practice of Abdulmalik Ajisegiri: SysML modeling, requirements traceability, and model-based verification."
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulmalikajisegiri.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Engineering", "item": "https://abdulmalikajisegiri.com/engineering" },
+    { "@type": "ListItem", "position": 3, "name": "MBSE", "item": "https://abdulmalikajisegiri.com/mbse" },
+  ],
+}
+---
+
+<PageLayout title={title} description={description} schema={breadcrumbSchema}>
+  <TopLayout>
+    <div class="animate">
+      <p class="text-sm opacity-75"><a href="/engineering" class="underline underline-offset-2">Engineering</a> / MBSE</p>
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">Model-Based Systems Engineering</h1>
+      <div class="mt-1">{description}</div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate prose prose-neutral dark:prose-invert max-w-none">
+      <p>
+        Documents describe a system; models <em>are</em> the system, in a
+        form you can query, analyze, and keep consistent as the design
+        evolves. Model-based systems engineering replaces the pile of
+        disconnected documents with a single source of truth — and that
+        changes what rigor is possible.
+      </p>
+
+      <h2>SysML & modeling</h2>
+      <p>
+        SysML gives systems engineers a shared visual language: requirements
+        diagrams, block definition diagrams, activity and sequence diagrams
+        that capture structure and behavior precisely enough to reason
+        about. The value isn't the diagrams themselves — it's the underlying
+        model, where a change to one element propagates to everything that
+        depends on it.
+      </p>
+
+      <h2>Requirements traceability</h2>
+      <p>
+        Traceability is the backbone of MBSE: every requirement linked to
+        the stakeholder need it serves, the design elements that satisfy
+        it, and the verification activities that prove it. Done well, you
+        can answer "what breaks if this requirement changes?" in seconds.
+        Done poorly — or in a spreadsheet nobody maintains — it's fiction.
+        I dig into this in
+        Model-Based Systems Engineering and Requirements Traceability — <em>coming soon</em>.
+      </p>
+
+      <h2>Model-based verification</h2>
+      <p>
+        When requirements live in the model, verification can too: coverage
+        analysis showing which requirements have verification plans, which
+        plans have results, and where the gaps are. The model becomes a
+        dashboard for engineering confidence, not just a design artifact.
+      </p>
+
+      <h2>Toolkit</h2>
+      <p>
+        Practical MBSE needs practical tooling. My
+        <a href="/projects/mbse-toolkit">MBSE Toolkit</a> project covers
+        requirements parsing, traceability matrix generation, and SysML
+        helper utilities — the unglamorous automation that keeps a model
+        alive on real projects.
+      </p>
+
+      <h2>Related research</h2>
+      <ul>
+        <li>Model-Based Systems Engineering and Requirements Traceability — <em>coming soon</em></li>
+        <li>From Stakeholder Needs to Verification: Requirements Engineering for Complex Systems — <em>coming soon</em></li>
+        <li>Verification and Validation Across the Systems Lifecycle — <em>coming soon</em></li>
+      </ul>
+
+      <p><a href="/engineering">← Back to Engineering</a> · <a href="/systems-engineering">Systems Engineering →</a></p>
+    </article>
+  </BottomLayout>
+</PageLayout>

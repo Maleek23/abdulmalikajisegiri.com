@@ -2,12 +2,11 @@
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
-import StackCard from "@components/StackCard.astro"
 import { SITE, SOCIALS } from "@consts"
 import TwinklingStars from "@components/TwinklingStars.astro"
 import MeteorShower from "@components/MeteorShower.astro"
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("research"))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0,3)
@@ -17,31 +16,37 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0,3)
 
-const stack = [
-  { 
-    text: "Astro", 
-    icon: "astro", 
-    href: "https://astro.build" 
+const pillars = [
+  {
+    title: "Engineering",
+    description: "Model-based systems engineering, model risk and validation, AI/ML systems, and optimization.",
+    href: "/engineering",
   },
-  { 
-    text: "Javascript", 
-    icon: "javascript", 
-    href: "https://www.javascript.com" 
+  {
+    title: "Quantitative Work",
+    description: "Quantitative research and analytics — including the Quant Edge project.",
+    href: "/quant",
   },
-  { 
-    text: "Typescript", 
-    icon: "typescript", 
-    href: "https://www.typescriptlang.org" 
-  },
-  { 
-    text: "Tailwind", 
-    icon: "tailwind", 
-    href: "https://tailwindcss.com" 
+  {
+    title: "Photography & Film",
+    description: "My photography and filmmaking work, under the Leekshotit brand.",
+    href: "/photography",
   },
 ]
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Abdulmalik Ajisegiri",
+  "url": "https://abdulmalikajisegiri.com/",
+}
 ---
 
-<PageLayout title="Home" description={SITE.DESCRIPTION}>
+<PageLayout
+  title="Systems Engineering, Model Risk & AI/ML"
+  description={SITE.DESCRIPTION}
+  schema={websiteSchema}
+>
 
   <!-- Light Mode: Particles -->
   <div class='absolute inset-0 block dark:hidden'>
@@ -66,7 +71,7 @@ const stack = [
   </div>
 
   <script is:inline src="/js/bg.js"></script>
-  
+
   <!-- HERO -->
   <section class="relative h-screen w-full">
     <div id="planetcont" class='animate absolute inset-0 top-1/4 overflow-hidden'>
@@ -80,20 +85,20 @@ const stack = [
       <div class='relative w-full h-full flex items-center justify-center'>
         <div class='p-5 text-center'>
           <p class='animated text-lg md:text-xl lg:text-2xl font-semibold opacity-75'>
-            Hello, I am ...
+            Hello, I am
           </p>
-          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white'>
-            Astro Sphere
-          </p>
-          <p class='animated text-sm md:text-base lg:text-lg opacity-75'>
-            Currently designing products for humans.
+          <h1 class='animated text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-black dark:text-white'>
+            Abdulmalik Ajisegiri
+          </h1>
+          <p class='animated text-sm md:text-base lg:text-lg opacity-75 mt-2'>
+            Systems Engineer · Model Risk & Validation · AI/ML · Advanced Analytics
           </p>
           <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
-            <a href='/blog' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
-              Read my blog
+            <a href='/about' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
+              More about me
             </a>
-            <a href='/work' class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
-              View my work
+            <a href='/contact' class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
+              Get in touch
             </a>
           </div>
         </div>
@@ -104,73 +109,42 @@ const stack = [
   <div class="relative bg-white dark:bg-black">
     <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
 
-      <!-- About Section -->
+      <!-- Intro -->
       <section class="animate">
         <article>
-          <p>I am a <b><i>software engineer</i></b>, <b><i>ui/ux designer</i></b>, <b><i>product planner</i></b>, <b><i>mentor</i></b>, <b><i>student</i></b>, <b><i>minimalist</i></b>, <b><i>eternal optimist</i></b>, <b><i>crypto enthusiast</i></b> and <b><i>sarcasm connoisseur</i></b>.</p>
-          <p>I love to both build and break things. I am motivated by challenging projects with self-guided research and dynamic problem solving. My true passion is crafting creative front end designs with unique takes on color, typography and motion.</p>
-          <p>During my career</p>
-          <p>I have built products ranging from marketing and ecommerce websites to complex enterprise apps with focus on delivering fast, elegant code along with delightful user interfaces.</p>
-          <p>Now</p>
-          <p>I currently work as a software engineer at StreamlineFS, where I do product planning, design and development.</p>
+          <p>I work across <b>systems engineering</b>, <b>model risk and validation</b>, and <b>applied AI/ML</b> — building the frameworks, tooling, and analysis that let complex models be trusted in production.</p>
+          <p>My practice centers on <a href="/model-risk" class="underline underline-offset-2 decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white">model validation</a>: conceptual soundness, backtesting, stress testing, and ongoing monitoring. Around that core I do <a href="/systems-engineering" class="underline underline-offset-2 decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white">systems engineering</a>, <a href="/mbse" class="underline underline-offset-2 decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white">MBSE</a>, and <a href="/ai-ml" class="underline underline-offset-2 decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white">AI/ML</a> work, plus <a href="/quant" class="underline underline-offset-2 decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white">quantitative research</a>.</p>
         </article>
       </section>
 
-      <!-- Blog Preview Section -->
+      <!-- Pillars -->
       <section class="animate">
         <div class="space-y-4">
-          <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">
-              Recent posts
-            </p>
-            <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                All posts
-              </span>
-            </a>
-          </div>
+          <p class="font-semibold text-black dark:text-white">
+            What I do
+          </p>
           <ul class="space-y-4">
-            {posts.map((post) => (
+            {pillars.map((pillar) => (
               <li>
-                <ArrowCard entry={post} />
+                <a href={pillar.href} class="group block p-4 rounded-lg border border-black/10 dark:border-white/20 hover:border-black/30 hover:dark:border-white/40 transition-colors duration-300">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-black dark:text-white">{pillar.title}</span>
+                    <span class="text-black/50 dark:text-white/50 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                  </div>
+                  <p class="text-sm mt-1 opacity-75">{pillar.description}</p>
+                </a>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <!-- Tech Stack Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <p class="font-semibold text-black dark:text-white">
-            Website build with
-          </p>
-          <div class="flex flex-wrap items-center gap-2 mt-5">
-            {stack.map(item => (
-              <StackCard 
-                text={item.text}
-                icon={item.icon}
-                href={item.href}
-              />
-            ))}
-          </div>
-          <div>
-            Performing reactivity and statefulness, special guest
-            <a href="https://www.solidjs.com/" target="_blank" class="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                SolidJS
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Project Preview Section -->
+      <!-- Selected work -->
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
             <p class="font-semibold text-black dark:text-white">
-              Recent projects
+              Selected projects
             </p>
             <a href="/projects" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
               <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
@@ -188,14 +162,37 @@ const stack = [
         </div>
       </section>
 
-      <!-- Contact Section -->
+      <!-- Latest research -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-semibold text-black dark:text-white">
+              Latest research
+            </p>
+            <a href="/research" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                All research notes
+              </span>
+            </a>
+          </div>
+          <ul class="space-y-4">
+            {posts.map((post) => (
+              <li>
+                <ArrowCard entry={post} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Profiles -->
       <section class="animate">
         <div>
           <p class="font-semibold text-black dark:text-white">
-            Let's Connect
+            Find me elsewhere
           </p>
           <p>
-            Reach out to me via email or on social media.
+            Code, writing, and professional profiles.
           </p>
           <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
             {SOCIALS.map(social => (
@@ -212,6 +209,12 @@ const stack = [
                 </a>
               </div>
             ))}
+          </div>
+          <div class="mt-6">
+            <a href='/contact' class='inline-block py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
+              Contact me
+            </a>
+          </div>
         </div>
       </section>
     </div>
