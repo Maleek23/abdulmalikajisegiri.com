@@ -4,6 +4,7 @@ summary: "SR 11-7 — the Federal Reserve's model-risk guidance — rests on thr
 date: "2026-09-20"
 tags: ["validation", "risk-management", "machine-learning"]
 draft: true
+image: "/research/validating-models-like-a-skeptic/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

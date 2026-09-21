@@ -4,6 +4,7 @@ summary: "Why per-sample interrupts collapse at high sample rates, and how the D
 date: "2026-08-15"
 tags: ["embedded-systems", "signal-processing"]
 draft: true
+image: "/research/dma-double-buffering-sensor-capture/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

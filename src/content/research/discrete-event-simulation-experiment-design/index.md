@@ -4,6 +4,7 @@ summary: "A poker-chip workflow simulated in Rockwell Arena becomes a case study
 date: "2026-08-24"
 tags: ["simulation", "statistics"]
 draft: true
+image: "/research/discrete-event-simulation-experiment-design/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

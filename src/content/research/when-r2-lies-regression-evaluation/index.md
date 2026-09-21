@@ -4,6 +4,7 @@ summary: "A cardiac risk model went from R² 0.78 to 0.81 — and that still isn
 date: "2026-09-07"
 tags: ["machine-learning", "validation", "statistics"]
 draft: true
+image: "/research/when-r2-lies-regression-evaluation/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

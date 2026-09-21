@@ -4,6 +4,7 @@ summary: "Not all review belongs in the pipeline. This article maps the layers o
 date: "2026-07-27"
 tags: ["software-engineering"]
 draft: true
+image: "/research/automated-code-review-pipeline/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

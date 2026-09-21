@@ -4,6 +4,7 @@ summary: "Tracing a userland call like cat through the trap, the dispatch table,
 date: "2026-08-06"
 tags: ["systems-programming"]
 draft: true
+image: "/research/how-system-calls-work-tiny-c-kernel/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

@@ -4,6 +4,7 @@ summary: "When simulation beats closed-form math, why halving your error costs f
 date: "2026-08-29"
 tags: ["simulation", "statistics"]
 draft: true
+image: "/research/monte-carlo-decisions-under-uncertainty/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

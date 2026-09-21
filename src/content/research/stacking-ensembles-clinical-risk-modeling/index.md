@@ -4,6 +4,7 @@ summary: "Stacking Random Forest and Gradient Boosting lifted a clinical risk mo
 date: "2026-09-11"
 tags: ["machine-learning", "validation"]
 draft: true
+image: "/research/stacking-ensembles-clinical-risk-modeling/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

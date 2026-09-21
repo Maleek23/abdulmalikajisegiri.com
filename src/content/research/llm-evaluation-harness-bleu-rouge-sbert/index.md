@@ -4,6 +4,7 @@ summary: "A practical guide to building an LLM evaluation harness: what BLEU, RO
 date: "2026-09-16"
 tags: ["llm-evaluation", "risk-management"]
 draft: true
+image: "/research/llm-evaluation-harness-bleu-rouge-sbert/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

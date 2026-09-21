@@ -4,6 +4,7 @@ summary: "Two classic bugs inflate backtested returns: survivorship bias (testin
 date: "2026-09-02"
 tags: ["quantitative-finance", "validation", "statistics"]
 draft: true
+image: "/research/survivorship-bias-lookahead-backtest-killers/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

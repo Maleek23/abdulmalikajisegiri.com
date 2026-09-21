@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 // Get the requested post
 type Props = CollectionEntry<"research">
 const post = Astro.props
-const { title, summary } = post.data
+const { title, summary, image } = post.data
 
 const articleSchema = [
   {
@@ -47,7 +47,7 @@ const articleSchema = [
 ]
 ---
 
-<PageLayout title={title} description={summary} schema={articleSchema}>
+<PageLayout title={title} description={summary} schema={articleSchema} image={image}>
   <TopLayout>
     <div class="animate">
       <ArticleTopLayout entry={post}/>

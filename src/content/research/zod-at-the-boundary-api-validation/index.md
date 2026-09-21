@@ -4,6 +4,7 @@ summary: "Runtime validation belongs at the trust boundary, not scattered throug
 date: "2026-08-01"
 tags: ["web-development", "software-engineering"]
 draft: true
+image: "/research/zod-at-the-boundary-api-validation/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

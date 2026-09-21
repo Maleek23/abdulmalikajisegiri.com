@@ -4,6 +4,7 @@ summary: "How time-difference-of-arrival, GCC-PHAT cross-correlation, and DMA do
 date: "2026-08-20"
 tags: ["embedded-systems", "signal-processing"]
 draft: true
+image: "/research/angle-of-arrival-embedded-audio-localization/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*

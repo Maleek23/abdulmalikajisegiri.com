@@ -4,6 +4,7 @@ summary: "Design notes from an unattended weekend pet feeder on the TM4C123: hib
 date: "2026-08-11"
 tags: ["embedded-systems"]
 draft: true
+image: "/research/low-power-embedded-design-tm4c123/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*
