@@ -1,8 +1,8 @@
 ---
 title: "Backtesting Quantitative Strategies Without Fooling Yourself"
 summary: "The standard ways backtests lie — lookahead bias, survivorship bias, overfitting — and a validation workflow that catches them."
-date: "2026-09-27"
-tags: ["quant", "validation"]
+date: "2026-07-04"
+tags: ["quantitative-finance", "validation"]
 draft: true
 ---
 
@@ -71,5 +71,4 @@ A backtest that passes this checklist is still not proof — proof only comes fr
 ## Related
 
 - [Quantitative Work](/quant)
-- [Model Validation in AI/ML Systems: A Practical Framework](/research/ml-model-validation-framework)
-- [Conceptual Soundness: The Most Skipped Step in Model Validation](/research/conceptual-soundness-model-validation)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic)

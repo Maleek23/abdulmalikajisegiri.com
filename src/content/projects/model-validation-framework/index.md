@@ -3,6 +3,7 @@ title: "Model Validation Framework"
 summary: "Python framework for independent model validation: conceptual-soundness checks, backtesting harness, sensitivity analysis, and a validation-report generator."
 date: "2026-09-20"
 tags: ["model-risk", "validation", "python"]
+draft: true
 # TODO: add repoUrl: https://github.com/Maleek23/model-validation-framework once the repo exists
 ---
 
@@ -50,7 +51,7 @@ In development. The backtesting harness and soundness checklists are the first m
 ## Related
 
 - [Model Risk & Validation](/model-risk) — the practice this framework encodes
-- [Conceptual Soundness: The Most Skipped Step in Model Validation](/research/conceptual-soundness-model-validation)
-- [SR 11-7 Concepts Applied to AI/ML Model Risk](/research/sr-11-7-ai-ml-model-risk)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic)
+- [Building an LLM Evaluation Harness: BLEU, ROUGE, SBERT, and Risk Tagging](/research/llm-evaluation-harness-bleu-rouge-sbert)
 - [ML Validation Toolkit](/projects/ml-validation-toolkit)
 - Backtesting Quantitative Strategies Without Fooling Yourself — in the research pipeline

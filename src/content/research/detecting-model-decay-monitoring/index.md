@@ -1,8 +1,8 @@
 ---
 title: "Detecting Model Decay: Ongoing Monitoring in Production"
 summary: "Models rot. Population stability, performance drift, and feedback loops — building monitoring that pages you before stakeholders notice."
-date: "2026-09-28"
-tags: ["model-risk", "ai-ml"]
+date: "2026-06-30"
+tags: ["risk-management", "machine-learning"]
 draft: true
 ---
 
@@ -71,5 +71,5 @@ Decay is inevitable. Surprise is optional.
 ## Related
 
 - [Model Risk & Validation](/model-risk)
-- [Model Validation in AI/ML Systems: A Practical Framework](/research/ml-model-validation-framework)
-- [SR 11-7 Concepts Applied to AI/ML Model Risk](/research/sr-11-7-ai-ml-model-risk)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic)
+- [Building an LLM Evaluation Harness: BLEU, ROUGE, SBERT, and Risk Tagging](/research/llm-evaluation-harness-bleu-rouge-sbert)

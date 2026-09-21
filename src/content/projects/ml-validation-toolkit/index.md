@@ -3,6 +3,7 @@ title: "ML Validation Toolkit"
 summary: "Validation utilities for machine learning models: data validation, leakage detection, and performance monitoring."
 date: "2026-09-14"
 tags: ["machine-learning", "model-validation", "python"]
+draft: true
 # TODO: add repoUrl: https://github.com/Maleek23/ml-validation-toolkit once the repo exists
 ---
 
@@ -50,6 +51,6 @@ In development. Data validation and leakage detection modules are being built fi
 
 - [AI/ML](/ai-ml)
 - [Model Risk & Validation](/model-risk)
-- [Model Validation in AI/ML Systems: A Practical Framework](/research/ml-model-validation-framework)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic)
 - [Model Validation Framework](/projects/model-validation-framework)
 - Detecting Model Decay: Ongoing Monitoring in Production — in the research pipeline

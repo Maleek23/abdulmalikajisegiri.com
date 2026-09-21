@@ -3,6 +3,7 @@ title: "Market Data Engine"
 summary: "Python market-data research platform: price action, economic events, news, volatility, options flow, and technicals in one pipeline."
 date: "2026-09-12"
 tags: ["quant", "market-data", "python"]
+draft: true
 # TODO: add repoUrl: https://github.com/Maleek23/market-data-engine once the repo exists
 ---
 

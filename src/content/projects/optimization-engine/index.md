@@ -3,6 +3,7 @@ title: "Optimization Engine"
 summary: "Metaheuristic optimization for engineering decision problems: genetic algorithms, simulated annealing, and disciplined tuning."
 date: "2026-09-16"
 tags: ["optimization", "metaheuristics", "python"]
+draft: true
 # TODO: add repoUrl: https://github.com/Maleek23/optimization-engine once the repo exists
 ---
 

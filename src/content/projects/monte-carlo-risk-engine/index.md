@@ -3,6 +3,7 @@ title: "Monte Carlo Risk Engine"
 summary: "Monte Carlo simulation for risk and quantitative analytics: scenario generation, stress testing, and distribution analysis."
 date: "2026-09-10"
 tags: ["monte-carlo", "risk", "quant", "python"]
+draft: true
 # TODO: add repoUrl: https://github.com/Maleek23/monte-carlo-risk-engine once the repo exists
 ---
 

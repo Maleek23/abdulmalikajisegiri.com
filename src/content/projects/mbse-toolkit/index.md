@@ -3,6 +3,7 @@ title: "MBSE Toolkit"
 summary: "Utilities for model-based systems engineering: requirements parsing, traceability matrix generation, and SysML helpers."
 date: "2026-09-18"
 tags: ["mbse", "sysml", "requirements", "python"]
+draft: true
 # TODO: add repoUrl: https://github.com/Maleek23/mbse-toolkit once the repo exists
 ---
 

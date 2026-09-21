@@ -1,8 +1,8 @@
 ---
 title: "Stress Testing and Scenario Analysis for Quantitative Models"
 summary: "Historical, hypothetical, and reverse stress tests — designing scenarios that break your model on purpose, before reality does."
-date: "2026-09-29"
-tags: ["model-risk", "quant"]
+date: "2026-06-25"
+tags: ["risk-management", "quantitative-finance"]
 draft: true
 ---
 
@@ -72,4 +72,4 @@ Break your model on purpose, in as many coherent ways as you can imagine and a f
 
 - [Model Risk & Validation](/model-risk)
 - [Quantitative Work](/quant)
-- [SR 11-7 Concepts Applied to AI/ML Model Risk](/research/sr-11-7-ai-ml-model-risk)
+- [Building an LLM Evaluation Harness: BLEU, ROUGE, SBERT, and Risk Tagging](/research/llm-evaluation-harness-bleu-rouge-sbert)

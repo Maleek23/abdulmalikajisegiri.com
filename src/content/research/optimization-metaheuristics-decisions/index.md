@@ -1,8 +1,8 @@
 ---
 title: "Using Optimization and Metaheuristics for Engineering Decision Problems"
 summary: "When gradient methods aren't enough: genetic algorithms, simulated annealing, and friends for messy engineering trade spaces."
-date: "2026-09-26"
-tags: ["optimization", "engineering"]
+date: "2026-07-13"
+tags: ["software-engineering"]
 draft: true
 ---
 
@@ -64,4 +64,4 @@ Optimization is a tool for *making decisions under uncertainty*, and the uncerta
 
 - [Engineering](/engineering)
 - [Quantitative Work](/quant)
-- [Model Validation in AI/ML Systems: A Practical Framework](/research/ml-model-validation-framework)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic)
