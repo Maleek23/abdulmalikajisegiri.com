@@ -11,6 +11,12 @@ const profileSchema = {
     "@type": "Person",
     "name": "Abdulmalik Ajisegiri",
     "url": "https://abdulmalikajisegiri.com/about",
+    "jobTitle": "Model Risk & Validation Engineer",
+    "worksFor": { "@type": "Organization", "name": "DTCC" },
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "University of Oklahoma" },
+      { "@type": "EducationalOrganization", "name": "UT Arlington" },
+    ],
   },
 }
 
@@ -29,38 +35,85 @@ const focusAreas = [
         About Abdulmalik Ajisegiri
       </h1>
       <div class="mt-1">
-        Systems Engineer · Model Risk & Validation · AI/ML · Advanced Analytics
+        Model Risk & Validation Engineer · DTCC · Systems Engineering · AI/ML Governance
       </div>
     </div>
   </TopLayout>
   <BottomLayout>
     <article class="animate prose prose-neutral dark:prose-invert max-w-none">
       <p>
-        Abdulmalik Ajisegiri is a systems engineering and model risk professional
-        specializing in model validation, advanced analytics, AI/ML governance,
-        and model-based systems engineering.
+        Abdulmalik Ajisegiri is a model-risk and cybersecurity engineer at
+        DTCC, working across the AI/ML model-risk lifecycle — model
+        identification, SR 11-7 determination, and independent validation of
+        models including LLMs and NLP systems. He is CISA-certified and works
+        primarily in Python and SQL.
       </p>
       <p>
-        He builds validation frameworks, MBSE tooling, optimization engines, and
-        quantitative research platforms — the practical infrastructure that lets
-        organizations trust complex models in production. His work sits at the
-        intersection of engineering rigor and statistical discipline: if a model
-        drives a decision, he wants to know why it should be believed.
+        Before DTCC, he did embedded avionics R&D at Collins Aerospace (RTX),
+        building an event-driven C++ test harness for RF command scenarios and
+        MBSE verification across 300+ requirements under DO-178C. Earlier, he
+        worked in enterprise cyber-risk at Deloitte (NIST CSF, incident
+        response), and he was a graduate teaching assistant for Model-Based
+        Systems Engineering at the University of Oklahoma.
       </p>
       <p>
         His sharpest focus is <a href="/model-risk">model risk and validation</a>:
         interrogating a model's conceptual soundness before the numbers are run,
         stress-testing it against scenarios designed to break it, and monitoring
-        it for decay once it is live.
+        it for decay once it is live. His <a href="/research">research notes</a>
+        document that practice in the open.
       </p>
 
-      <h2>Background</h2>
-      <!-- TODO: fill in degree, years, and roles. Keep entries factual and
-           free of employer-confidential detail. -->
-      <p>
-        Engineer writing about model validation, systems, and embedded work.
-        Background details are being added.
-      </p>
+      <h2>Experience</h2>
+      <ul>
+        <li>
+          <strong>Model Risk & Validation Engineer, DTCC</strong> — Aug 2024 – Present.
+          End-to-end model-risk lifecycle for AI/ML and quantitative models:
+          identification, SR 11-7 determination/classification, and independent
+          validation (backtesting, sensitivity analysis, benchmarking, challenger
+          models). Built quantitative evaluation frameworks (SQL, Power BI,
+          Python NLP metrics, stress-testing, statistical benchmarks) for
+          production AI/ML systems including LLMs, RAG pipelines, and NLP
+          classifiers.
+        </li>
+        <li>
+          <strong>Graduate Teaching Assistant, Model-Based Systems Engineering, University of Oklahoma</strong> — Aug 2025 – May 2026.
+          Led graduate labs for ISE 5893 (MBSE): Cameo Systems Modeler,
+          MATLAB/Simulink, and Python for scenario/sensitivity analysis;
+          requirements traceability and lifecycle V&V.
+        </li>
+        <li>
+          <strong>Software Systems R&D Engineer, Collins Aerospace (RTX)</strong> — Aug 2023 – Aug 2024.
+          Event-driven C++ test harness simulating 80+ RF command scenarios for
+          embedded avionics, cutting development test cycles ~80%. MBSE (Cameo,
+          MATLAB/Simulink) across 300+ Jama requirements for DO-178C
+          verification and HF frequency-control testing.
+        </li>
+        <li>
+          <strong>Cyber Risk Intern, Deloitte LLP</strong> — May 2022 – Aug 2023.
+          Control-gap assessments, hardening of 5 REST APIs (NIST CSF), and
+          incident-response planning across 50+ engineers.
+        </li>
+      </ul>
+
+      <h2>Education</h2>
+      <ul>
+        <li>
+          <strong>University of Oklahoma</strong> — M.S. Systems Engineering
+          (Advanced Analytics & Model Metaheuristics), May 2026, GPA 3.7/4.0
+        </li>
+        <li>
+          <strong>UT Arlington</strong> — B.S. Computer Engineering, Minor in
+          Mathematics
+        </li>
+      </ul>
+
+      <h2>Certifications & memberships</h2>
+      <ul>
+        <li>CISA (ISACA)</li>
+        <li>MATLAB Certified, Simulink Certified</li>
+        <li>Member: NSBE, ISACA</li>
+      </ul>
 
       <h2>Technical focus areas</h2>
       <div class="not-prose grid gap-4 sm:grid-cols-2 my-6">

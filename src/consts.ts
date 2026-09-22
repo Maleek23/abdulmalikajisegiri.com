@@ -10,7 +10,7 @@ export const SITE: Site = {
 // About Page
 export const ABOUT: Page = {
   TITLE: "About",
-  DESCRIPTION: "Professional background of Abdulmalik Ajisegiri: systems engineering, model risk and validation, AI/ML, advanced analytics, and an M.S.-level engineering foundation.",
+  DESCRIPTION: "Professional background of Abdulmalik Ajisegiri: model risk and validation engineer at DTCC, systems engineering, AI/ML governance, CISA-certified.",
 }
 
 // Engineering Page
@@ -46,7 +46,7 @@ export const PHOTOGRAPHY: Page = {
 // Resume Page
 export const RESUME: Page = {
   TITLE: "Resume",
-  DESCRIPTION: "Resume of Abdulmalik Ajisegiri: systems engineering, model risk and validation, AI/ML, and advanced analytics.",
+  DESCRIPTION: "Resume of Abdulmalik Ajisegiri: model risk and validation engineer at DTCC; Collins Aerospace, Deloitte; M.S. Systems Engineering, University of Oklahoma.",
 }
 
 // Contact Page
