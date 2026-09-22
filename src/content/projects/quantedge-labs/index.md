@@ -3,7 +3,7 @@ title: "QuantEdge Labs"
 summary: "An end-to-end trading research platform — ML-calibrated opportunity scoring, options analytics, and simulation-based verification, shipped as a full-stack web terminal."
 date: "2025-01-15"
 tags: ["quantitative-finance", "machine-learning", "software-engineering", "web-development", "risk-management"]
-draft: true
+draft: false
 demoUrl: "https://quantedgelabs.net"
 repoUrl: "https://github.com/Maleek23/QuantEdgeResearch"
 ---
@@ -44,8 +44,3 @@ As reported on the project: simulation-based verification runs across 150+ daily
 
 The public codebase — platform services, terminal client, research scripts, and architecture documentation — is at [github.com/Maleek23/QuantEdgeResearch](https://github.com/Maleek23/QuantEdgeResearch). The live product is at [quantedgelabs.net](https://quantedgelabs.net).
 
-## Related reading
-
-- [Monte Carlo for Decisions Under Uncertainty](/research/monte-carlo-decisions-under-uncertainty/) — simulation as evidence, not story
-- [Survivorship Bias and Lookahead: Two Backtest Killers, with Code](/research/survivorship-bias-lookahead-backtest-killers/) — what the verification layer guards against
-- [Designing a Discrete-Event Simulation Experiment](/research/discrete-event-simulation-experiment-design/) — honest statistics for simulated comparisons

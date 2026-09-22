@@ -3,7 +3,7 @@ title: "Building an LLM Evaluation Harness: BLEU, ROUGE, SBERT, and Risk Tagging
 summary: "A practical guide to building an LLM evaluation harness: what BLEU, ROUGE, and SBERT cosine similarity actually measure, where each one lies, and the architecture — prompt datasets, risk tagging, regression tracking, human spot-checks — that turns metrics into model-risk management."
 date: "2026-09-16"
 tags: ["llm-evaluation", "risk-management"]
-draft: true
+draft: false
 image: "/research/llm-evaluation-harness-bleu-rouge-sbert/og.png"
 ---
 
@@ -154,4 +154,3 @@ That mapping isn't academic. It means an LLM harness isn't a nice-to-have engine
 ## Related reading
 
 - [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic/)
-- [When R² Lies: Evaluating Regression for High-Stakes Decisions](/research/when-r2-lies-regression-evaluation/)

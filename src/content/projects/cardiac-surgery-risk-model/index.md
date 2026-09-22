@@ -3,7 +3,7 @@ title: "Clinical Risk Predictive Model — Cardiac Surgery Outcomes"
 summary: "A stacked-ensemble ML pipeline predicting operative mortality in cardiac surgery from preoperative variables, built against STS-aligned outcomes."
 date: "2025-06-01"
 tags: ["machine-learning", "validation", "statistics", "risk-management", "software-engineering"]
-draft: true
+draft: false
 repoUrl: "https://github.com/Maleek23/cardiac-surgery-predictive-model"
 ---
 
@@ -44,5 +44,4 @@ Full pipeline, notebooks, dataset, and documentation: [github.com/Maleek23/cardi
 ## Related reading
 
 - [Stacking Ensembles That Actually Generalize: Lessons from Clinical Risk Modeling](/research/stacking-ensembles-clinical-risk-modeling/) — the methodology behind this pipeline
-- [When R² Lies: Evaluating Regression for High-Stakes Decisions](/research/when-r2-lies-regression-evaluation/) — how to read the numbers above skeptically
 - [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic/) — the validation discipline this project follows
