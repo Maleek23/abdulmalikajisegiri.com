@@ -1,0 +1,849 @@
+---
+/**
+ * HeroAvatar.astro
+ * A living desk scene for the homepage hero: a low-poly engineer typing at a
+ * tiny desk with a glowing terminal, whose eyes drift between his screen and
+ * the visitor's cursor. Reacts to the hero terminal (whoami = wave, unknown
+ * command = facepalm), idles (coffee sip, then sleep), reacts to scrolling
+ * (nods at projects, inspects with a magnifier at research), respects dark
+ * mode (desk lamp), and hides a click easter egg (spin + "hello world" burst).
+ *
+ * - three.js r160 via pinned CDN, zero npm deps. Lazy-init via
+ *   IntersectionObserver; pauses offscreen / tab hidden; pixel ratio capped.
+ * - prefers-reduced-motion: single static frame, no tracking or particles.
+ * - WebGL/CDN failure: flat SVG fallback, never a broken canvas.
+ * - Instance-scoped via [data-hero-avatar].
+ */
+---
+
+<div class="hero-avatar" data-hero-avatar>
+  <canvas
+    role="img"
+    aria-label="Interactive 3D scene: a stylized low-poly engineer typing at a tiny desk. His eyes follow your cursor."
+  ></canvas>
+
+  <div
+    class="hero-avatar-fallback"
+    role="img"
+    aria-label="Illustration of Abdulmalik typing at a desk with a glowing green terminal."
+  >
+    <svg viewBox="0 0 300 260" aria-hidden="true" focusable="false">
+      <rect x="4" y="4" width="292" height="252" rx="16" fill="var(--green-soft)" />
+      <rect x="96" y="150" width="10" height="70" fill="#8a6f4d" />
+      <rect x="194" y="150" width="10" height="70" fill="#8a6f4d" />
+      <rect x="20" y="138" width="260" height="16" rx="5" fill="#a08055" />
+      <rect x="52" y="142" width="8" height="8" fill="#0c2417" />
+      <rect x="150" y="76" width="14" height="62" fill="#3a3f46" />
+      <rect x="118" y="40" width="96" height="66" rx="7" fill="#23262b" />
+      <rect x="125" y="47" width="82" height="52" rx="4" fill="#0c2417" />
+      <rect x="131" y="55" width="34" height="5" rx="2" fill="#4ade80" />
+      <rect x="131" y="65" width="52" height="5" rx="2" fill="#2f9e5f" />
+      <rect x="131" y="75" width="20" height="5" rx="2" fill="#4ade80" />
+      <rect x="131" y="85" width="10" height="8" fill="#4ade80" />
+      <rect x="196" y="112" width="60" height="10" rx="3" fill="#2e3238" />
+      <rect x="200" y="108" width="52" height="6" rx="3" fill="#3a3f46" />
+      <circle cx="248" cy="120" r="11" fill="#f6f5f0" />
+      <rect x="244" y="104" width="8" height="12" rx="2" fill="#f6f5f0" />
+      <rect x="196" y="88" width="10" height="50" fill="#3a3f46" />
+      <rect x="188" y="80" width="26" height="12" rx="6" fill="#2b2f36" />
+      <rect x="196" y="92" width="10" height="10" fill="#ffd9a0" opacity="0.85" />
+      <rect x="206" y="96" width="72" height="44" rx="12" fill="#1c6b4a" />
+      <rect x="228" y="84" width="28" height="20" rx="7" fill="#6f452e" />
+      <circle cx="242" cy="66" r="30" fill="#6f452e" />
+      <path d="M212 64 Q214 38 242 36 Q270 38 272 64 Q264 46 242 46 Q220 46 212 64 Z" fill="#16120d" />
+      <circle cx="232" cy="66" r="5.5" fill="#fdfcf8" />
+      <circle cx="252" cy="66" r="5.5" fill="#fdfcf8" />
+      <circle cx="233" cy="67" r="2.4" fill="#17150f" />
+      <circle cx="253" cy="67" r="2.4" fill="#17150f" />
+      <path d="M232 82 Q242 89 252 82" stroke="#2b1c12" stroke-width="3.5" stroke-linecap="round" fill="none" />
+    </svg>
+  </div>
+
+  <p class="hero-avatar-cap">live from the home office — <span>he notices your cursor</span></p>
+
+  <script type="module" is:inline>
+    (() => {
+      const scriptEl = document.currentScript;
+      const root = scriptEl && scriptEl.closest
+        ? scriptEl.closest("[data-hero-avatar]")
+        : document.querySelector("[data-hero-avatar]:not([data-hero-avatar-init])");
+      if (!root || root.hasAttribute("data-hero-avatar-init")) return;
+      root.setAttribute("data-hero-avatar-init", "1");
+
+      const canvas = root.querySelector("canvas");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+
+      function webglAvailable() {
+        try {
+          const c = document.createElement("canvas");
+          return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl")));
+        } catch (e) {
+          return false;
+        }
+      }
+
+      let started = false;
+      const lazyIO = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          lazyIO.disconnect();
+          init();
+        }
+      }, { rootMargin: "240px" });
+      lazyIO.observe(root);
+
+      async function init() {
+        if (!webglAvailable()) return;
+        let THREE;
+        try {
+          THREE = await import(THREE_URL);
+        } catch (e) {
+          return;
+        }
+        try {
+          build(THREE);
+        } catch (e) {
+          return;
+        }
+        root.classList.add("is-live");
+      }
+
+      function build(THREE) {
+        const SKIN = 0x6f452e, SKIN_DK = 0x5d3a26, HAIR = 0x16120d;
+        const SHIRT = 0x1c6b4a, PAPER = 0xf6f5f0, INKC = 0x17150f, EYE_W = 0xfdfcf8;
+        const WOOD = 0xa08055, WOOD_DK = 0x8a6f4d, METAL = 0x2e3238;
+
+        const damp = THREE.MathUtils.damp;
+        const clamp = THREE.MathUtils.clamp;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(36, 4 / 3.4, 0.1, 50);
+        camera.position.set(0, 0.5, 6.6);
+        camera.lookAt(0, 0.15, 0);
+
+        scene.add(new THREE.HemisphereLight(0xfffdf4, 0x1c6b4a, 0.85));
+        const key = new THREE.DirectionalLight(0xffffff, 1.4);
+        key.position.set(2.5, 3.4, 4.2);
+        scene.add(key);
+        const rim = new THREE.DirectionalLight(0x9fd8b8, 0.5);
+        rim.position.set(-3, 1.6, -2.5);
+        scene.add(rim);
+
+        const flat = (geo, color) =>
+          new THREE.Mesh(
+            geo,
+            new THREE.MeshStandardMaterial({ color, roughness: 0.92, metalness: 0, flatShading: true })
+          );
+
+        /* ---------------- avatar ---------------- */
+        const avatar = new THREE.Group();
+        scene.add(avatar);
+
+        const torso = flat(new THREE.CylinderGeometry(0.55, 0.9, 1.05, 7), SHIRT);
+        torso.position.set(0, -0.75, -0.45);
+        avatar.add(torso);
+        const collar = flat(new THREE.CylinderGeometry(0.27, 0.31, 0.13, 7), PAPER);
+        collar.position.set(0, -0.18, -0.45);
+        avatar.add(collar);
+        const neck = flat(new THREE.CylinderGeometry(0.19, 0.21, 0.28, 7), SKIN);
+        neck.position.set(0, -0.06, -0.45);
+        avatar.add(neck);
+
+        const head = new THREE.Group();
+        const HEAD_Y = 0.12;
+        head.position.set(0, HEAD_Y, -0.45);
+        avatar.add(head);
+
+        const skull = flat(new THREE.SphereGeometry(0.62, 7, 6), SKIN);
+        skull.position.set(0, 0.62, 0);
+        head.add(skull);
+        const hair = flat(
+          new THREE.SphereGeometry(0.645, 7, 5, 0, Math.PI * 2, 0, Math.PI * 0.45),
+          HAIR
+        );
+        hair.position.set(0, 0.64, 0);
+        hair.scale.set(1.02, 0.92, 1.02);
+        head.add(hair);
+        for (const s of [-1, 1]) {
+          const ear = flat(new THREE.SphereGeometry(0.11, 6, 5), SKIN);
+          ear.position.set(s * 0.60, 0.58, 0.02);
+          ear.scale.set(0.55, 1, 0.75);
+          head.add(ear);
+        }
+
+        function makeEye(sx) {
+          const g = new THREE.Group();
+          g.position.set(sx * 0.23, 0.66, 0.52);
+          const ball = flat(new THREE.SphereGeometry(0.13, 12, 10), EYE_W);
+          ball.scale.set(1, 1.12, 0.55);
+          g.add(ball);
+          const pupil = flat(new THREE.SphereGeometry(0.055, 10, 8), INKC);
+          pupil.position.z = 0.078;
+          g.add(pupil);
+          const glint = new THREE.Mesh(
+            new THREE.SphereGeometry(0.016, 6, 5),
+            new THREE.MeshBasicMaterial({ color: 0xffffff })
+          );
+          glint.position.set(0.02, 0.022, 0.046);
+          pupil.add(glint);
+          head.add(g);
+          return { group: g, pupil, base: pupil.position.clone(), pos: g.position.clone() };
+        }
+        const eyeL = makeEye(-1);
+        const eyeR = makeEye(1);
+
+        for (const s of [-1, 1]) {
+          const brow = flat(new THREE.BoxGeometry(0.21, 0.05, 0.055), HAIR);
+          brow.position.set(s * 0.24, 0.86, 0.50);
+          brow.rotation.z = -s * 0.10;
+          head.add(brow);
+        }
+        const nose = flat(new THREE.SphereGeometry(0.068, 6, 5), SKIN_DK);
+        nose.position.set(0, 0.50, 0.58);
+        nose.scale.set(0.9, 1.1, 0.9);
+        head.add(nose);
+        const smile = new THREE.Mesh(
+          new THREE.TorusGeometry(0.15, 0.028, 6, 14, Math.PI),
+          new THREE.MeshStandardMaterial({ color: 0x2b1c12, roughness: 0.9 })
+        );
+        smile.position.set(0, 0.36, 0.55);
+        smile.rotation.z = Math.PI;
+        head.add(smile);
+
+        function makeArm(side) {
+          const g = new THREE.Group();
+          g.position.set(side * 0.60, -0.30, -0.45);
+          const limb = flat(new THREE.BoxGeometry(0.24, 0.72, 0.24), SHIRT);
+          limb.position.y = -0.33;
+          g.add(limb);
+          const hand = flat(new THREE.SphereGeometry(0.14, 7, 6), SKIN);
+          hand.position.y = -0.72;
+          g.add(hand);
+          avatar.add(g);
+          return g;
+        }
+        const armL = makeArm(-1);
+        const armR = makeArm(1);
+
+        /* ---------------- desk & props ---------------- */
+        const desk = new THREE.Group();
+        scene.add(desk);
+
+        const deskTop = flat(new THREE.BoxGeometry(2.7, 0.12, 1.3), WOOD);
+        deskTop.position.set(0, -0.30, 0.35);
+        desk.add(deskTop);
+        for (const sx of [-1, 1]) {
+          for (const sz of [-1, 1]) {
+            const leg = flat(new THREE.BoxGeometry(0.12, 1.05, 0.12), WOOD_DK);
+            leg.position.set(sx * 1.2, -0.88, 0.35 + sz * 0.55);
+            desk.add(leg);
+          }
+        }
+        // chair (mostly hidden behind avatar)
+        const seat = flat(new THREE.BoxGeometry(0.95, 0.12, 0.85), METAL);
+        seat.position.set(0, -1.28, -0.62);
+        desk.add(seat);
+        const backrest = flat(new THREE.BoxGeometry(0.95, 0.95, 0.12), METAL);
+        backrest.position.set(0, -0.82, -1.08);
+        desk.add(backrest);
+
+        // monitor with a live-typed terminal screen (canvas texture)
+        const scrCanvas = document.createElement("canvas");
+        scrCanvas.width = 256;
+        scrCanvas.height = 160;
+        const sg2 = scrCanvas.getContext("2d");
+        const screenTex = new THREE.CanvasTexture(scrCanvas);
+        screenTex.colorSpace = THREE.SRGBColorSpace;
+
+        const PHRASES = ["$ whoami", "$ ls projects/", "$ npm run build", "✓ 41 pages in 8.3s"];
+        let phraseIdx = 0, charIdx = 0, typeTimer = 0, typePause = 0;
+        const doneLines = ["$ whoami", "> abdulmalik-ajisegiri"];
+        function drawScreen() {
+          sg2.fillStyle = "#0b1f14";
+          sg2.fillRect(0, 0, 256, 160);
+          sg2.fillStyle = "rgba(74,222,128,0.06)";
+          for (let y = 0; y < 160; y += 4) sg2.fillRect(0, y, 256, 1);
+          sg2.font = "bold 15px monospace";
+          sg2.textBaseline = "top";
+          const lines = doneLines.slice(-3);
+          lines.forEach((ln, i) => {
+            sg2.fillStyle = ln.startsWith("$") ? "#4ade80" : "#2f9e5f";
+            sg2.fillText(ln, 12, 12 + i * 22);
+          });
+          const cur = PHRASES[phraseIdx].slice(0, charIdx);
+          sg2.fillStyle = "#4ade80";
+          sg2.fillText(cur, 12, 12 + lines.length * 22);
+          if (!reduceMotion && Math.floor(performance.now() / 450) % 2 === 0) {
+            sg2.fillRect(12 + sg2.measureText(cur).width + 3, 12 + lines.length * 22 + 1, 9, 15);
+          }
+          screenTex.needsUpdate = true;
+        }
+        drawScreen();
+
+        const monitor = new THREE.Group();
+        monitor.position.set(-0.62, 0.52, 0.42);
+        monitor.rotation.y = 0.5;
+        monitor.rotation.x = -0.05;
+        desk.add(monitor);
+        const stand = flat(new THREE.BoxGeometry(0.1, 0.42, 0.1), METAL);
+        stand.position.set(-0.62, -0.02, 0.42);
+        desk.add(stand);
+        const frame = flat(new THREE.BoxGeometry(1.2, 0.82, 0.07), 0x23262b);
+        monitor.add(frame);
+        const screenMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.06, 0.68),
+          new THREE.MeshBasicMaterial({ map: screenTex })
+        );
+        screenMesh.position.z = 0.041;
+        monitor.add(screenMesh);
+        const screenPoint = new THREE.Vector3(-0.55, 0.5, 0.55);
+
+        const screenGlow = new THREE.PointLight(0x4ade80, 1.4, 7, 1.6);
+        screenGlow.position.set(-0.45, 0.55, 0.75);
+        scene.add(screenGlow);
+
+        // keyboard
+        const kb = flat(new THREE.BoxGeometry(1.05, 0.06, 0.38), METAL);
+        kb.position.set(0.28, -0.21, 0.52);
+        kb.rotation.x = 0.06;
+        desk.add(kb);
+        for (let r = 0; r < 3; r++) {
+          const row = flat(new THREE.BoxGeometry(0.95, 0.025, 0.07), 0x3a3f46);
+          row.position.set(0.28, -0.175, 0.42 + r * 0.11);
+          desk.add(row);
+        }
+
+        // coffee cup (animates to mouth on sip)
+        const cup = new THREE.Group();
+        const cupBody = flat(new THREE.CylinderGeometry(0.11, 0.09, 0.22, 10), PAPER);
+        cup.add(cupBody);
+        const coffee = new THREE.Mesh(
+          new THREE.CircleGeometry(0.095, 10),
+          new THREE.MeshStandardMaterial({ color: 0x3a2415, roughness: 0.6 })
+        );
+        coffee.rotation.x = -Math.PI / 2;
+        coffee.position.y = 0.105;
+        cup.add(coffee);
+        const handle = new THREE.Mesh(
+          new THREE.TorusGeometry(0.06, 0.018, 6, 12, Math.PI),
+          new THREE.MeshStandardMaterial({ color: PAPER, roughness: 0.9 })
+        );
+        handle.position.set(0.11, 0, 0);
+        handle.rotation.z = -Math.PI / 2;
+        cup.add(handle);
+        const CUP_REST = new THREE.Vector3(0.92, -0.13, 0.30);
+        const CUP_SIP = new THREE.Vector3(0.10, 0.42, 0.14);
+        cup.position.copy(CUP_REST);
+        desk.add(cup);
+
+        // desk lamp (on in dark mode)
+        const lampBase = flat(new THREE.CylinderGeometry(0.16, 0.19, 0.08, 10), METAL);
+        lampBase.position.set(-1.08, -0.20, 0.05);
+        desk.add(lampBase);
+        const lampArm = flat(new THREE.BoxGeometry(0.07, 0.85, 0.07), METAL);
+        lampArm.position.set(-1.08, 0.22, 0.05);
+        lampArm.rotation.z = 0.18;
+        desk.add(lampArm);
+        const lampHeadMat = new THREE.MeshStandardMaterial({
+          color: 0x2b2f36, roughness: 0.7, emissive: 0xffd9a0, emissiveIntensity: 0.15
+        });
+        const lampHead = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.24, 10), lampHeadMat);
+        lampHead.position.set(-0.98, 0.68, 0.08);
+        lampHead.rotation.z = 0.9;
+        desk.add(lampHead);
+        const lampSpot = new THREE.SpotLight(0xffe2b0, 0, 9, 0.6, 0.6, 1.2);
+        lampSpot.position.set(-0.98, 0.68, 0.08);
+        lampSpot.target.position.set(-0.4, -0.3, 0.4);
+        scene.add(lampSpot);
+        scene.add(lampSpot.target);
+
+        function setDark(isDark) {
+          lampSpot.intensity = isDark ? 30 : 0;
+          lampHeadMat.emissiveIntensity = isDark ? 1.8 : 0.15;
+          screenGlow.intensity = isDark ? 2.4 : 1.1;
+        }
+        setDark(document.documentElement.classList.contains("dark"));
+        new MutationObserver(() => {
+          setDark(document.documentElement.classList.contains("dark"));
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+        // magnifying glass (appears for the research-library reaction)
+        const mag = new THREE.Group();
+        const magRing = new THREE.Mesh(
+          new THREE.TorusGeometry(0.17, 0.035, 8, 18),
+          new THREE.MeshStandardMaterial({ color: 0x8a6f4d, roughness: 0.6, metalness: 0.3 })
+        );
+        mag.add(magRing);
+        const magGlass = new THREE.Mesh(
+          new THREE.CircleGeometry(0.155, 18),
+          new THREE.MeshStandardMaterial({
+            color: 0xbfe8d2, transparent: true, opacity: 0.35, roughness: 0.2
+          })
+        );
+        mag.add(magGlass);
+        const magHandle = flat(new THREE.BoxGeometry(0.055, 0.34, 0.055), WOOD_DK);
+        magHandle.position.y = -0.32;
+        mag.add(magHandle);
+        const MAG_POS = new THREE.Vector3(-0.85, -0.28, 0.25);
+        mag.position.copy(MAG_POS);
+        mag.rotation.z = 0.35;
+        mag.visible = false;
+        desk.add(mag);
+
+        // soft blob shadow
+        const shc = document.createElement("canvas");
+        shc.width = shc.height = 128;
+        const shg = shc.getContext("2d");
+        const sgrad = shg.createRadialGradient(64, 64, 8, 64, 64, 60);
+        sgrad.addColorStop(0, "rgba(23,21,15,0.22)");
+        sgrad.addColorStop(1, "rgba(23,21,15,0)");
+        shg.fillStyle = sgrad;
+        shg.fillRect(0, 0, 128, 128);
+        const blob = new THREE.Mesh(
+          new THREE.PlaneGeometry(3.4, 3.4),
+          new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shc), transparent: true, depthWrite: false })
+        );
+        blob.rotation.x = -Math.PI / 2;
+        blob.position.y = -1.52;
+        scene.add(blob);
+
+        /* ---------------- text sprites: zzz + hello-world burst ---------------- */
+        function textSprite(text, color, w, h) {
+          const c = document.createElement("canvas");
+          c.width = 256; c.height = 128;
+          const g = c.getContext("2d");
+          g.font = "bold 56px ui-monospace, monospace";
+          g.textAlign = "center";
+          g.textBaseline = "middle";
+          g.fillStyle = color;
+          g.fillText(text, 128, 64);
+          const tex = new THREE.CanvasTexture(c);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          const sp = new THREE.Sprite(
+            new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 0 })
+          );
+          sp.scale.set(w, h, 1);
+          scene.add(sp);
+          return sp;
+        }
+
+        const zzz = [0, 1, 2].map((i) => ({
+          sp: textSprite("z", "#7fb08e", 0.34, 0.17),
+          life: -1,
+          delay: i * 0.55
+        }));
+        let zzzTimer = 0;
+        const headWorld = new THREE.Vector3();
+
+        const burst = [];
+        for (let i = 0; i < 14; i++) {
+          burst.push({ sp: textSprite("hello world", "#4ade80", 1.05, 0.52), vel: new THREE.Vector3(), life: -1 });
+        }
+        function fireBurst() {
+          if (reduceMotion) return;
+          head.getWorldPosition(headWorld);
+          for (const p of burst) {
+            p.sp.position.set(
+              headWorld.x + (Math.random() - 0.5) * 0.8,
+              headWorld.y + 0.5 + Math.random() * 0.4,
+              headWorld.z + (Math.random() - 0.5) * 0.4
+            );
+            p.vel.set((Math.random() - 0.5) * 1.6, 1.4 + Math.random() * 1.2, (Math.random() - 0.5) * 0.8);
+            p.life = 1.7;
+            p.sp.material.opacity = 1;
+          }
+        }
+
+        /* ---------------- interaction & behavior state ---------------- */
+        const S = { mode: "typing", until: 0 };
+        function setMode(m, dur) {
+          S.mode = m;
+          S.until = performance.now() + dur * 1000;
+        }
+        function wake() {
+          if (S.mode === "sleep") S.mode = "typing";
+          for (const z of zzz) { z.life = -1; z.sp.material.opacity = 0; }
+        }
+
+        let lastActive = performance.now();
+        let lastPointerT = 0;
+        let sipped = false;
+        let hireHover = false;
+        let spinPhase = 1;
+        let attention = 0;
+        let narrowCur = 1;
+        let nextBlink = 2.2, blinkT = -1;
+        let nextGlance = 5, glance = null;
+
+        const raycaster = new THREE.Raycaster();
+        const ndc = new THREE.Vector2(0, 0);
+        const trackPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -0.8);
+        const hitP = new THREE.Vector3();
+        const gazeW = new THREE.Vector3();
+        const gazeL = new THREE.Vector3();
+        const tmpV = new THREE.Vector3();
+        let hasPointer = false;
+        let lastPX = 0, lastPY = 0, lastPT = 0;
+        let dilTarget = 0, dil = 0;
+
+        function onPointer(x, y) {
+          const r = canvas.getBoundingClientRect();
+          if (r.width > 0) {
+            ndc.x = ((x - r.left) / r.width) * 2 - 1;
+            ndc.y = -(((y - r.top) / r.height) * 2 - 1);
+            hasPointer = true;
+          }
+          const now = performance.now();
+          const dt = (now - lastPT) / 1000;
+          if (lastPT > 0 && dt > 0.001) {
+            const sp = Math.hypot(x - lastPX, y - lastPY) / dt;
+            dilTarget = Math.min(0.5, (sp / 2600) * 0.5);
+          }
+          lastPX = x; lastPY = y; lastPT = now;
+          lastPointerT = now;
+          lastActive = now;
+          if (S.mode === "sleep") wake();
+        }
+        window.addEventListener("pointermove", (e) => onPointer(e.clientX, e.clientY), { passive: true });
+        window.addEventListener("pointerdown", (e) => onPointer(e.clientX, e.clientY), { passive: true });
+
+        // click easter egg: spin + "hello world" burst
+        canvas.addEventListener("pointerdown", (e) => {
+          if (reduceMotion || spinPhase < 1) return;
+          const r = canvas.getBoundingClientRect();
+          const v = new THREE.Vector2(
+            ((e.clientX - r.left) / r.width) * 2 - 1,
+            -(((e.clientY - r.top) / r.height) * 2 - 1)
+          );
+          raycaster.setFromCamera(v, camera);
+          if (raycaster.intersectObject(avatar, true).length > 0) {
+            spinPhase = 0;
+            fireBurst();
+          }
+        });
+
+        // Hire CTA hover: eyes narrow — he knows
+        document.addEventListener("pointerover", (e) => {
+          hireHover = !!(e.target && e.target.closest && e.target.closest('a[href="/hire"]'));
+        }, { passive: true });
+
+        // hero terminal interplay
+        document.addEventListener("hero:term-whoami", () => {
+          wake(); setMode("wave", 2.8); lastActive = performance.now(); sipped = false;
+        });
+        document.addEventListener("hero:term-unknown", () => {
+          wake(); setMode("facepalm", 2.2); lastActive = performance.now(); sipped = false;
+        });
+        document.addEventListener("hero:term-activity", () => {
+          wake(); lastActive = performance.now(); sipped = false;
+        });
+
+        // scroll choreography: nod at projects, magnifier at research
+        const reactCool = { nod: 0, inspect: 0 };
+        function react(kind) {
+          const now = performance.now();
+          if (reduceMotion || now - reactCool[kind] < 12000 || S.mode !== "typing") return;
+          reactCool[kind] = now;
+          if (kind === "nod") setMode("nod", 1.4);
+          else setMode("inspect", 4.2);
+        }
+        const secIO = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            if (e.target.id === "sec-projects") react("nod");
+            else if (e.target.id === "sec-research") react("inspect");
+          }
+        }, { threshold: 0.35 });
+        for (const id of ["sec-projects", "sec-research"]) {
+          const sel = document.getElementById(id);
+          if (sel) secIO.observe(sel);
+        }
+
+        const clock = new THREE.Clock();
+
+        function poseArm(g, tx, tz, dt, wob) {
+          g.rotation.x = damp(g.rotation.x, tx + (wob || 0), 10, dt);
+          g.rotation.z = damp(g.rotation.z, tz, 10, dt);
+        }
+
+        function update(dt, t) {
+          const now = performance.now();
+
+          // idle: coffee sip at 30s, sleep at 2min
+          if (!reduceMotion) {
+            const idle = now - lastActive;
+            if (S.mode === "typing") {
+              if (idle > 120000) S.mode = "sleep";
+              else if (idle > 30000 && !sipped) { sipped = true; setMode("sip", 2.6); }
+            }
+            if (S.mode !== "typing" && S.mode !== "sleep" && now > S.until) S.mode = "typing";
+          }
+
+          // attention: 0 = screen, 1 = visitor cursor
+          let aTarget = 0;
+          if (!reduceMotion && hasPointer && now - lastPointerT < 2600) aTarget = 1;
+          attention = damp(attention, aTarget, 3.5, dt);
+
+          // gaze point in world space
+          raycaster.setFromCamera(ndc, camera);
+          if (raycaster.ray.intersectPlane(trackPlane, hitP)) gazeW.copy(hitP);
+          else gazeW.copy(screenPoint);
+          tmpV.copy(screenPoint).lerp(gazeW, attention);
+          if (S.mode === "wave") tmpV.set(0, 0.75, 5);
+          else if (S.mode === "inspect") tmpV.copy(MAG_POS);
+          else if (S.mode === "sleep") tmpV.copy(screenPoint);
+
+          head.updateWorldMatrix(true, false);
+          gazeL.copy(tmpV);
+          head.worldToLocal(gazeL);
+
+          // head pose
+          let basePitch = 0.26;
+          if (S.mode === "sleep") basePitch = 0.62;
+          else if (S.mode === "facepalm") basePitch = 0.42;
+          else if (S.mode === "wave") basePitch = -0.02;
+          else if (S.mode === "sip") basePitch = 0.10;
+          else if (S.mode === "inspect") basePitch = 0.18;
+          const yawT = clamp(gazeL.x * 0.38, -0.55, 0.55);
+          let pitchT = clamp(-gazeL.y * 0.32, -0.4, 0.5) + basePitch;
+          if (S.mode === "nod") {
+            const np = clamp(1 - (S.until - now) / 1400, 0, 1);
+            pitchT += Math.abs(Math.sin(t * 9)) * 0.22 * Math.sin(np * Math.PI);
+          }
+          head.rotation.y = damp(head.rotation.y, yawT, 7, dt);
+          head.rotation.x = damp(head.rotation.x, pitchT, 7, dt);
+          head.rotation.z = damp(head.rotation.z, S.mode === "sleep" ? 0.12 : Math.sin(t * 0.85) * 0.02, 6, dt);
+          head.position.y = HEAD_Y + (S.mode === "sleep" ? -0.06 : Math.sin(t * 1.4) * 0.02);
+
+          // pupils: track gaze, saccade while "reading", dilate on fast cursor
+          if (!reduceMotion && S.mode === "typing" && attention < 0.3 && t > nextGlance) {
+            glance = { x: (Math.random() - 0.5) * 0.5, y: (Math.random() - 0.5) * 0.3, until: now + 420 };
+            nextGlance = t + 5 + Math.random() * 5;
+          }
+          if (glance && now > glance.until) glance = null;
+          const px = clamp(gazeL.x * 0.22 + (glance ? glance.x * 0.06 : 0), -0.05, 0.05);
+          const py = clamp(gazeL.y * 0.22 + (glance ? glance.y * 0.06 : 0), -0.05, 0.05);
+          dilTarget = damp(dilTarget, 0, 2.2, dt);
+          dil = damp(dil, reduceMotion ? 0 : dilTarget, 6, dt);
+          const pupilS = (1 + dil * 0.7) * (hireHover ? 0.85 : 1);
+          for (const e of [eyeL, eyeR]) {
+            tmpV.set(e.base.x + px, e.base.y + py, e.base.z);
+            e.pupil.position.lerp(tmpV, reduceMotion ? 1 : 1 - Math.exp(-14 * dt));
+            e.pupil.scale.setScalar(pupilS);
+          }
+
+          // blink (lazy when idle)
+          const idleLong = now - lastActive > 20000;
+          const blinkDur = idleLong ? 0.5 : 0.22;
+          if (blinkT < 0 && t > nextBlink) blinkT = 0;
+          if (blinkT >= 0) {
+            blinkT += dt;
+            if (blinkT / blinkDur >= 1) {
+              blinkT = -1;
+              nextBlink = t + (idleLong ? 4.5 : 2.5) + Math.random() * (idleLong ? 4 : 3.5);
+            }
+          }
+          narrowCur = damp(narrowCur, hireHover ? 0.55 : 1, 8, dt);
+          let lid = 1;
+          if (blinkT >= 0) {
+            lid = Math.max(0.08, 1 - Math.sin(Math.min(blinkT / blinkDur, 1) * Math.PI) * 0.92);
+          }
+          eyeL.group.scale.y = eyeR.group.scale.y = lid * narrowCur;
+
+          // arms
+          const wobL = S.mode === "typing" && !reduceMotion ? Math.sin(t * 7) * 0.07 : 0;
+          const wobR = S.mode === "typing" && !reduceMotion ? Math.sin(t * 7 + Math.PI) * 0.07 : 0;
+          if (S.mode === "wave") {
+            poseArm(armL, -0.5, -0.15, dt);
+            armR.rotation.x = damp(armR.rotation.x, Math.sin(t * 11) * 0.45, 10, dt);
+            armR.rotation.z = damp(armR.rotation.z, 2.5, 10, dt);
+          } else if (S.mode === "facepalm") {
+            poseArm(armL, -0.5, -0.15, dt);
+            poseArm(armR, -2.45, 0.5, dt);
+          } else if (S.mode === "sleep") {
+            poseArm(armL, -0.35, -0.12, dt);
+            poseArm(armR, -0.35, 0.12, dt);
+          } else {
+            poseArm(armL, -0.85, -0.15, dt, wobL);
+            poseArm(armR, -0.85, 0.15, dt, wobR);
+          }
+
+          // coffee cup
+          const cupTarget = S.mode === "sip" ? CUP_SIP : CUP_REST;
+          cup.position.lerp(cupTarget, reduceMotion ? 1 : 1 - Math.exp(-6 * dt));
+          cup.rotation.z = damp(cup.rotation.z, S.mode === "sip" ? -0.35 : 0, 6, dt);
+
+          // magnifying glass
+          mag.visible = S.mode === "inspect";
+          if (mag.visible && !reduceMotion) {
+            mag.position.y = MAG_POS.y + Math.sin(t * 2.2) * 0.03;
+            mag.rotation.y = Math.sin(t * 1.1) * 0.25;
+          }
+
+          // click spin
+          if (spinPhase < 1) {
+            spinPhase = Math.min(1, spinPhase + dt / 0.9);
+            const se = spinPhase * spinPhase * (3 - 2 * spinPhase);
+            avatar.rotation.y = se * Math.PI * 2;
+          }
+
+          // zzz while sleeping
+          if (S.mode === "sleep" && !reduceMotion) {
+            zzzTimer += dt;
+            for (const z of zzz) {
+              if (z.life < 0 && zzzTimer > z.delay) {
+                z.life = 0;
+                head.getWorldPosition(headWorld);
+                z.sp.position.set(headWorld.x + 0.45, headWorld.y + 0.75, headWorld.z + 0.2);
+              }
+              if (z.life >= 0) {
+                z.life += dt;
+                const p = z.life / 2.4;
+                if (p >= 1) {
+                  z.life = -1;
+                  z.sp.material.opacity = 0;
+                  z.delay = zzzTimer + 1.1;
+                } else {
+                  z.sp.position.y += dt * 0.32;
+                  z.sp.position.x += dt * 0.08;
+                  z.sp.material.opacity = Math.sin(p * Math.PI) * 0.9;
+                }
+              }
+            }
+          } else if (S.mode !== "sleep") {
+            zzzTimer = 0;
+          }
+
+          // hello-world burst particles
+          for (const p of burst) {
+            if (p.life < 0) continue;
+            p.life -= dt;
+            if (p.life <= 0) { p.life = -1; p.sp.material.opacity = 0; continue; }
+            p.vel.y -= 1.1 * dt;
+            p.sp.position.addScaledVector(p.vel, dt);
+            p.sp.material.opacity = Math.min(1, p.life / 1.0);
+          }
+
+          // monitor screen typewriter
+          if (!reduceMotion) {
+            if (typePause > 0) {
+              typePause -= dt;
+              if (typePause <= 0) {
+                doneLines.push(PHRASES[phraseIdx]);
+                if (doneLines.length > 12) doneLines.shift();
+                phraseIdx = (phraseIdx + 1) % PHRASES.length;
+                charIdx = 0;
+                drawScreen();
+              }
+            } else {
+              typeTimer += dt;
+              if (typeTimer > 0.09) {
+                typeTimer = 0;
+                charIdx++;
+                if (charIdx >= PHRASES[phraseIdx].length) {
+                  charIdx = PHRASES[phraseIdx].length;
+                  typePause = 1.4;
+                }
+                drawScreen();
+              }
+            }
+          }
+        }
+
+        function resize() {
+          const w = Math.max(1, Math.floor(root.clientWidth));
+          const h = Math.max(1, Math.floor((w * 3.4) / 4));
+          renderer.setSize(w, h, false);
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+        }
+        resize();
+        const doResize = () => {
+          resize();
+          if (reduceMotion) renderer.render(scene, camera);
+        };
+        if ("ResizeObserver" in window) new ResizeObserver(doResize).observe(root);
+        else window.addEventListener("resize", doResize);
+
+        let inView = false;
+        let pageVisible = !document.hidden;
+        function loop() {
+          requestAnimationFrame(loop);
+          if (!inView || !pageVisible) return;
+          const dt = Math.min(clock.getDelta(), 0.05);
+          update(dt, clock.elapsedTime);
+          renderer.render(scene, camera);
+        }
+        new IntersectionObserver((entries) => {
+          inView = entries[0].isIntersecting;
+        }).observe(root);
+        document.addEventListener("visibilitychange", () => {
+          pageVisible = !document.hidden;
+          clock.getDelta();
+        });
+
+        if (reduceMotion) {
+          update(0, 0);
+          renderer.render(scene, camera);
+        } else {
+          loop();
+        }
+      }
+    })();
+  </script>
+
+  <style>
+    .hero-avatar {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      margin-inline: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 50% 30%, var(--green-soft), transparent 72%),
+        var(--card);
+      overflow: hidden;
+    }
+    .hero-avatar canvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3.4;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      touch-action: pan-y;
+      cursor: pointer;
+    }
+    .hero-avatar.is-live canvas { opacity: 1; }
+    .hero-avatar-fallback {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      aspect-ratio: 4 / 3.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5%;
+      transition: opacity 0.6s ease;
+    }
+    .hero-avatar-fallback svg { width: 100%; height: 100%; }
+    .hero-avatar.is-live .hero-avatar-fallback { opacity: 0; pointer-events: none; }
+    .hero-avatar-cap {
+      margin: 0;
+      padding: 10px 14px 12px;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-align: center;
+    }
+    .hero-avatar-cap span { color: var(--green); }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-avatar canvas, .hero-avatar-fallback { transition: none; }
+    }
+  </style>
+</div>

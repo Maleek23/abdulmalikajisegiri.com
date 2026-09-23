@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
+import HeroAvatar from "@components/HeroAvatar.astro"
 import { formatDate } from "@lib/utils"
 import { SITE, SOCIALS } from "@consts"
 
@@ -56,7 +57,8 @@ const websiteSchema = {
         Model Risk &amp; Validation Engineer — DTCC · Dallas–Fort Worth, TX
       </p>
 
-      <div class="animate term" style="margin-top:28px;">
+      <div class="hero-grid">
+      <div class="animate term">
         <div class="term-bar">
           <span class="term-dot"></span>
           <span class="term-dot"></span>
@@ -74,6 +76,11 @@ const websiteSchema = {
         </div>
       </div>
 
+      <div class="animate">
+        <HeroAvatar />
+      </div>
+      </div>
+
       <div class="animate" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;">
         <a href="/projects" class="btn-solid">View selected work</a>
         <a href="/research" class="btn-ghost">Browse the library</a>
@@ -83,7 +90,7 @@ const websiteSchema = {
   </section>
 
   <!-- SELECTED WORK -->
-  <section class="ed-block animate">
+  <section class="ed-block animate" id="sec-projects">
     <div class="ed-wrap">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
         <div>
@@ -164,7 +171,7 @@ const websiteSchema = {
   </section>
 
   <!-- LIBRARY -->
-  <section class="ed-block animate">
+  <section class="ed-block animate" id="sec-research">
     <div class="ed-wrap">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:8px;">
         <div>
@@ -233,6 +240,17 @@ const websiteSchema = {
   </section>
 
   <style>
+    /* Hero: terminal + 3D desk avatar side by side, stacked on narrow screens */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 28px;
+      align-items: start;
+      margin-top: 28px;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 640px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
@@ -392,6 +410,8 @@ const websiteSchema = {
         history.push(cmd);
         histIdx = history.length;
         run(cmd);
+        /* Any terminal activity wakes the 3D desk avatar and resets his idle timers. */
+        document.dispatchEvent(new CustomEvent('hero:term-activity'));
       }
       makePrompt();
       /* Keep the keyboard up on mobile / keep typing on desktop. */
@@ -438,6 +458,8 @@ const websiteSchema = {
         print('  clear              clear the terminal');
       } else if (verb === 'whoami') {
         print('abdulmalik-ajisegiri — systems engineer, model validator');
+        /* The 3D desk avatar looks up and waves. */
+        document.dispatchEvent(new CustomEvent('hero:term-whoami'));
       } else if (verb === 'cat' && arg === 'current_role.txt') {
         print('Model Risk & Validation Engineer @ DTCC — SR 11-7, LLMs, challenger models');
       } else if (verb === 'ls' && !arg) {
@@ -461,6 +483,8 @@ const websiteSchema = {
       } else {
         print('command not found: ' + parts[0] + ' — ' + QUIPS[quipIdx % QUIPS.length]);
         quipIdx++;
+        /* The 3D desk avatar facepalms. */
+        document.dispatchEvent(new CustomEvent('hero:term-unknown', { detail: { cmd: parts[0] } }));
       }
     }
 
