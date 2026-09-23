@@ -1,141 +1,98 @@
 ---
 import { SITE, SOCIALS } from "@consts"
-import Container from "@components/Container.astro"
 ---
 
-<footer class="relative bg-white dark:bg-black">
-  <div class="animate">
-    <section class="py-5">
-      <Container size="md">
-        <div class="flex items-center justify-center sm:justify-end">
-          <button id="back-to-top" aria-label="Back to top of page" class="group flex w-fit p-1.5 gap-1.5 text-sm items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-90">
-              <line x1="19" y1="12" x2="5" y2="12" class="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
-              <polyline points="12 19 5 12 12 5" class="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
-            </svg>
-            <div class="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
-              Back to top
-            </div>
-          </button>
-        </div>
-      </Container>
-    </section>
-  
-    <section class="py-5 overflow-hidden border-t border-black/10 dark:border-white/25">
-      <Container size="md">
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm">
-          <div>
-            <p class="font-semibold text-black dark:text-white mb-2">Site</p>
-            <ul class="space-y-1 opacity-75">
-              <li><a href="/about" class="hover:opacity-100 hover:underline underline-offset-2">About</a></li>
-              <li><a href="/engineering" class="hover:opacity-100 hover:underline underline-offset-2">Engineering</a></li>
-              <li><a href="/projects" class="hover:opacity-100 hover:underline underline-offset-2">Projects</a></li>
-              <li><a href="/research" class="hover:opacity-100 hover:underline underline-offset-2">Research</a></li>
-              <li><a href="/quant" class="hover:opacity-100 hover:underline underline-offset-2">Quant</a></li>
-              <li><a href="/photography" class="hover:opacity-100 hover:underline underline-offset-2">Photography</a></li>
-              <li><a href="/resume" class="hover:opacity-100 hover:underline underline-offset-2">Resume</a></li>
-              <li><a href="/now" class="hover:opacity-100 hover:underline underline-offset-2">Now</a></li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold text-black dark:text-white mb-2">Properties</p>
-            <ul class="space-y-1 opacity-75">
-              <!-- TODO: link Quant Edge once the domain is live -->
-              <li><span class="opacity-60">Quant Edge <em class="text-xs">(soon)</em></span></li>
-              <li><a href="https://leekshotit.com" target="_blank" class="hover:opacity-100 hover:underline underline-offset-2">Leekshotit ↗</a></li>
-              <li><a href="https://github.com/Maleek23" target="_blank" class="hover:opacity-100 hover:underline underline-offset-2">GitHub ↗</a></li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold text-black dark:text-white mb-2">Profiles</p>
-            <ul class="space-y-1 opacity-75">
-              <!-- TODO: add LinkedIn, X, YouTube, Instagram once handles are known -->
-              <li><a href="https://github.com/Maleek23" target="_blank" class="hover:opacity-100 hover:underline underline-offset-2">GitHub</a></li>
-              <li><a href="mailto:me@abdulmalikajisegiri.com" class="hover:opacity-100 hover:underline underline-offset-2">Email</a></li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold text-black dark:text-white mb-2">Contact</p>
-            <ul class="space-y-1 opacity-75">
-              <li><a href="/contact" class="hover:opacity-100 hover:underline underline-offset-2">Contact page</a></li>
-              <li><a href="mailto:me@abdulmalikajisegiri.com" class="hover:opacity-100 hover:underline underline-offset-2">me@abdulmalikajisegiri.com</a></li>
-            </ul>
-          </div>
-        </div>
-      </Container>
-    </section>
+<footer class="ed-footer">
+  <div class="ed-wrap">
+    <div class="ed-foot-cta">
+      <div>
+        <h2>Build something defensible.</h2>
+        <p class="sub">Engineering, validation, quantitative research — or just say hello.</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <a class="btn-paper" href="mailto:me@abdulmalikajisegiri.com?subject=Project%20inquiry">Email me <span>&rarr;</span></a>
+      </div>
+    </div>
 
-    <section class=" py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
-      <Container size="md">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="flex flex-col items-center sm:items-start">
-            <a href="/" class="flex gap-1 w-fit font-semibold text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-              <svg class="size-6 fill-current">
-                <use href="/brand.svg#brand"/>
+    <div class="ed-foot-cols">
+      <div>
+        <p>SITE</p>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/engineering">Engineering</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/quant">Quant</a></li>
+          <li><a href="/photography">Photography</a></li>
+          <li><a href="/resume">Resume</a></li>
+          <li><a href="/now">Now</a></li>
+        </ul>
+      </div>
+      <div>
+        <p>PROPERTIES</p>
+        <ul>
+          <li><span style="opacity:.6;">Quant Edge <em style="font-size:12px;">(soon)</em></span></li>
+          <li><a href="https://leekshotit.com" target="_blank" rel="noopener">Leekshotit &#8599;</a></li>
+          <li><a href="https://github.com/Maleek23" target="_blank" rel="noopener">GitHub &#8599;</a></li>
+        </ul>
+      </div>
+      <div>
+        <p>PROFILES</p>
+        <ul>
+          <li><a href="https://github.com/Maleek23" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="mailto:me@abdulmalikajisegiri.com">Email</a></li>
+        </ul>
+      </div>
+      <div>
+        <p>CONTACT</p>
+        <ul>
+          <li><a href="/contact">Contact page</a></li>
+          <li><a href="mailto:me@abdulmalikajisegiri.com">me@abdulmalikajisegiri.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:0 0 40px;">
+      <button id="back-to-top" aria-label="Back to top of page" class="btn-ghost" style="color:#f4f2ea;border-color:rgba(244,242,234,.5);padding:10px 20px;font-size:14px;">
+        &uarr; Back to top
+      </button>
+      <div style="display:flex;gap:10px;align-items:center;">
+        {
+          SOCIALS.map((SOCIAL) => (
+            <a
+              href={SOCIAL.HREF}
+              target="_blank"
+              rel="noopener"
+              aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}
+              class="ed-icon-btn"
+              style="border-color:rgba(244,242,234,.5);color:#f4f2ea;"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <use href={`/social.svg#${SOCIAL.ICON}`} />
               </svg>
-              {SITE.TITLE}
             </a>
-          </div>
-          <div class="flex gap-2 justify-center sm:justify-end items-center">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-            </span>
-            All systems normal
-          </div>
-        </div>
-      </Container>
-    </section>
-  
-    <section class=" py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
-      <Container size="md">
-        <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start">
-            <div class="legal">
-              <a href="/legal/terms" class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-                Terms
-              </a> |
-              <a href="/legal/privacy" class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-                Privacy
-              </a>
-            </div>
-            <div class="text-sm mt-2">
-              &copy; 2026 | All rights reserved
-            </div>
-          </div>
-  
-          <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
-            <div class="flex flex-wrap gap-1 items-center justify-center">
-              {
-                SOCIALS.map((SOCIAL) => (
-                  <a 
-                    href={SOCIAL.HREF} 
-                    target="_blank" 
-                    aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`} 
-                    class="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20  blend"
-                  >
-                    <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend">
-                      <use href={`/social.svg#${SOCIAL.ICON}`} />
-                    </svg>
-                  </a>
-                ))
-              }
-              </div>
-          </div>
-        </div>
-      </Container>
-    </section>
+          ))
+        }
+      </div>
+    </div>
   </div>
 
+  <div class="ed-foot-bar">
+    <div class="ed-wrap">
+      <span>ABDULMALIK AJISEGIRI</span>
+      <span style="display:flex;gap:22px;">
+        <a href="/legal/terms">Terms</a>
+        <a href="/legal/privacy">Privacy</a>
+        <span>&copy; 2026</span>
+      </span>
+    </div>
+  </div>
 </footer>
 
 <script is:inline>
   function goBackToTop(event) {
     event.preventDefault()
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    })
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   function initializeBackToTop() {

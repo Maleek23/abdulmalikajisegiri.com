@@ -1,0 +1,490 @@
+
+/* ============================================================
+   ENGINEERING PRACTICE — editorial component classes
+   (matches the approved portfolio design system)
+   ============================================================ */
+
+.ed-wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.ed-block {
+  padding: 88px 0;
+  border-top: 1px solid var(--line);
+}
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--green);
+  margin-bottom: 14px;
+}
+
+.sec-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+.sec-sub {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 460px;
+}
+
+/* Note card */
+.note-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+a.note-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px var(--soft-shadow);
+  border-color: var(--line-strong);
+}
+
+.note-meta {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.note-card h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 1.25;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.note-card p {
+  font-size: 14.5px;
+  color: var(--muted);
+}
+
+.note-link {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+  margin-top: 22px;
+  cursor: pointer;
+  padding: 0 0 2px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.note-link:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+/* Pills */
+.pill {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  padding: 9px 17px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: transparent;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+span.pill:hover {
+  border-color: var(--green);
+  color: var(--ink);
+}
+
+/* Buttons */
+.btn-solid {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px 26px;
+  border-radius: 2px;
+  background: var(--green);
+  color: #f6f5f0;
+  border: 1px solid var(--green);
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-solid:hover {
+  opacity: 0.88;
+}
+
+.btn-ghost {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px 26px;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* Terminal card — dark ink/green panel on paper */
+.term {
+  background: var(--panel);
+  color: var(--panel-ink);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: 0 18px 44px var(--soft-shadow);
+}
+
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.term-title {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--panel-muted);
+}
+
+.term-body {
+  padding: 22px 22px 24px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+.term-prompt {
+  color: #7ddba3;
+  font-weight: 600;
+}
+
+.term-dim {
+  color: var(--panel-muted);
+}
+
+@keyframes term-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.term-cursor {
+  animation: term-blink 1.1s step-end infinite;
+  color: #7ddba3;
+}
+
+/* Code panel */
+.code-panel {
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.code-panel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.code-panel-bar span {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--panel-muted);
+}
+
+.code-panel pre {
+  padding: 18px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--panel-ink);
+  margin: 0;
+}
+
+/* Editorial header */
+.ed-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--header-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.ed-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+}
+
+.ed-brand .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 5px var(--green-ring);
+  flex-shrink: 0;
+}
+
+.ed-nav a {
+  font-size: 14.5px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.ed-nav a:hover {
+  background: var(--hover-bg);
+}
+
+.ed-nav a.active {
+  background: var(--green-soft);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.ed-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+  padding: 0;
+}
+
+.ed-icon-btn:hover {
+  background: var(--hover-bg);
+}
+
+.ed-icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Editorial footer */
+.ed-footer {
+  background: var(--footer-bg);
+  color: #f4f2ea;
+}
+
+.ed-footer a {
+  color: #f4f2ea;
+}
+
+.ed-foot-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  padding: 72px 0;
+  flex-wrap: wrap;
+}
+
+.ed-foot-cta h2 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.1;
+  margin-bottom: 10px;
+  color: #f4f2ea;
+}
+
+.ed-foot-cta .sub {
+  color: rgba(244, 242, 234, 0.75);
+  font-size: 16.5px;
+}
+
+.ed-foot-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  padding: 48px 0;
+  border-top: 1px solid rgba(244, 242, 234, 0.22);
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .ed-foot-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ed-foot-cols p {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(244, 242, 234, 0.65);
+  margin-bottom: 12px;
+}
+
+.ed-foot-cols ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ed-foot-cols a {
+  text-decoration: none;
+  color: rgba(244, 242, 234, 0.88);
+}
+
+.ed-foot-cols a:hover {
+  color: #f4f2ea;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ed-foot-bar {
+  background: var(--footer-deep);
+  padding: 18px 0;
+}
+
+.ed-foot-bar .ed-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  color: rgba(244, 242, 234, 0.72);
+}
+
+.ed-foot-bar a {
+  color: rgba(244, 242, 234, 0.9);
+  text-decoration: none;
+}
+
+.ed-foot-bar a:hover {
+  color: #f4f2ea;
+}
+
+.btn-paper {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 26px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  background: #f6f5f0;
+  color: #17150f;
+  border: 1px solid #f6f5f0;
+}
+
+.btn-paper:hover {
+  opacity: 0.92;
+}
+
+/* ArrowCard — editorial row variant of .note-card */
+.arrow-card {
+  text-decoration: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.arrow-card-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.arrow-card-meta {
+  margin-bottom: 12px;
+}
+
+.arrow-card-tags {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.arrow-pill {
+  padding: 4px 12px;
+  font-size: 10.5px;
+}
+
+.arrow-card-title {
+  margin-bottom: 8px;
+}
+
+.arrow-card-taglist {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+}
+
+.arrow-card-arrow {
+  flex-shrink: 0;
+  color: var(--green);
+}

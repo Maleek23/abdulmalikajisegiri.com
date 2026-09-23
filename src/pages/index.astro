@@ -49,217 +49,195 @@ const websiteSchema = {
   schema={websiteSchema}
 >
 
-  <!-- Light Mode: Particles -->
-  <div class='absolute inset-0 block dark:hidden'>
-    <div id='particles1' class='fixed inset-0'></div>
-    <div id='particles2' class='fixed inset-0'></div>
-    <div id='particles3' class='fixed inset-0'></div>
-  </div>
-
-  <!-- Dark Theme: Stars -->
-  <div class='absolute inset-0 bg-black hidden dark:block'>
-    <div id='stars1' class='fixed inset-0'></div>
-    <div id='stars2' class='fixed inset-0'></div>
-    <div id='stars3' class='fixed inset-0'></div>
-  </div>
-
-  <script is:inline src="/js/bg.js"></script>
-
-  <style>
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    .term-cursor { animation: blink 1.1s step-end infinite; }
-  </style>
-
   <!-- TERMINAL HERO -->
-  <section class="relative w-full px-5 pt-24 md:pt-32 pb-10">
-    <div class="mx-auto max-w-screen-sm">
-      <p class="animate text-sm font-mono opacity-60 mb-3">$ finger abdulmalik</p>
-      <h1 class="animate text-3xl md:text-4xl lg:text-5xl font-bold text-black dark:text-white">
+  <section style="padding: 72px 0 0;">
+    <div class="ed-wrap">
+      <p class="animate kicker" style="margin-bottom:10px;">$ finger abdulmalik</p>
+      <h1 class="animate sec-title" style="font-size:clamp(38px,5vw,58px);">
         Abdulmalik Ajisegiri
       </h1>
-      <p class="animate text-sm md:text-base opacity-75 mt-2 font-mono">
+      <p class="animate" style="font-family:var(--mono);font-size:13.5px;color:var(--muted);margin-top:12px;letter-spacing:.02em;">
         Model Risk &amp; Validation Engineer — DTCC · Dallas–Fort Worth, TX
       </p>
 
-      <div class="animate mt-6 rounded-xl border border-black/15 dark:border-white/20 bg-black/[0.03] dark:bg-white/[0.04] overflow-hidden">
-        <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-black/10 dark:border-white/10">
-          <span class="w-2.5 h-2.5 rounded-full bg-black/15 dark:bg-white/25"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-black/15 dark:bg-white/25"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-black/15 dark:bg-white/25"></span>
-          <span class="ml-2 text-xs font-mono opacity-50">abdulmalik@ajisegiri: ~</span>
+      <div class="animate term" style="margin-top:28px;">
+        <div class="term-bar">
+          <span class="term-dot"></span>
+          <span class="term-dot"></span>
+          <span class="term-dot"></span>
+          <span class="term-title">abdulmalik@ajisegiri: ~</span>
         </div>
-        <div class="p-5 font-mono text-[13px] md:text-sm leading-7 text-black dark:text-white">
-          <p><span class="text-green-700 dark:text-green-400 font-semibold">$</span> whoami</p>
-          <p class="opacity-80">abdulmalik-ajisegiri — systems engineer, model validator</p>
-          <p><span class="text-green-700 dark:text-green-400 font-semibold">$</span> cat current_role.txt</p>
-          <p class="opacity-80">Model Risk &amp; Validation Engineer @ DTCC — SR 11-7, LLMs, challenger models</p>
-          <p><span class="text-green-700 dark:text-green-400 font-semibold">$</span> ls research/ | head -3</p>
-          <p class="opacity-80">validating-models-like-a-skeptic/ stacking-ensembles/ llm-evaluation-harness/</p>
-          <p><span class="text-green-700 dark:text-green-400 font-semibold">$</span> <span class="term-cursor">▊</span></p>
+        <div class="term-body">
+          <p><span class="term-prompt">$</span> whoami</p>
+          <p class="term-dim">abdulmalik-ajisegiri — systems engineer, model validator</p>
+          <p><span class="term-prompt">$</span> cat current_role.txt</p>
+          <p class="term-dim">Model Risk &amp; Validation Engineer @ DTCC — SR 11-7, LLMs, challenger models</p>
+          <p><span class="term-prompt">$</span> ls research/ | head -3</p>
+          <p class="term-dim">validating-models-like-a-skeptic/ stacking-ensembles/ llm-evaluation-harness/</p>
+          <p><span class="term-prompt">$</span> <span class="term-cursor">▊</span></p>
         </div>
       </div>
 
-      <div class="animate flex flex-wrap gap-3 mt-6">
-        <a href="/research" class="py-2 px-4 rounded truncate text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend">
-          Read the research
-        </a>
-        <a href="/projects" class="py-2 px-4 truncate rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend">
-          View projects
-        </a>
-        <a href="mailto:abdulmalikajisegiri@gmail.com" class="py-2 px-4 truncate rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend">
-          Contact
-        </a>
+      <div class="animate" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;">
+        <a href="/research" class="btn-solid">Read the research</a>
+        <a href="/projects" class="btn-ghost">View projects</a>
+        <a href="mailto:abdulmalikajisegiri@gmail.com" class="btn-ghost">Contact</a>
       </div>
     </div>
   </section>
 
-  <div class="relative bg-white dark:bg-black">
-    <div class="mx-auto max-w-screen-sm p-5 space-y-20 pb-16">
+  <!-- TECH STACK -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">01 / STACK &amp; STANDARDS</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Tools of the trade.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;">The tools and frameworks I work in — from my resume, not a wish list.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        {stack.map((item) => (
+          <span class="pill">{item.toUpperCase()}</span>
+        ))}
+      </div>
+    </div>
+  </section>
 
-      <!-- TECH STACK -->
-      <section class="animate">
-        <p class="font-semibold text-black dark:text-white mb-1">Stack &amp; standards</p>
-        <p class="text-sm opacity-75 mb-4">The tools and frameworks I work in — from my resume, not a wish list.</p>
-        <div class="flex flex-wrap gap-2">
-          {stack.map((item) => (
-            <span class="font-mono text-xs px-3 py-1.5 rounded-md border border-black/15 dark:border-white/20 bg-black/[0.03] dark:bg-white/[0.05] text-black/80 dark:text-white/80">
-              {item}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <!-- STATS -->
-      <section class="animate">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {stats.map((s) => (
-            <div class="p-4 rounded-lg border border-black/10 dark:border-white/20 text-center">
-              <p class="font-mono text-xl md:text-2xl font-bold text-black dark:text-white">{s.value}</p>
-              <p class="text-xs uppercase tracking-wide opacity-75 mt-1">{s.label}</p>
-              <p class="text-[11px] opacity-50 mt-1 leading-tight">{s.sub}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- FEATURED RESEARCH -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between items-baseline">
-            <p class="font-semibold text-black dark:text-white">Featured research</p>
-            <a href="/research" class="group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend text-sm">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">All research notes</span>
-            </a>
+  <!-- STATS -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">02 / BY THE NUMBERS</div>
+      <h2 class="sec-title" style="margin-bottom:28px;">The record so far.</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;" class="stats-grid">
+        {stats.map((s) => (
+          <div class="note-card" style="padding:22px 20px;text-align:left;min-height:0;">
+            <p style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--ink);">{s.value}</p>
+            <p style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--green);margin-top:8px;">{s.label.toUpperCase()}</p>
+            <p style="font-size:12px;color:var(--faint);margin-top:6px;line-height:1.5;">{s.sub}</p>
           </div>
-          <ul class="space-y-5">
-            {posts.map((post) => (
-              <li>
-                <a href={`/research/${post.slug}`} class="group block rounded-xl border border-black/10 dark:border-white/20 overflow-hidden hover:border-black/30 hover:dark:border-white/40 transition-colors duration-300">
-                  <div class="aspect-[2/1] w-full overflow-hidden bg-black/5 dark:bg-white/5">
-                    <img src={thumbFor(post)} alt={post.data.title} loading="lazy"
-                      class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
-                  </div>
-                  <div class="p-4">
-                    <p class="font-mono text-[11px] uppercase opacity-50">{readingTime(post.body)} min read</p>
-                    <p class="font-semibold mt-1 text-black dark:text-white line-clamp-2">{post.data.title}</p>
-                    <p class="text-sm mt-1 opacity-75 line-clamp-2">{post.data.summary}</p>
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+  </section>
 
-      <!-- CODE SHOWCASE -->
-      <section class="animate">
-        <div class="space-y-3">
-          <p class="font-semibold text-black dark:text-white">From the workbench</p>
-          <p class="text-sm opacity-75">
-            Population Stability Index — the drift monitor from
-            <a href="/research/validating-models-like-a-skeptic" class="underline underline-offset-2 decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white">Validating Models Like a Skeptic</a>.
-            Bin on the reference distribution, watch the score most of all.
-          </p>
-          <div class="rounded-xl overflow-hidden border border-black/15 dark:border-white/20">
-            <div class="flex items-center justify-between px-4 py-2 bg-neutral-900 dark:bg-neutral-950 border-b border-white/10">
-              <span class="font-mono text-xs text-neutral-400">psi_monitor.py</span>
-              <span class="font-mono text-[11px] text-neutral-500">python</span>
+  <!-- FEATURED RESEARCH -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+        <div>
+          <div class="kicker">03 / FEATURED RESEARCH</div>
+          <h2 class="sec-title">Notes from the bench.</h2>
+        </div>
+        <a href="/research" class="note-link" style="margin-top:0;">All research notes &rarr;</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:20px;">
+        {posts.map((post) => (
+          <a href={`/research/${post.slug}`} class="note-card" style="text-decoration:none;padding:0;overflow:hidden;">
+            <div style="aspect-ratio:2/1;width:100%;overflow:hidden;background:var(--green-soft);">
+              <img src={thumbFor(post)} alt={post.data.title} loading="lazy"
+                style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
             </div>
-            <pre class="p-4 overflow-x-auto bg-neutral-900 dark:bg-neutral-950 text-[12.5px] md:text-[13px] leading-6 font-mono text-neutral-200"><code><span class="text-purple-400">def</span> <span class="text-blue-400">psi</span>(expected, actual, bins=<span class="text-amber-300">10</span>, eps=<span class="text-amber-300">1e-4</span>):
-    <span class="text-neutral-500">"""Population Stability Index.
+            <div style="padding:26px 28px;">
+              <div class="note-meta"><span>RESEARCH NOTE</span><span>{readingTime(post.body)} MIN READ</span></div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.summary}</p>
+              <span class="note-link">Read the article &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE SHOWCASE -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">04 / FROM THE WORKBENCH</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Drift, quantified.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;max-width:640px;">
+        Population Stability Index — the drift monitor from
+        <a href="/research/validating-models-like-a-skeptic" style="color:var(--green);">Validating Models Like a Skeptic</a>.
+        Bin on the reference distribution, watch the score most of all.
+      </p>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <span>psi_monitor.py</span>
+          <span>python</span>
+        </div>
+        <pre><code><span style="color:#c792ea">def</span> <span style="color:#82aaff">psi</span>(expected, actual, bins=<span style="color:#f78c6c">10</span>, eps=<span style="color:#f78c6c">1e-4</span>):
+    <span style="color:#636d83">"""Population Stability Index.
     &lt;0.1 stable · 0.1–0.25 watch · &gt;0.25 investigate."""</span>
-    breaks = np.unique(np.quantile(expected, np.linspace(<span class="text-amber-300">0</span>, <span class="text-amber-300">1</span>, bins + <span class="text-amber-300">1</span>)))
+    breaks = np.unique(np.quantile(expected, np.linspace(<span style="color:#f78c6c">0</span>, <span style="color:#f78c6c">1</span>, bins + <span style="color:#f78c6c">1</span>)))
     e_counts, _ = np.histogram(expected, bins=breaks)
     a_counts, _ = np.histogram(actual, bins=breaks)
-    e_perc = np.clip(e_counts / e_counts.sum(), eps, <span class="text-purple-400">None</span>)
-    a_perc = np.clip(a_counts / a_counts.sum(), eps, <span class="text-purple-400">None</span>)
-    <span class="text-purple-400">return</span> np.sum((a_perc - e_perc) * np.log(a_perc / e_perc))
+    e_perc = np.clip(e_counts / e_counts.sum(), eps, <span style="color:#c792ea">None</span>)
+    a_perc = np.clip(a_counts / a_counts.sum(), eps, <span style="color:#c792ea">None</span>)
+    <span style="color:#c792ea">return</span> np.sum((a_perc - e_perc) * np.log(a_perc / e_perc))
 
-<span class="text-neutral-500"># score drift is the canary: decisions move when scores move</span>
-<span class="text-blue-400">print</span>(<span class="text-green-300">f"model score  PSI=</span><span class="text-green-300">{</span>psi(score_valid, score_prod):.3f<span class="text-green-300">}</span><span class="text-green-300">"</span>)</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between items-baseline">
-            <p class="font-semibold text-black dark:text-white">Case studies</p>
-            <a href="/projects" class="group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend text-sm">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">All projects</span>
-            </a>
-          </div>
-          <ul class="space-y-4">
-            {projects.map((project) => (
-              <li>
-                <ArrowCard entry={project} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <!-- CURRENTLY -->
-      <section class="animate">
-        <div class="p-5 rounded-xl border border-black/10 dark:border-white/20 bg-black/[0.02] dark:bg-white/[0.03]">
-          <p class="font-mono text-xs uppercase opacity-50 mb-2">Currently</p>
-          <p class="text-sm leading-relaxed">
-            <b>Model Risk &amp; Validation Engineer</b> at DTCC, working the AI/ML model-risk lifecycle —
-            SR 11-7 determination, independent validation, LLM evaluation. Based in Dallas–Fort Worth, TX.
-            Writing a 20-note series on validation, quant research, simulation, and embedded systems.
-          </p>
-          <div class="flex flex-wrap gap-3 mt-4">
-            <a href="/about" class="py-2 px-4 rounded truncate text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend">About me</a>
-            <a href="/resume" class="py-2 px-4 truncate rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend">Resume</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROFILES -->
-      <section class="animate">
-        <div>
-          <p class="font-semibold text-black dark:text-white">Find me elsewhere</p>
-          <p class="text-sm opacity-75">Code, writing, and professional profiles.</p>
-          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
-            {SOCIALS.map(social => (
-              <div class="col-span-1 flex items-center gap-1">
-                <span class="whitespace-nowrap truncate text-sm">{social.NAME}</span>
-              </div>
-              <div class="col-span-3 truncate">
-                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend text-sm">
-                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">{social.TEXT}</span>
-                </a>
-              </div>
-            ))}
-          </div>
-          <div class="mt-6">
-            <a href="mailto:abdulmalikajisegiri@gmail.com" class="inline-block py-2 px-4 rounded truncate text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend">
-              abdulmalikajisegiri@gmail.com
-            </a>
-          </div>
-        </div>
-      </section>
+<span style="color:#636d83"># score drift is the canary: decisions move when scores move</span>
+<span style="color:#82aaff">print</span>(<span style="color:#c3e88d">f"model score  PSI=</span><span style="color:#c3e88d">{</span>psi(score_valid, score_prod):.3f<span style="color:#c3e88d">}</span><span style="color:#c3e88d">"</span>)</code></pre>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+        <div>
+          <div class="kicker">05 / CASE STUDIES</div>
+          <h2 class="sec-title">Built, not theorized.</h2>
+        </div>
+        <a href="/projects" class="note-link" style="margin-top:0;">All projects &rarr;</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:20px;">
+        {projects.map((project) => (
+          <ArrowCard entry={project} pill={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENTLY -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">06 / CURRENTLY</div>
+      <h2 class="sec-title" style="margin-bottom:28px;">Right now.</h2>
+      <div class="note-card">
+        <div class="note-meta"><span>STATUS</span><span>DALLAS–FORT WORTH, TX</span></div>
+        <p style="font-size:16px;line-height:1.7;color:var(--ink);">
+          <b>Model Risk &amp; Validation Engineer</b> at DTCC, working the AI/ML model-risk lifecycle —
+          SR 11-7 determination, independent validation, LLM evaluation. Based in Dallas–Fort Worth, TX.
+          Writing a 20-note series on validation, quant research, simulation, and embedded systems.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
+          <a href="/about" class="btn-solid">About me</a>
+          <a href="/resume" class="btn-ghost">Resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILES -->
+  <section class="ed-block animate" style="border-bottom:none;">
+    <div class="ed-wrap">
+      <div class="kicker">07 / ELSEWHERE</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Find me elsewhere.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;">Code, writing, and professional profiles.</p>
+      <div class="note-card" style="gap:14px;">
+        {SOCIALS.map(social => (
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line);">
+            <span style="font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted);">{social.NAME.toUpperCase()}</span>
+            <a href={social.HREF} target="_blank" rel="noopener" class="note-link" style="margin-top:0;">{social.TEXT} &rarr;</a>
+          </div>
+        ))}
+        <div style="margin-top:8px;">
+          <a href="mailto:abdulmalikajisegiri@gmail.com" class="btn-solid">abdulmalikajisegiri@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+  </style>
 </PageLayout>

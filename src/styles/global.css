@@ -24,47 +24,102 @@
   }
 }
 
-html {
-  overflow-y: scroll;
+/* ---- ENGINEERING PRACTICE editorial tokens ---- */
+:root {
+  --paper: #f6f5f0;
+  --card: #fbfaf5;
+  --ink: #17150f;
+  --muted: #6f6c60;
+  --faint: #8a877a;
+  --line: #dcd7c6;
+  --line-strong: #b9b3a1;
+  --green: #1c6b4a;
+  --green-deep: #14563a;
+  --footer-bg: #1c6b4a;
+  --footer-deep: #14563a;
+  --panel: #141310;
+  --panel-ink: #f2f0e9;
+  --panel-muted: rgba(242, 240, 233, 0.62);
+  --header-bg: rgba(246, 245, 240, 0.92);
+  --grid-line: rgba(23, 21, 15, 0.05);
+  --hover-bg: rgba(23, 21, 15, 0.06);
+  --green-soft: rgba(28, 107, 74, 0.07);
+  --green-ring: rgba(28, 107, 74, 0.12);
+  --soft-shadow: rgba(23, 21, 15, 0.08);
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", "Atkinson", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
-  background-color: white;
-  font-family: "Atkinson", sans-serif;
-
 }
 
 html.dark {
+  --paper: #101411;
+  --card: #171c18;
+  --ink: #edf1e9;
+  --muted: #b2b9af;
+  --faint: #8d978e;
+  --line: #303832;
+  --line-strong: #58635b;
+  --green: #66c394;
+  --green-deep: #17482f;
+  --footer-bg: #1a5c3d;
+  --footer-deep: #103723;
+  --panel: #090d0a;
+  --panel-ink: #edf1e9;
+  --panel-muted: rgba(237, 241, 233, 0.68);
+  --header-bg: rgba(16, 20, 17, 0.92);
+  --grid-line: rgba(237, 241, 233, 0.045);
+  --hover-bg: rgba(237, 241, 233, 0.07);
+  --green-soft: rgba(102, 195, 148, 0.1);
+  --green-ring: rgba(102, 195, 148, 0.18);
+  --soft-shadow: rgba(0, 0, 0, 0.28);
   color-scheme: dark;
-  background-color: black;
+}
+
+html {
+  overflow-y: scroll;
+  background-color: var(--paper);
+  font-family: var(--sans);
 }
 
 html,
 body {
   @apply h-full w-full antialiased;
-  @apply bg-white dark:bg-black;
-  @apply text-black/75 dark:text-white/75;
 }
 
 body {
   @apply relative flex flex-col;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 main {
-  @apply flex flex-col flex-1 bg-white dark:bg-black;
+  @apply flex flex-col flex-1;
+  background: transparent;
 }
 
 header {
-  @apply border-b;
   @apply transition-all duration-300 ease-in-out;
+  border-bottom: 1px solid transparent;
 }
 
 header:not(.scrolled) {
-  @apply bg-transparent border-transparent;
+  background: transparent;
+  border-bottom-color: transparent;
 }
 
 header.scrolled {
-  @apply bg-white/75 dark:bg-black/50;
-  @apply border-black/10 dark:border-white/25;
-  @apply backdrop-blur-sm saturate-200;
+  background: var(--header-bg);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 article {
