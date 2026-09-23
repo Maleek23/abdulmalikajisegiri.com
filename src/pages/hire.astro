@@ -1,6 +1,7 @@
 ---
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
+import Avatar3D from "@components/Avatar3D.astro"
 import { getCollection } from "astro:content"
 
 const projects = (await getCollection("projects"))
@@ -142,10 +143,32 @@ const facts = [
     </div>
   </section>
 
+  <!-- SAY HELLO -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">04 / SAY HELLO</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Say hello.</h2>
+      <div class="hello-grid">
+        <Avatar3D />
+        <div>
+          <p class="sec-sub" style="margin-bottom:16px;max-width:560px;">
+            Go on — move your cursor. He'll follow it. On mobile, tap anywhere.
+          </p>
+          <p class="sec-sub" style="max-width:560px;">
+            A small reminder that interfaces don't have to sit still: this is a
+            low-poly bust in Three.js, lazy-loaded only when you scroll here,
+            and it politely pauses rendering when you look away. Imagine what I
+            do with real user input.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CLOSE -->
   <section class="ed-block animate" style="border-bottom:none;">
     <div class="ed-wrap">
-      <div class="kicker">04 / NEXT STEP</div>
+      <div class="kicker">05 / NEXT STEP</div>
       <h2 class="sec-title" style="margin-bottom:12px;">Let's talk.</h2>
       <p class="sec-sub" style="margin-bottom:28px;max-width:640px;">
         Building model risk, validation, or AI governance teams? The fastest way to reach me is email.
@@ -159,7 +182,15 @@ const facts = [
   </section>
 
   <style>
+    .hello-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 36px;
+      align-items: center;
+      margin-top: 28px;
+    }
     @media (max-width: 700px) {
+      .hello-grid { grid-template-columns: 1fr; gap: 20px; }
       .facts-grid { grid-template-columns: 1fr !important; }
     }
     .timeline { position: relative; margin-top: 8px; }

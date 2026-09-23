@@ -1,0 +1,376 @@
+---
+/**
+ * Avatar3D.astro
+ * A friendly low-poly 3D bust of Abdulmalik whose eyes follow the visitor's
+ * cursor (or last tap on touch devices). Built with Three.js loaded from CDN
+ * at runtime — no npm dependency, no build-time cost.
+ *
+ * - Lazy-inits via IntersectionObserver; pauses when offscreen / tab hidden.
+ * - Respects prefers-reduced-motion (renders a single static frame).
+ * - Graceful fallback: a styled SVG illustration if WebGL or the CDN fails
+ *   (and when JS is disabled entirely).
+ * - Instance-scoped: safe to render multiple times per page.
+ */
+---
+
+<div class="avatar3d" data-avatar3d>
+  <canvas
+    role="img"
+    aria-label="Interactive 3D avatar of Abdulmalik Ajisegiri — a stylized low-poly engineer whose eyes follow your cursor."
+  ></canvas>
+
+  <div
+    class="avatar3d-fallback"
+    role="img"
+    aria-label="Stylized illustration of Abdulmalik smiling — a friendly engineer in green."
+  >
+    <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <circle cx="100" cy="100" r="96" fill="var(--green-soft)" />
+      <rect x="52" y="148" width="96" height="40" rx="18" fill="#1c6b4a" />
+      <rect x="88" y="128" width="24" height="26" rx="8" fill="#6f452e" />
+      <circle cx="100" cy="96" r="46" fill="#6f452e" />
+      <path d="M54 92 Q56 52 100 50 Q144 52 146 92 Q138 66 100 66 Q62 66 54 92 Z" fill="#16120d" />
+      <rect x="70" y="82" width="18" height="5" rx="2.5" fill="#16120d" transform="rotate(-6 79 84)" />
+      <rect x="112" y="82" width="18" height="5" rx="2.5" fill="#16120d" transform="rotate(6 121 84)" />
+      <circle cx="82" cy="100" r="9" fill="#fdfcf8" />
+      <circle cx="118" cy="100" r="9" fill="#fdfcf8" />
+      <circle cx="83.5" cy="101" r="4" fill="#17150f" />
+      <circle cx="119.5" cy="101" r="4" fill="#17150f" />
+      <circle cx="100" cy="112" r="4.5" fill="#5d3a26" />
+      <path d="M86 122 Q100 132 114 122" stroke="#2b1c12" stroke-width="4" stroke-linecap="round" fill="none" />
+    </svg>
+  </div>
+
+  <script type="module" is:inline>
+    (() => {
+      const scriptEl = document.currentScript;
+      const root = scriptEl && scriptEl.closest
+        ? scriptEl.closest("[data-avatar3d]")
+        : document.querySelector("[data-avatar3d]:not([data-avatar-init])");
+      if (!root || root.hasAttribute("data-avatar-init")) return;
+      root.setAttribute("data-avatar-init", "1");
+
+      const canvas = root.querySelector("canvas");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+
+      function webglAvailable() {
+        try {
+          const c = document.createElement("canvas");
+          return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl")));
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // Lazy-init: only load three.js when the avatar is about to scroll into view.
+      let started = false;
+      const lazyIO = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          lazyIO.disconnect();
+          init();
+        }
+      }, { rootMargin: "240px" });
+      lazyIO.observe(root);
+
+      async function init() {
+        if (!webglAvailable()) return; // fallback SVG stays visible
+        let THREE;
+        try {
+          THREE = await import(THREE_URL);
+        } catch (e) {
+          return; // CDN failed — fallback stays visible
+        }
+        try {
+          build(THREE);
+        } catch (e) {
+          return;
+        }
+        root.classList.add("is-live");
+      }
+
+      function build(THREE) {
+        const SKIN = 0x6f452e, SKIN_DK = 0x5d3a26, HAIR = 0x16120d;
+        const SHIRT = 0x1c6b4a, PAPER = 0xf6f5f0, INKC = 0x17150f, EYE_W = 0xfdfcf8;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
+        camera.position.set(0, 0.15, 5.8);
+        camera.lookAt(0, 0.05, 0);
+
+        scene.add(new THREE.HemisphereLight(0xfffdf4, 0x1c6b4a, 0.9));
+        const key = new THREE.DirectionalLight(0xffffff, 1.5);
+        key.position.set(2.5, 3.2, 4);
+        scene.add(key);
+        const rim = new THREE.DirectionalLight(0x9fd8b8, 0.55);
+        rim.position.set(-3, 1.5, -2.5);
+        scene.add(rim);
+
+        const flat = (geo, color) =>
+          new THREE.Mesh(
+            geo,
+            new THREE.MeshStandardMaterial({ color, roughness: 0.9, metalness: 0, flatShading: true })
+          );
+
+        const avatar = new THREE.Group();
+        scene.add(avatar);
+
+        // --- torso / shoulders (deep editorial green) ---
+        const torso = flat(new THREE.CylinderGeometry(0.60, 0.98, 1.15, 7), SHIRT);
+        torso.position.y = -1.02;
+        avatar.add(torso);
+        const collar = flat(new THREE.CylinderGeometry(0.30, 0.34, 0.16, 7), PAPER);
+        collar.position.y = -0.40;
+        avatar.add(collar);
+        const neck = flat(new THREE.CylinderGeometry(0.21, 0.23, 0.34, 7), SKIN);
+        neck.position.y = -0.28;
+        avatar.add(neck);
+
+        // --- head (pivot at neck for natural turning) ---
+        const head = new THREE.Group();
+        head.position.y = 0.02;
+        avatar.add(head);
+
+        const skull = flat(new THREE.SphereGeometry(0.72, 7, 6), SKIN);
+        skull.position.y = 0.78;
+        head.add(skull);
+
+        const hair = flat(
+          new THREE.SphereGeometry(0.745, 7, 5, 0, Math.PI * 2, 0, Math.PI * 0.45),
+          HAIR
+        );
+        hair.position.y = 0.80;
+        hair.scale.set(1.02, 0.9, 1.02);
+        head.add(hair);
+
+        for (const s of [-1, 1]) {
+          const ear = flat(new THREE.SphereGeometry(0.12, 6, 5), SKIN);
+          ear.position.set(s * 0.70, 0.72, 0.02);
+          ear.scale.set(0.55, 1, 0.75);
+          head.add(ear);
+        }
+
+        function makeEye(sx) {
+          const g = new THREE.Group();
+          g.position.set(sx * 0.27, 0.82, 0.64);
+          const ball = flat(new THREE.SphereGeometry(0.15, 12, 10), EYE_W);
+          ball.scale.set(1, 1.12, 0.55);
+          g.add(ball);
+          const pupil = flat(new THREE.SphereGeometry(0.062, 10, 8), INKC);
+          pupil.position.z = 0.088;
+          g.add(pupil);
+          const glint = new THREE.Mesh(
+            new THREE.SphereGeometry(0.018, 6, 5),
+            new THREE.MeshBasicMaterial({ color: 0xffffff })
+          );
+          glint.position.set(0.022, 0.025, 0.052);
+          pupil.add(glint);
+          head.add(g);
+          return { group: g, pupil, base: pupil.position.clone(), eyePos: g.position.clone() };
+        }
+        const eyeL = makeEye(-1);
+        const eyeR = makeEye(1);
+
+        for (const s of [-1, 1]) {
+          const brow = flat(new THREE.BoxGeometry(0.24, 0.055, 0.06), HAIR);
+          brow.position.set(s * 0.28, 1.04, 0.62);
+          brow.rotation.z = -s * 0.10;
+          head.add(brow);
+        }
+
+        const nose = flat(new THREE.SphereGeometry(0.075, 6, 5), SKIN_DK);
+        nose.position.set(0, 0.64, 0.68);
+        nose.scale.set(0.9, 1.1, 0.9);
+        head.add(nose);
+
+        const smile = new THREE.Mesh(
+          new THREE.TorusGeometry(0.17, 0.030, 6, 14, Math.PI),
+          new THREE.MeshStandardMaterial({ color: 0x2b1c12, roughness: 0.9 })
+        );
+        smile.position.set(0, 0.46, 0.63);
+        smile.rotation.z = Math.PI; // lower-half arc = smile
+        head.add(smile);
+
+        // soft blob shadow
+        const sc = document.createElement("canvas");
+        sc.width = sc.height = 128;
+        const sg = sc.getContext("2d");
+        const grad = sg.createRadialGradient(64, 64, 8, 64, 64, 60);
+        grad.addColorStop(0, "rgba(23,21,15,0.26)");
+        grad.addColorStop(1, "rgba(23,21,15,0)");
+        sg.fillStyle = grad;
+        sg.fillRect(0, 0, 128, 128);
+        const shadow = new THREE.Mesh(
+          new THREE.PlaneGeometry(2.0, 2.0),
+          new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false })
+        );
+        shadow.rotation.x = -Math.PI / 2;
+        shadow.position.y = -1.64;
+        scene.add(shadow);
+
+        // --- cursor tracking ---
+        const raycaster = new THREE.Raycaster();
+        const ndc = new THREE.Vector2(0, 0);
+        let hasPointer = false;
+        const trackPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -1.2);
+        const hit = new THREE.Vector3();
+        const pupilTarget = new THREE.Vector3();
+
+        function setFromClient(x, y) {
+          const r = canvas.getBoundingClientRect();
+          if (r.width === 0) return;
+          ndc.x = ((x - r.left) / r.width) * 2 - 1;
+          ndc.y = -(((y - r.top) / r.height) * 2 - 1);
+          hasPointer = true;
+        }
+        window.addEventListener("pointermove", (e) => setFromClient(e.clientX, e.clientY), { passive: true });
+        window.addEventListener("pointerdown", (e) => setFromClient(e.clientX, e.clientY), { passive: true });
+
+        const damp = THREE.MathUtils.damp;
+        const clamp = THREE.MathUtils.clamp;
+        const PUPIL_MAX = 0.055;
+
+        // --- blinking ---
+        let nextBlink = 2.2;
+        let blinkT = -1;
+
+        const clock = new THREE.Clock();
+
+        function update(dt, t) {
+          if (!reduceMotion) {
+            if (!hasPointer) {
+              // idle wander until the visitor shows up
+              ndc.x = Math.sin(t * 0.4) * 0.35;
+              ndc.y = Math.cos(t * 0.53) * 0.25;
+            }
+            raycaster.setFromCamera(ndc, camera);
+            if (raycaster.ray.intersectPlane(trackPlane, hit)) {
+              head.worldToLocal(hit);
+
+              for (const e of [eyeL, eyeR]) {
+                const vx = hit.x - e.eyePos.x;
+                const vy = hit.y - e.eyePos.y;
+                const d = Math.hypot(vx, vy);
+                const s = d > 1e-4 ? Math.min(d, PUPIL_MAX) / d : 0;
+                pupilTarget.set(e.base.x + vx * s, e.base.y + vy * s, e.base.z);
+                e.pupil.position.lerp(pupilTarget, 1 - Math.exp(-14 * dt));
+              }
+
+              const yawT = clamp(hit.x * 0.28, -0.30, 0.30);
+              const pitchT = clamp(-(hit.y - 0.8) * 0.20, -0.18, 0.22);
+              head.rotation.y = damp(head.rotation.y, yawT, 8, dt);
+              head.rotation.x = damp(head.rotation.x, pitchT, 8, dt);
+            }
+
+            // gentle idle bob
+            head.position.y = 0.02 + Math.sin(t * 1.35) * 0.035;
+            head.rotation.z = Math.sin(t * 0.85) * 0.025;
+
+            // blink
+            if (blinkT < 0 && t > nextBlink) blinkT = 0;
+            if (blinkT >= 0) {
+              blinkT += dt;
+              const p = blinkT / 0.22;
+              if (p >= 1) {
+                blinkT = -1;
+                nextBlink = t + 2.5 + Math.random() * 3.5;
+                eyeL.group.scale.y = eyeR.group.scale.y = 1;
+              } else {
+                eyeL.group.scale.y = eyeR.group.scale.y = Math.max(0.08, 1 - Math.sin(p * Math.PI) * 0.92);
+              }
+            }
+          }
+        }
+
+        function resize() {
+          const w = Math.max(1, Math.floor(root.clientWidth));
+          renderer.setSize(w, w, false);
+          camera.aspect = 1;
+          camera.updateProjectionMatrix();
+          return w;
+        }
+        resize();
+        if ("ResizeObserver" in window) {
+          new ResizeObserver(resize).observe(root);
+        } else {
+          window.addEventListener("resize", resize);
+        }
+
+        // --- render loop: paused when offscreen or tab hidden ---
+        let raf = 0;
+        let inView = false;
+        let pageVisible = !document.hidden;
+
+        function loop() {
+          raf = requestAnimationFrame(loop);
+          if (!inView || !pageVisible) return;
+          const dt = Math.min(clock.getDelta(), 0.05);
+          update(dt, clock.elapsedTime);
+          renderer.render(scene, camera);
+        }
+
+        const viewIO = new IntersectionObserver((entries) => {
+          inView = entries[0].isIntersecting;
+        });
+        viewIO.observe(root);
+
+        document.addEventListener("visibilitychange", () => {
+          pageVisible = !document.hidden;
+          clock.getDelta(); // discard the hidden-tab time jump
+        });
+
+        if (reduceMotion) {
+          // static pose: one frame, re-rendered on resize only
+          update(0, 0);
+          renderer.render(scene, camera);
+          const ro = () => renderer.render(scene, camera);
+          if ("ResizeObserver" in window) new ResizeObserver(() => { resize(); ro(); }).observe(root);
+        } else {
+          loop();
+        }
+      }
+    })();
+  </script>
+
+  <style>
+    .avatar3d {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      margin-inline: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 50% 32%, var(--green-soft), transparent 72%),
+        var(--card);
+      overflow: hidden;
+    }
+    .avatar3d canvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      touch-action: pan-y;
+    }
+    .avatar3d.is-live canvas { opacity: 1; }
+    .avatar3d-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8%;
+      transition: opacity 0.6s ease;
+    }
+    .avatar3d-fallback svg { width: 100%; height: 100%; }
+    .avatar3d.is-live .avatar3d-fallback { opacity: 0; pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .avatar3d canvas, .avatar3d-fallback { transition: none; }
+    }
+  </style>
+</div>
