@@ -3,7 +3,7 @@ title: "Low-Power Embedded Design on the TM4C123: Hibernation, EEPROM Persistenc
 summary: "Design notes from an unattended weekend pet feeder on the TM4C123: hibernating between feedings with RTC wake, persisting schedules in EEPROM, a UART command parser that validates before it acts, and measuring water level with an analog comparator instead of an ADC."
 date: "2026-08-11"
 tags: ["embedded-systems"]
-draft: true
+draft: false
 image: "/research/low-power-embedded-design-tm4c123/og.png"
 ---
 

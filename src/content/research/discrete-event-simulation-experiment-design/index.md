@@ -3,7 +3,7 @@ title: "Designing a Discrete-Event Simulation Experiment: Replications, Paired C
 summary: "A poker-chip workflow simulated in Rockwell Arena becomes a case study in experiment design for terminating simulations: independent replications, paired comparisons with common random numbers, and how to report confidence intervals honestly when a p-value is missing."
 date: "2026-08-24"
 tags: ["simulation", "statistics"]
-draft: true
+draft: false
 image: "/research/discrete-event-simulation-experiment-design/og.png"
 ---
 

@@ -3,7 +3,7 @@ title: "How System Calls Actually Work: A Tour of a Tiny C Kernel"
 summary: "Tracing a userland call like cat through the trap, the dispatch table, and the kernel's syscall implementations to demystify the user/kernel boundary."
 date: "2026-08-06"
 tags: ["systems-programming"]
-draft: true
+draft: false
 image: "/research/how-system-calls-work-tiny-c-kernel/og.png"
 ---
 

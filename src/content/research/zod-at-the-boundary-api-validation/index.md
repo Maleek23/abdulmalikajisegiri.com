@@ -3,7 +3,7 @@ title: "Zod at the Boundary: Validating Every Byte That Enters Your API"
 summary: "Runtime validation belongs at the trust boundary, not scattered through handlers. A Zod-first design for Express: schemas with refinements and discriminated unions, a validate-once middleware pattern, structured 400s that don't leak internals, coercion vs strict parsing, and a fuzz table for testing the boundary."
 date: "2026-08-01"
 tags: ["web-development", "software-engineering"]
-draft: true
+draft: false
 image: "/research/zod-at-the-boundary-api-validation/og.png"
 ---
 

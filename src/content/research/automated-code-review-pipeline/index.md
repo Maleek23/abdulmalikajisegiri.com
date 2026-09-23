@@ -3,7 +3,7 @@ title: "Codifying Engineering Judgment: What an Automated Code-Review Pipeline S
 summary: "Not all review belongs in the pipeline. This article maps the layers of automated code review — deterministic formatting, static analysis, and the semantic layer where it gets interesting (API contracts, migration safety, per-line test coverage, performance budgets) — shows how to codify judgment as checkable review rules, and draws the line automation must not cross."
 date: "2026-07-27"
 tags: ["software-engineering"]
-draft: true
+draft: false
 image: "/research/automated-code-review-pipeline/og.png"
 ---
 

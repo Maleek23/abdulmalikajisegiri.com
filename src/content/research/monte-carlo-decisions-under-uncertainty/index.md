@@ -3,7 +3,7 @@ title: "Monte Carlo for Decisions Under Uncertainty"
 summary: "When simulation beats closed-form math, why halving your error costs four times the samples, and how antithetic variates and common random numbers buy precision without more runs — with runnable numpy throughout and a chip-stack survival example converging to its exact answer."
 date: "2026-08-29"
 tags: ["simulation", "statistics"]
-draft: true
+draft: false
 image: "/research/monte-carlo-decisions-under-uncertainty/og.png"
 ---
 

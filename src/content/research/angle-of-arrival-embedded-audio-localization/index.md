@@ -3,7 +3,7 @@ title: "Angle of Arrival on a Budget: Localizing Sound with Four Microphones and
 summary: "How time-difference-of-arrival, GCC-PHAT cross-correlation, and DMA double-buffering combine to locate a sound source on a TM4C123GH6PM — plus the honest limits."
 date: "2026-08-20"
 tags: ["embedded-systems", "signal-processing"]
-draft: true
+draft: false
 image: "/research/angle-of-arrival-embedded-audio-localization/og.png"
 ---
 
