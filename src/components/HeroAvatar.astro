@@ -10,6 +10,11 @@
  * at research), respects dark mode (desk lamp), and hides a click easter egg
  * (spin + "hello world" burst).
  *
+ * Likeness pass (2026-09-23, from his photo): deep brown skin, short cropped
+ * hair, squared jaw with a short boxed beard + mustache, full lips, and his
+ * signature striped cardigan (canvas texture: cream/pink/mustard/grey with a
+ * black V-neck, white shirt and red polka-dot tie).
+ *
  * Composition: desk sits between camera and avatar; the monitor is off to the
  * left, angled toward both avatar and camera ("over-the-shoulder" feel). Depth
  * separation is by construction — avatar z-max (-0.43) never reaches monitor
@@ -35,6 +40,15 @@
     aria-label="Illustration of Abdulmalik typing at a desk with a glowing green terminal."
   >
     <svg viewBox="0 0 300 260" aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="ha-cardi" width="64" height="46" patternUnits="userSpaceOnUse">
+          <rect width="64" height="46" fill="#ece1c8" />
+          <rect y="3" width="64" height="7" fill="#3a3d42" />
+          <rect y="13" width="64" height="8" fill="#d2697c" />
+          <rect y="24" width="64" height="8" fill="#d9a62e" />
+          <rect y="35" width="64" height="7" fill="#6b6f76" />
+        </pattern>
+      </defs>
       <rect x="4" y="4" width="292" height="252" rx="16" fill="var(--green-soft)" />
       <rect x="30" y="150" width="10" height="70" fill="#8a6f4d" />
       <rect x="250" y="150" width="10" height="70" fill="#8a6f4d" />
@@ -46,15 +60,17 @@
       <rect x="73" y="111" width="18" height="5" rx="2" fill="#4ade80" />
       <rect x="56" y="138" width="10" height="46" fill="#3a3f46" />
       <rect x="160" y="146" width="96" height="8" rx="3" fill="#2e3238" />
-      <rect x="196" y="96" width="64" height="46" rx="12" fill="#1c6b4a" />
-      <rect x="206" y="84" width="26" height="20" rx="7" fill="#6f452e" />
-      <circle cx="219" cy="66" r="28" fill="#6f452e" />
-      <path d="M192 64 Q194 40 219 38 Q244 40 246 64 Q238 48 219 48 Q200 48 192 64 Z" fill="#16120d" />
+      <rect x="196" y="96" width="64" height="46" rx="12" fill="url(#ha-cardi)" />
+      <rect x="206" y="84" width="26" height="20" rx="7" fill="#4c3122" />
+      <circle cx="219" cy="66" r="28" fill="#4c3122" />
+      <path d="M192 64 Q194 40 219 38 Q244 40 246 64 Q238 48 219 48 Q200 48 192 64 Z" fill="#100d0a" />
       <circle cx="210" cy="66" r="5" fill="#fdfcf8" />
       <circle cx="228" cy="66" r="5" fill="#fdfcf8" />
-      <circle cx="211" cy="67" r="2.2" fill="#17150f" />
-      <circle cx="229" cy="67" r="2.2" fill="#17150f" />
-      <path d="M210 81 Q219 87 228 81" stroke="#2b1c12" stroke-width="3.2" stroke-linecap="round" fill="none" />
+      <circle cx="211" cy="67" r="2.2" fill="#20150e" />
+      <circle cx="229" cy="67" r="2.2" fill="#20150e" />
+      <path d="M196 72 Q219 96 242 72 L242 80 Q219 104 196 80 Z" fill="#100d0a" />
+      <rect x="210" y="72" width="18" height="5" rx="2.5" fill="#100d0a" />
+      <ellipse cx="219" cy="84" rx="8" ry="4.5" fill="#7d4a33" />
       <circle cx="272" cy="128" r="10" fill="#f6f5f0" />
       <rect x="268" y="114" width="8" height="12" rx="2" fill="#f6f5f0" />
     </svg>
@@ -111,8 +127,9 @@
       }
 
       function build(THREE) {
-        const SKIN = 0x6f452e, SKIN_DK = 0x5d3a26, HAIR = 0x16120d;
-        const SHIRT = 0x1c6b4a, PAPER = 0xf6f5f0, INKC = 0x17150f, EYE_W = 0xfdfcf8;
+        const SKIN = 0x4c3122, SKIN_DK = 0x3a2517, HAIR = 0x100d0a, BEARD = 0x100d0a;
+        const LIP = 0x7d4a33, PUPIL = 0x20150e;
+        const PAPER = 0xf6f5f0, EYE_W = 0xfdfcf8;
         const WOOD = 0xa08055, WOOD_DK = 0x8a6f4d, METAL = 0x2e3238;
 
         const damp = THREE.MathUtils.damp;
@@ -142,13 +159,60 @@
             new THREE.MeshStandardMaterial({ color, roughness: 0.92, metalness: 0, flatShading: true })
           );
 
+        // Signature striped cardigan, drawn once on canvas: cream base with
+        // pink / mustard / grey bands (like his photo), black V-neck trim,
+        // white shirt triangle and a red polka-dot tie at the front.
+        function knitCanvas(vneck) {
+          const c = document.createElement("canvas");
+          c.width = 256; c.height = 256;
+          const g = c.getContext("2d");
+          const bands = [
+            ["#3a3d42", 16], ["#ece1c8", 24], ["#d2697c", 20], ["#ece1c8", 24],
+            ["#d9a62e", 22], ["#ece1c8", 20], ["#6b6f76", 20], ["#ece1c8", 24],
+            ["#d2697c", 18], ["#ece1c8", 22], ["#3a3d42", 14], ["#d9a62e", 16]
+          ];
+          let y = 0;
+          for (const [col, h] of bands) { g.fillStyle = col; g.fillRect(0, y, 256, h); y += h; }
+          g.fillStyle = "#ece1c8";
+          g.fillRect(0, y, 256, 256 - y);
+          if (vneck) {
+            const cx = 128; // front of torso once rotation.y = PI puts u=0.5 forward
+            g.strokeStyle = "#17181c"; g.lineWidth = 16; g.lineCap = "round";
+            g.beginPath(); g.moveTo(cx - 56, -8); g.lineTo(cx, 68); g.lineTo(cx + 56, -8); g.stroke();
+            g.fillStyle = "#f4f2ec";
+            g.beginPath(); g.moveTo(cx - 42, -8); g.lineTo(cx, 56); g.lineTo(cx + 42, -8); g.closePath(); g.fill();
+            g.fillStyle = "#b3232a";
+            g.fillRect(cx - 13, 0, 26, 58);
+            g.fillStyle = "#f4f2ec";
+            for (let dy = 9; dy < 56; dy += 12) {
+              for (let dx = -8; dx <= 8; dx += 8) {
+                g.beginPath(); g.arc(cx + dx, dy, 1.8, 0, Math.PI * 2); g.fill();
+              }
+            }
+          }
+          const tex = new THREE.CanvasTexture(c);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          return tex;
+        }
+        const CARDI_TEX = knitCanvas(true);
+        const SLEEVE_TEX = knitCanvas(false);
+        const knit = (geo, vneck) =>
+          new THREE.Mesh(
+            geo,
+            new THREE.MeshStandardMaterial({
+              map: vneck ? CARDI_TEX : SLEEVE_TEX,
+              roughness: 0.95, metalness: 0, flatShading: true
+            })
+          );
+
         /* ---------------- avatar (realistic proportions, less bobblehead) ---------------- */
         const avatar = new THREE.Group();
         avatar.position.set(0.35, 0, -0.95);
         scene.add(avatar);
 
-        const torso = flat(new THREE.CylinderGeometry(0.48, 0.68, 1.0, 7), SHIRT);
+        const torso = knit(new THREE.CylinderGeometry(0.48, 0.68, 1.0, 7), true);
         torso.position.set(0, -0.72, 0);
+        torso.rotation.y = Math.PI; // V-neck (texture u=0.5) faces the camera
         avatar.add(torso);
         const collar = flat(new THREE.CylinderGeometry(0.26, 0.30, 0.12, 7), PAPER);
         collar.position.set(0, -0.18, 0);
@@ -167,13 +231,13 @@
         skull.position.set(0, 0.60, 0);
         skull.scale.set(0.94, 1.03, 0.96);
         head.add(skull);
-        // short cropped hair
+        // short cropped hair with a fade-ish cut — low cap hugging the skull
         const hair = flat(
-          new THREE.SphereGeometry(0.535, 8, 6, 0, Math.PI * 2, 0, Math.PI * 0.48),
+          new THREE.SphereGeometry(0.545, 8, 5, 0, Math.PI * 2, 0, Math.PI * 0.34),
           HAIR
         );
-        hair.position.set(0, 0.62, -0.01);
-        hair.scale.set(0.96, 0.95, 0.98);
+        hair.position.set(0, 0.64, -0.015);
+        hair.scale.set(0.97, 0.92, 0.99);
         head.add(hair);
         for (const s of [-1, 1]) {
           const ear = flat(new THREE.SphereGeometry(0.10, 6, 5), SKIN);
@@ -188,7 +252,7 @@
           const ball = flat(new THREE.SphereGeometry(0.115, 12, 10), EYE_W);
           ball.scale.set(1, 1.1, 0.55);
           g.add(ball);
-          const pupil = flat(new THREE.SphereGeometry(0.05, 10, 8), INKC);
+          const pupil = flat(new THREE.SphereGeometry(0.05, 10, 8), PUPIL);
           pupil.position.z = 0.068;
           g.add(pupil);
           const glint = new THREE.Mesh(
@@ -211,21 +275,34 @@
         }
         const nose = flat(new THREE.SphereGeometry(0.06, 6, 5), SKIN_DK);
         nose.position.set(0, 0.46, 0.475);
-        nose.scale.set(0.9, 1.15, 0.9);
+        nose.scale.set(1.05, 1.15, 1.0);
         head.add(nose);
-        const smile = new THREE.Mesh(
-          new THREE.TorusGeometry(0.125, 0.024, 6, 14, Math.PI),
-          new THREE.MeshStandardMaterial({ color: 0x2b1c12, roughness: 0.9 })
-        );
-        smile.position.set(0, 0.335, 0.45);
-        smile.rotation.z = Math.PI;
-        head.add(smile);
+        // defined jawline: squared lower face under the skull
+        const jaw = flat(new THREE.BoxGeometry(0.78, 0.34, 0.66), SKIN);
+        jaw.position.set(0, 0.22, 0.03);
+        head.add(jaw);
+        // short boxed beard: chin band + sideburn connectors
+        const beardChin = flat(new THREE.BoxGeometry(0.80, 0.22, 0.68), BEARD);
+        beardChin.position.set(0, 0.10, 0.045);
+        head.add(beardChin);
+        for (const s of [-1, 1]) {
+          const side = flat(new THREE.BoxGeometry(0.10, 0.30, 0.30), BEARD);
+          side.position.set(s * 0.40, 0.30, 0.10);
+          head.add(side);
+        }
+        // neat mustache above full lips
+        const mo = flat(new THREE.BoxGeometry(0.30, 0.07, 0.08), BEARD);
+        mo.position.set(0, 0.305, 0.43);
+        head.add(mo);
+        const lips = flat(new THREE.BoxGeometry(0.22, 0.085, 0.06), LIP);
+        lips.position.set(0, 0.235, 0.40);
+        head.add(lips);
 
         // arms reach forward over the desk to the keyboard
         function makeArm(side) {
           const g = new THREE.Group();
           g.position.set(side * 0.50, -0.12, 0.05);
-          const limb = flat(new THREE.BoxGeometry(0.22, 0.50, 0.22), SHIRT);
+          const limb = knit(new THREE.BoxGeometry(0.22, 0.50, 0.22), false);
           limb.position.y = -0.22;
           g.add(limb);
           const hand = flat(new THREE.SphereGeometry(0.13, 7, 6), SKIN);
