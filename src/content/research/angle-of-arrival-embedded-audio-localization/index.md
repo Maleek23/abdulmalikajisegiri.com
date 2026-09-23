@@ -95,6 +95,10 @@ A few things this sketch makes concrete:
 - **`max_tau` is a physical constraint, not a tuning knob.** The maximum possible delay between a mic pair is *d/c* seconds — for 0.2 m spacing, about 583 µs, or ~9.3 samples at 16 kHz. Constraining the peak search to that window rejects absurd peaks from noise. Physics gives you the search bounds for free.
 - **PHAT's division needs the epsilon.** Silent frequency bins (division by ~zero) inject garbage; the `1e-12` guard and sensible band-limiting matter in real code.
 
+![Two-panel diagram: the same transient waveform arriving at mic 2 delayed by tau relative to mic 1, and the GCC-PHAT correlation output showing a sharp peak at the delay estimate with smaller spurious reverberation peaks inside the physics-bounded search window](./diagram-tdoa-correlation.svg)
+
+*Figure — The article's worked-example delay (~4.7 samples) as waveforms and as the GCC-PHAT correlation peak, with reverberation impostors and the physics-bounded search window.*
+
 ## The trade-offs that actually bite
 
 Prototyping GCC-PHAT in numpy is the easy part. The project gets interesting when the constraints collide.

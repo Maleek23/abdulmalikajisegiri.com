@@ -19,6 +19,9 @@ The problem isn't tooling. It's that teams never decided what belongs in the pip
 
 ## The three layers
 
+![Three stacked layers of automated code review: formatting and lint, static analysis, and semantic checks, with the tools and checks named in the article](./diagram-layers.svg)
+*Figure — the three layers, from deterministic formatting to semantic checks. Illustrative.*
+
 ### Layer 1: Formatting and lint — solved, deterministic
 
 Formatting, import ordering, basic style rules: this layer is a solved problem and has no business appearing in human review. `prettier --check`, `ruff format --check`, `gofmt -l`, `cargo fmt --check` — run them as pre-commit hooks or CI gates, fail the build, done. Any comment a human reviewer has ever made that a formatter could have made instead is a process failure, not a code smell.
@@ -129,6 +132,9 @@ Notice what makes these *rules* rather than *advice*: each one names the exact c
 The implementation can be scripts (AST greps, Semgrep rules, small checkers run in CI), agent prompts, or both. The format matters less than the property: **a new team member — human or agent — should be able to apply the rule the same way twice.** If two reviewers read the rule and reach different verdicts, the rule isn't finished.
 
 ## The pipeline shape
+
+![Pipeline diagram: commit to pre-commit checks, PR-time deep checks, severity routing into block, advisory, and FYI tiers, with a parallel human review lane](./diagram-pipeline.svg)
+*Figure — where each check runs and how results are routed. Illustrative.*
 
 Rules are only as good as their placement. Slow, thorough checks in the wrong stage get skipped; fast checks in the wrong stage waste everyone's time. The shape that works:
 

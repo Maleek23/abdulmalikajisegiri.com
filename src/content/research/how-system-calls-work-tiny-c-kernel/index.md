@@ -68,6 +68,10 @@ long write(int fd, const void *buf, long count) {
 
 That's the entire "library." No magic: put a number in a register, trap, read back the answer. When a beginner asks "but where does `write()` *go*?", the honest answer is that it goes to the `ecall` instruction, and from there the CPU takes over.
 
+![Before-and-after diagram of the trap instruction: in user mode registers a0 through a3 hold the syscall number and arguments with the program counter at ecall; the trap atomically saves the PC and status register, switches to privileged mode, and jumps to the trap vector; the kernel saves the full user context on the kernel stack, dispatches on a0, and returns via return-from-exception with the result in a0](./diagram-trap-registers.svg)
+
+*Figure — The trap's register contract, before and after `ecall`: the stub fills `a0`–`a3`, the CPU and kernel take it from there.*
+
 ## The dispatch: from a number to real code
 
 On the kernel side, the trap handler is a thin assembly veneer over a C dispatcher. The assembly part saves registers and calls into C; the C part is where the syscall table lives. In a small kernel the table is often just a switch, and the switch is the most honest documentation of the system's API surface:

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Choosing the statistical design from the simulation type">
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d5c3f"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1a1f1c">Match the statistical design to the simulation type</text>
+
+  <rect x="280" y="55" width="240" height="46" rx="6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="400" y="83" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">Identify the simulation type</text>
+
+  <path d="M340,101 C300,110 240,114 203,132" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <path d="M460,101 C500,110 560,114 597,132" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+  <!-- row 1: the type -->
+  <rect x="40" y="134" width="320" height="80" rx="6" fill="#ffffff" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="200" y="158" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#1d5c3f">Terminating</text>
+  <text x="200" y="180" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" fill="#1a1f1c">starts empty · ends at a natural event</text>
+  <text x="200" y="201" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">e.g. 100 chips through P4 · a bank-branch day</text>
+
+  <rect x="440" y="134" width="320" height="80" rx="6" fill="#ffffff" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="600" y="158" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#1d5c3f">Steady-state</text>
+  <text x="600" y="180" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" fill="#1a1f1c">no natural end · runs indefinitely</text>
+  <text x="600" y="201" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">e.g. a router running forever</text>
+
+  <path d="M200,214 L200,224" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <path d="M600,214 L600,224" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+  <!-- row 2: the design -->
+  <rect x="40" y="226" width="320" height="80" rx="6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="200" y="250" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#1a1f1c">Design: independent replications</text>
+  <text x="200" y="272" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">reset → run to the terminating event →</text>
+  <text x="200" y="293" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">record one number per run (P4 rolls)</text>
+
+  <rect x="440" y="226" width="320" height="80" rx="6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="600" y="250" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#1a1f1c">Design: one long run (or a few)</text>
+  <text x="600" y="272" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">discard the warm-up period,</text>
+  <text x="600" y="293" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">then batch means</text>
+
+  <path d="M200,306 L200,316" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <path d="M600,306 L600,316" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+  <!-- row 3: the statistics -->
+  <rect x="40" y="318" width="320" height="80" rx="6" fill="#ffffff" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="200" y="342" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#1a1f1c">Statistics: classical t-intervals</text>
+  <text x="200" y="364" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">sample means, standard errors —</text>
+  <text x="200" y="385" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">no batch means, no autocorrelation fixes</text>
+
+  <rect x="440" y="318" width="320" height="80" rx="6" fill="#ffffff" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="600" y="342" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#1a1f1c">Statistics: batch means</text>
+  <text x="600" y="364" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">warm-up deletion first, then</text>
+  <text x="600" y="385" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">autocorrelation corrections</text>
+
+  <text x="400" y="430" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">The step most often skipped — and the one that decides whether your confidence intervals mean anything.</text>
+</svg>

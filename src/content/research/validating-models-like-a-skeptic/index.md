@@ -21,6 +21,10 @@ The guidance structures validation around three pillars, plus governance and doc
 
 Governance (who owns the model, who can override it, who signs off) and documentation (enough detail that an independent reviewer can reproduce the validation) wrap the three pillars. This article is the applied companion: what each pillar looks like in practice, with code.
 
+![The three pillars of SR 11-7 validation: conceptual soundness, outcomes analysis, and ongoing monitoring, wrapped in the frame of governance and documentation](./diagram-three-pillars.svg)
+
+*Figure — the three pillars of SR 11-7 validation, held up by governance and documentation.*
+
 ## Know the failure modes first
 
 Before the pillars, memorize the five ways models fail validation. You will see every item in the wild:
@@ -180,6 +184,10 @@ Pull the three pillars together and you get a validation posture, not a checklis
 - **Conceptual soundness** asks: *should this model exist in this form for this decision?* Answer with the assumption inventory — every row testable, every test actually run.
 - **Outcomes analysis** asks: *does it beat reality and rivals?* Answer with backtests at the decision level, sensitivity analysis, and a challenger model that gets a genuine chance to win.
 - **Ongoing monitoring** asks: *is it still the model we validated?* Answer with performance tracking, PSI on features and scores, override logs, and process verification.
+
+![The skeptic's validation workflow: five stages from failure modes through ongoing monitoring, with a fail-at-any-stage loop to kill the model, fix it, or revalidate](./diagram-validation-lifecycle.svg)
+
+*Figure — the skeptic's workflow: hunt failure in the order that catches it cheapest, and try to kill the model at every stage.*
 
 And the mindset underneath all three: **your job as validator is to kill the model, and the model only earns deployment by surviving.** Confirmation metrics are cheap. The expensive, valuable evidence is the failure mode you went looking for and didn't find — the subgroup where calibration holds, the challenger that loses honestly, the drift monitor that stays green through a population shift. Document the attempts, not just the successes: "we tried to break it here, here, and here; here's what we found" is the most trustworthy sentence in any validation report.
 

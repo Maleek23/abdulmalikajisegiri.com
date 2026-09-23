@@ -37,6 +37,9 @@ Direct Memory Access is a separate bus master that moves data between a peripher
 
 This is the documented design of the AoA system: DMA buffers move ADC microphone data to memory without CPU involvement, which prevents data loss and enables continuous processing. But a single linear buffer only defers the problem. When the DMA reaches the end of the buffer, it stops (or wraps and overwrites data the CPU hasn't processed yet). You need a scheme where the DMA always has somewhere to write while the CPU always has something to process. That's the double buffer.
 
+![Data-path schematic: four amplified microphones feed a timer-triggered ADC sequencer, the DMA controller writes samples into SRAM ping-pong buffers A and B, and the CPU processes only complete buffers](./diagram-data-path.svg)
+*Figure — Capture data path: samples move from the microphones to SRAM via DMA with no CPU involvement; the CPU sees only full, gap-free buffers. Illustrative.*
+
 ## The ping-pong pattern
 
 Allocate two buffers, A and B. Configure the DMA in circular mode over the *combined* region (A followed by B). The DMA fills A while the CPU processes B; when the DMA finishes A, it moves to B while the CPU processes A; then it wraps. The two agents never touch the same buffer at the same time — that's the invariant the whole design protects.
@@ -45,6 +48,9 @@ The DMA controller gives you exactly the two interrupts you need:
 
 - **Half-transfer interrupt**: the DMA just finished buffer A and is starting B. The CPU may now process A.
 - **Transfer-complete interrupt**: the DMA just finished B and is wrapping to A. The CPU may now process B.
+
+![Ping-pong timing diagram: the DMA fills buffer A while the CPU processes buffer B, then they swap; the half-transfer and transfer-complete interrupts mark the swap instants, and the CPU must finish each buffer within one half-fill](./diagram-ping-pong-timing.svg)
+*Figure — Ping-pong timing: the DMA fills one buffer while the CPU processes the other, with the two DMA interrupts marking the swap instants. Illustrative.*
 
 Here's the setup in TivaWare style, for one microphone channel:
 

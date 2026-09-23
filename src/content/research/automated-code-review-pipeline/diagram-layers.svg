@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 490" role="img" aria-label="The three layers of automated code review">
+  <rect x="0" y="0" width="800" height="490" fill="#f6f4ee"/>
+  <text x="36" y="44" font-family="Georgia, 'Times New Roman', serif" font-size="21" fill="#1a1f1c">The three layers of automated review</text>
+  <text x="36" y="66" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">illustrative — what belongs in the pipeline, from mechanical to meaningful</text>
+
+  <!-- Layer 1 -->
+  <rect x="36" y="96" width="728" height="94" fill="none" stroke="#1a1f1c" stroke-width="1"/>
+  <circle cx="72" cy="143" r="20" fill="#1d5c3f"/>
+  <text x="72" y="149" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#f6f4ee" text-anchor="middle">1</text>
+  <text x="104" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#1a1f1c">Layer 1 — Formatting &amp; lint</text>
+  <text x="104" y="152" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#6b7268">solved and deterministic — mechanical fixes, never reaches a human</text>
+  <text x="104" y="174" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#1a1f1c">prettier --check · ruff format --check · gofmt -l · cargo fmt --check</text>
+
+  <!-- Layer 2 -->
+  <rect x="36" y="206" width="728" height="94" fill="none" stroke="#1a1f1c" stroke-width="1"/>
+  <circle cx="72" cy="253" r="20" fill="#1d5c3f"/>
+  <text x="72" y="259" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#f6f4ee" text-anchor="middle">2</text>
+  <text x="104" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#1a1f1c">Layer 2 — Static analysis</text>
+  <text x="104" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#6b7268">bug patterns &amp; taint — a small, curated, high-signal ruleset</text>
+  <text x="104" y="284" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#1a1f1c">tsc --noEmit · mypy --strict · Semgrep · CodeQL · Bandit</text>
+
+  <!-- Layer 3 -->
+  <rect x="36" y="316" width="728" height="94" fill="#e9efe9" stroke="#1d5c3f" stroke-width="1.5"/>
+  <circle cx="72" cy="363" r="20" fill="#1d5c3f"/>
+  <text x="72" y="369" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#f6f4ee" text-anchor="middle">3</text>
+  <text x="104" y="350" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#1a1f1c">Layer 3 — Semantic checks</text>
+  <text x="104" y="372" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#6b7268">meaning, not form — judgment codified from scar tissue</text>
+  <text x="104" y="394" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#1a1f1c">API contracts · migration safety · per-line coverage · performance budgets</text>
+
+  <!-- Human band -->
+  <rect x="36" y="424" width="728" height="44" fill="none" stroke="#6b7268" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="52" y="451" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">above it all — human judgment: architecture · product trade-offs · intent</text>
+</svg>

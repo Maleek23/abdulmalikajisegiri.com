@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" role="img" aria-labelledby="tp-title tp-desc">
+  <title id="tp-title">SR 11-7 three pillars of model validation</title>
+  <desc id="tp-desc">The three pillars — conceptual soundness, outcomes analysis, ongoing monitoring — wrapped in the frame of governance and documentation.</desc>
+
+  <text x="400" y="34" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="4" fill="#6b7268">SR 11-7 · MODEL RISK GUIDANCE</text>
+  <text x="400" y="68" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#1a1f1c">The three pillars of validation</text>
+
+  <!-- Pillar 1 -->
+  <rect x="20" y="100" width="240" height="252" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="50" cy="136" r="13" fill="#1d5c3f"/>
+  <text x="50" y="141" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#ffffff">1</text>
+  <text x="72" y="142" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="bold" fill="#1a1f1c">Conceptual soundness</text>
+  <text x="42" y="172" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#6b7268">does the math match the use case?</text>
+  <line x1="42" y1="186" x2="238" y2="186" stroke="#d9d4c5" stroke-width="1"/>
+  <rect x="42" y="205" width="6" height="6" fill="#1d5c3f"/>
+  <text x="56" y="211" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Model form fits the decision —</text>
+  <text x="56" y="225" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">calibrated at the threshold</text>
+  <rect x="42" y="235" width="6" height="6" fill="#1d5c3f"/>
+  <text x="56" y="241" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Assumption inventory —</text>
+  <text x="56" y="255" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">every row testable, test run</text>
+  <rect x="42" y="265" width="6" height="6" fill="#1d5c3f"/>
+  <text x="56" y="271" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Interrogate inductive bias;</text>
+  <text x="56" y="285" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">read the literature first</text>
+
+  <!-- Pillar 2 -->
+  <rect x="280" y="100" width="240" height="252" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="310" cy="136" r="13" fill="#1d5c3f"/>
+  <text x="310" y="141" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#ffffff">2</text>
+  <text x="332" y="142" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="bold" fill="#1a1f1c">Outcomes analysis</text>
+  <text x="302" y="172" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#6b7268">does it hold up against reality and rivals?</text>
+  <line x1="302" y1="186" x2="498" y2="186" stroke="#d9d4c5" stroke-width="1"/>
+  <rect x="302" y="205" width="6" height="6" fill="#1d5c3f"/>
+  <text x="316" y="211" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Backtest at the decision level,</text>
+  <text x="316" y="225" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">not just a global metric</text>
+  <rect x="302" y="235" width="6" height="6" fill="#1d5c3f"/>
+  <text x="316" y="241" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Sensitivity analysis —</text>
+  <text x="316" y="255" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">vary inputs, watch outputs</text>
+  <rect x="302" y="265" width="6" height="6" fill="#1d5c3f"/>
+  <text x="316" y="271" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Challenger models that get a</text>
+  <text x="316" y="285" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">genuine chance to win</text>
+
+  <!-- Pillar 3 -->
+  <rect x="540" y="100" width="240" height="252" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="570" cy="136" r="13" fill="#1d5c3f"/>
+  <text x="570" y="141" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#ffffff">3</text>
+  <text x="592" y="142" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="bold" fill="#1a1f1c">Ongoing monitoring</text>
+  <text x="562" y="172" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#6b7268">is it still working?</text>
+  <line x1="562" y1="186" x2="758" y2="186" stroke="#d9d4c5" stroke-width="1"/>
+  <rect x="562" y="205" width="6" height="6" fill="#1d5c3f"/>
+  <text x="576" y="211" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Performance on a cadence</text>
+  <text x="576" y="225" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">(monthly, quarterly)</text>
+  <rect x="562" y="235" width="6" height="6" fill="#1d5c3f"/>
+  <text x="576" y="241" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">PSI on features —</text>
+  <text x="576" y="255" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">and on the scores</text>
+  <rect x="562" y="265" width="6" height="6" fill="#1d5c3f"/>
+  <text x="576" y="271" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Override tracking;</text>
+  <text x="576" y="285" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">process verification</text>
+
+  <!-- The frame -->
+  <rect x="20" y="372" width="760" height="62" fill="none" stroke="#1d5c3f" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="44" y="394" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" letter-spacing="2" fill="#1d5c3f">THE FRAME</text>
+  <text x="44" y="412" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Governance — who owns the model, who can override it, who signs off.</text>
+  <text x="44" y="428" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">Documentation — enough detail that an independent reviewer can reproduce the validation.</text>
+
+  <text x="400" y="458" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">Governance and documentation are the frame that holds up the three pillars.</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Sensor capture data-path schematic">
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#1d5c3f"/>
+    </marker>
+  </defs>
+  <rect x="0.5" y="0.5" width="799" height="449" fill="#f6f4ee" stroke="#d9d4c6"/>
+  <text x="36" y="46" font-family="Georgia, 'Times New Roman', serif" font-size="21" fill="#1a1f1c">Capture data path (illustrative)</text>
+
+  <!-- microphones -->
+  <rect x="36" y="100" width="120" height="110" fill="#fcfbf7" stroke="#1a1f1c" stroke-width="1.5"/>
+  <text x="96" y="134" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">Microphones</text>
+  <text x="96" y="157" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">×4, amplified</text>
+  <text x="96" y="175" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">−44 dBV/Pa</text>
+
+  <!-- ADC -->
+  <line x1="156" y1="155" x2="184" y2="155" stroke="#1d5c3f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="170" y="142" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">analog</text>
+  <rect x="190" y="100" width="150" height="110" fill="#fcfbf7" stroke="#1a1f1c" stroke-width="1.5"/>
+  <text x="265" y="132" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">ADC0 sequencer</text>
+  <text x="265" y="155" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">timer-triggered</text>
+  <text x="265" y="173" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">4 ch per sequence</text>
+
+  <!-- DMA -->
+  <line x1="340" y1="155" x2="370" y2="155" stroke="#1d5c3f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="355" y="142" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">samples</text>
+  <rect x="376" y="100" width="150" height="110" fill="#fcfbf7" stroke="#1a1f1c" stroke-width="1.5"/>
+  <text x="451" y="132" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">μDMA controller</text>
+  <text x="451" y="155" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">1 request per</text>
+  <text x="451" y="173" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">ADC sequence</text>
+  <text x="451" y="230" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">no CPU involvement</text>
+
+  <!-- SRAM buffers -->
+  <line x1="526" y1="155" x2="556" y2="155" stroke="#1d5c3f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="541" y="142" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">writes</text>
+  <rect x="562" y="100" width="202" height="110" fill="#fcfbf7" stroke="#1a1f1c" stroke-width="1.5"/>
+  <text x="663" y="126" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">SRAM</text>
+  <rect x="574" y="138" width="86" height="60" fill="#d9e9df" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="617" y="174" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#1a1f1c">A</text>
+  <rect x="666" y="138" width="86" height="60" fill="#edf1ec" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="709" y="174" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#1a1f1c">B</text>
+
+  <!-- CPU -->
+  <line x1="663" y1="210" x2="663" y2="292" stroke="#1d5c3f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="674" y="256" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">full buffers only</text>
+  <rect x="560" y="300" width="204" height="100" fill="#fcfbf7" stroke="#1a1f1c" stroke-width="1.5"/>
+  <text x="662" y="330" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">CPU main loop</text>
+  <text x="662" y="352" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12.5" fill="#1a1f1c">processBuffer()</text>
+  <text x="662" y="373" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#6b7268">cross-correlation → TDOA → AoA</text>
+
+  <!-- ISR note -->
+  <rect x="36" y="300" width="340" height="100" fill="#fcfbf7" stroke="#1d5c3f" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="56" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1d5c3f">DMA interrupts</text>
+  <text x="56" y="352" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#1a1f1c">half-transfer ISR → bufAReady = true</text>
+  <text x="56" y="372" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#1a1f1c">transfer-complete ISR → bufBReady = true</text>
+  <text x="56" y="392" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">overrun counted on late CPU → UART CLI</text>
+  <line x1="380" y1="350" x2="552" y2="350" stroke="#1d5c3f" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+  <text x="466" y="340" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" fill="#6b7268">flags</text>
+</svg>

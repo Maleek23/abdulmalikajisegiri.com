@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" role="img" aria-labelledby="lk-title lk-desc">
+  <title id="lk-title">Lookahead contamination timeline</title>
+  <desc id="lk-desc">Illustrative timeline comparing a causal rolling z-score, which uses only past data, with a cheating full-sample z-score whose mean and standard deviation leak future data into the decision at time t.</desc>
+  <defs>
+    <marker id="lk-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a23b2a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="460" fill="#f6f4ee"/>
+
+  <text x="400" y="42" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1a1f1c">Lookahead bias: what each z-score is allowed to see</text>
+  <text x="400" y="64" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#6b7268">Illustrative timeline for the mean-reversion example — AR(1) with &#966; = 0.92, window w = 20</text>
+
+  <!-- past data region -->
+  <rect x="70" y="100" width="270" height="100" fill="#1d5c3f" opacity="0.10" stroke="#1d5c3f" stroke-width="1" stroke-opacity="0.45"/>
+  <text x="205" y="142" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1a1f1c">Known at decision time</text>
+  <text x="205" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">past prices  x[0 &#8230; t]</text>
+
+  <!-- future data region -->
+  <rect x="340" y="100" width="390" height="100" fill="#6b7268" opacity="0.12" stroke="#6b7268" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="535" y="142" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1a1f1c">Unknown at decision time</text>
+  <text x="535" y="164" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">future prices  x[t &#8230; T]</text>
+
+  <!-- decision line -->
+  <line x1="340" y1="88" x2="340" y2="228" stroke="#1a1f1c" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="340" y="80" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#1a1f1c">decision time t</text>
+
+  <!-- time axis -->
+  <line x1="70" y1="215" x2="730" y2="215" stroke="#1a1f1c" stroke-width="1"/>
+  <line x1="70" y1="210" x2="70" y2="220" stroke="#1a1f1c" stroke-width="1"/>
+  <line x1="340" y1="210" x2="340" y2="220" stroke="#1a1f1c" stroke-width="1"/>
+  <line x1="730" y1="210" x2="730" y2="220" stroke="#1a1f1c" stroke-width="1"/>
+  <text x="70" y="234" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6b7268">t = 0</text>
+  <text x="340" y="234" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6b7268">t</text>
+  <text x="730" y="234" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6b7268">t = T</text>
+
+  <!-- causal z-score bracket -->
+  <line x1="210" y1="270" x2="340" y2="270" stroke="#1d5c3f" stroke-width="1.75"/>
+  <line x1="210" y1="264" x2="210" y2="276" stroke="#1d5c3f" stroke-width="1.75"/>
+  <line x1="340" y1="264" x2="340" y2="276" stroke="#1d5c3f" stroke-width="1.75"/>
+  <text x="275" y="292" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" fill="#1a1f1c">causal z-score</text>
+  <text x="275" y="308" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6b7268">rolling window  x[t&#8722;w &#8230; t]  &#183;  only past data  &#183;  .shift(1)</text>
+
+  <!-- lookahead leak arrow: from the future region down to the cheating bracket -->
+  <line x1="560" y1="204" x2="560" y2="342" stroke="#a23b2a" stroke-width="1.25" stroke-dasharray="4,3" marker-end="url(#lk-arrow)"/>
+  <text x="574" y="280" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#a23b2a">lookahead leak</text>
+
+  <!-- cheating z-score bracket -->
+  <line x1="70" y1="350" x2="730" y2="350" stroke="#a23b2a" stroke-width="1.75"/>
+  <line x1="70" y1="344" x2="70" y2="356" stroke="#a23b2a" stroke-width="1.75"/>
+  <line x1="730" y1="344" x2="730" y2="356" stroke="#a23b2a" stroke-width="1.75"/>
+  <text x="400" y="372" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" fill="#1a1f1c">cheating z-score</text>
+  <text x="400" y="388" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6b7268">full-sample mean/std of  x[0 &#8230; T]  &#183;  includes data from after t</text>
+
+  <text x="400" y="426" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10.5" fill="#6b7268">Illustrative &#183; toy run from the article: causal 60.5% hit rate (539 trades) &#183; cheating 65.4% (266 trades)</text>
+</svg>

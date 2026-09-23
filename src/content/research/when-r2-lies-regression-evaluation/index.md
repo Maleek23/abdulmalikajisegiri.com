@@ -154,6 +154,10 @@ print(f"expected cost at 0.50: {costs[i50]:.3f}, at optimum: {min(costs):.3f}")
 
 With a 10:1 cost ratio, the optimal threshold lands below 0.5 — you accept more false alarms to buy fewer misses. Rerun the same sweep with 1:1 costs and the optimum jumps to ~0.89: with no asymmetry, you flag only the clearest cases. Change the ratio and the threshold moves; that's the point. The threshold is a policy decision, not a model property, and it should be recomputed whenever costs or the population change. In the cardiac project context, this is the analysis that turns "the model predicts risk" into "flag patients above *t* for surgical review" — the only form in which a model actually touches a decision.
 
+![Illustrative plot of expected decision cost versus decision threshold: with 10:1 false-negative to false-positive costs, the cost-optimal threshold sits below the naive default of 0.5](./diagram-cost-aware-threshold.svg)
+
+*Figure — Under asymmetric costs, the optimal flag threshold moves away from the naive default.*
+
 ## The replacement toolkit, part 4: honest uncertainty intervals
 
 Point predictions without uncertainty are overconfident by construction. Two practical ways to attach intervals:

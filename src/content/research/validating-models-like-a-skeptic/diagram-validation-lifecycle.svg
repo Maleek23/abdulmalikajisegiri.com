@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="vl-title vl-desc">
+  <title id="vl-title">The skeptic's validation workflow</title>
+  <desc id="vl-desc">Five stages in order: failure modes, conceptual soundness, data validation, outcomes analysis, ongoing monitoring — with a loop back: fail at any stage and try to kill the model, then fix or revalidate.</desc>
+  <defs>
+    <marker id="vl-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#1d5c3f"/>
+    </marker>
+    <marker id="vl-arrow-loop" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#1d5c3f" opacity="0.7"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="34" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="4" fill="#6b7268">THE SKEPTIC'S WORKFLOW</text>
+  <text x="400" y="68" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#1a1f1c">Validation, cheapest check first</text>
+
+  <!-- Stage 1 -->
+  <rect x="20" y="108" width="128" height="242" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <text x="34" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">01</text>
+  <text x="34" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">Failure</text>
+  <text x="34" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">modes</text>
+  <line x1="34" y1="182" x2="134" y2="182" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="37" cy="199" r="2.5" fill="#1d5c3f"/><text x="45" y="203" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">leakage</text>
+  <circle cx="37" cy="214" r="2.5" fill="#1d5c3f"/><text x="45" y="218" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">evaluation theater</text>
+  <circle cx="37" cy="229" r="2.5" fill="#1d5c3f"/><text x="45" y="233" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">conceptual</text>
+  <text x="45" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">mismatch</text>
+  <circle cx="37" cy="259" r="2.5" fill="#1d5c3f"/><text x="45" y="263" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">brittleness</text>
+  <circle cx="37" cy="274" r="2.5" fill="#1d5c3f"/><text x="45" y="278" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">decay without</text>
+  <text x="45" y="293" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">monitoring</text>
+
+  <!-- arrow 1-2 -->
+  <line x1="148" y1="150" x2="172" y2="150" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#vl-arrow)"/>
+
+  <!-- Stage 2 -->
+  <rect x="178" y="108" width="128" height="242" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <text x="192" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">02</text>
+  <text x="192" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">Conceptual</text>
+  <text x="192" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">soundness</text>
+  <line x1="192" y1="182" x2="292" y2="182" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="195" cy="199" r="2.5" fill="#1d5c3f"/><text x="203" y="203" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">assumption</text>
+  <text x="203" y="218" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">inventory</text>
+  <circle cx="195" cy="229" r="2.5" fill="#1d5c3f"/><text x="203" y="233" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">form fits decision</text>
+  <circle cx="195" cy="244" r="2.5" fill="#1d5c3f"/><text x="203" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">literature first</text>
+
+  <!-- arrow 2-3 -->
+  <line x1="306" y1="150" x2="330" y2="150" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#vl-arrow)"/>
+
+  <!-- Stage 3 -->
+  <rect x="336" y="108" width="128" height="242" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <text x="350" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">03</text>
+  <text x="350" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">Data</text>
+  <text x="350" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">validation</text>
+  <line x1="350" y1="182" x2="450" y2="182" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="353" cy="199" r="2.5" fill="#1d5c3f"/><text x="361" y="203" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">schema &amp; range</text>
+  <circle cx="353" cy="214" r="2.5" fill="#1d5c3f"/><text x="361" y="218" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">leakage detection</text>
+  <circle cx="353" cy="229" r="2.5" fill="#1d5c3f"/><text x="361" y="233" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">split integrity</text>
+  <circle cx="353" cy="244" r="2.5" fill="#1d5c3f"/><text x="361" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">representativeness</text>
+
+  <!-- arrow 3-4 -->
+  <line x1="464" y1="150" x2="488" y2="150" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#vl-arrow)"/>
+
+  <!-- Stage 4 -->
+  <rect x="494" y="108" width="128" height="242" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <text x="508" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">04</text>
+  <text x="508" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">Outcomes</text>
+  <text x="508" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">analysis</text>
+  <line x1="508" y1="182" x2="608" y2="182" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="511" cy="199" r="2.5" fill="#1d5c3f"/><text x="519" y="203" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">decision-level</text>
+  <text x="519" y="218" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">backtest</text>
+  <circle cx="511" cy="229" r="2.5" fill="#1d5c3f"/><text x="519" y="233" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">sensitivity</text>
+  <text x="519" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">analysis</text>
+  <circle cx="511" cy="259" r="2.5" fill="#1d5c3f"/><text x="519" y="263" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">challenger model</text>
+
+  <!-- arrow 4-5 -->
+  <line x1="622" y1="150" x2="646" y2="150" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#vl-arrow)"/>
+
+  <!-- Stage 5 -->
+  <rect x="652" y="108" width="128" height="242" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+  <text x="666" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">05</text>
+  <text x="666" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">Ongoing</text>
+  <text x="666" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" font-weight="bold" fill="#1a1f1c">monitoring</text>
+  <line x1="666" y1="182" x2="766" y2="182" stroke="#d9d4c5" stroke-width="1"/>
+  <circle cx="669" cy="199" r="2.5" fill="#1d5c3f"/><text x="677" y="203" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">performance</text>
+  <text x="677" y="218" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">cadence</text>
+  <circle cx="669" cy="229" r="2.5" fill="#1d5c3f"/><text x="677" y="233" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">PSI: features,</text>
+  <text x="677" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">scores</text>
+  <circle cx="669" cy="259" r="2.5" fill="#1d5c3f"/><text x="677" y="263" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">override tracking</text>
+  <circle cx="669" cy="274" r="2.5" fill="#1d5c3f"/><text x="677" y="278" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">process</text>
+  <text x="677" y="293" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#1a1f1c">verification</text>
+
+  <!-- kill-or-revalidate loop -->
+  <path d="M 716 350 V 408 H 84 V 352" fill="none" stroke="#1d5c3f" stroke-opacity="0.7" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#vl-arrow-loop)"/>
+  <text x="400" y="400" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" letter-spacing="2" fill="#6b7268">FAIL AT ANY STAGE → TRY TO KILL IT, THEN FIX OR REVALIDATE</text>
+
+  <text x="400" y="436" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">Hunt each failure mode in the order that catches it cheapest — before it reaches the next stage.</text>
+</svg>

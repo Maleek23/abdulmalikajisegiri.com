@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Paired experiment design with common random numbers">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d5c3f"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1a1f1c">Paired design: one shared random stream per replication</text>
+
+  <!-- replication: the shared uniform stream -->
+  <rect x="235" y="55" width="330" height="62" rx="6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="400" y="81" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">Replication <tspan baseline-shift="sub" font-size="11">i</tspan> — one shared uniform stream</text>
+  <text x="400" y="102" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6b7268">U(0,1) draws: 0.3, 0.72, 0.15, … (illustrative)</text>
+
+  <path d="M330,117 C300,128 245,131 204,140" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M470,117 C500,128 555,131 596,140" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- the two dice -->
+  <rect x="60" y="142" width="280" height="70" rx="6" fill="#ffffff" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="200" y="168" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">Team 1 — <tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13">DISC(0.5, 2; 1.0, 8)</tspan></text>
+  <text x="200" y="191" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6b7268">u &lt; 0.5 → 2, else 8</text>
+
+  <rect x="460" y="142" width="280" height="70" rx="6" fill="#ffffff" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="600" y="168" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">Team 2 — <tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13">DISC(0.5, 1; 1.0, 9)</tspan></text>
+  <text x="600" y="191" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6b7268">u &lt; 0.5 → 1, else 9</text>
+
+  <text x="400" y="234" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="13" fill="#6b7268">u = 0.3 → 2 under Team 1, 1 under Team 2 — same quantile, perfectly synchronized randomness</text>
+
+  <!-- run the workflow under each policy -->
+  <path d="M200,212 L200,248" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M600,212 L600,248" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="60" y="250" width="280" height="62" rx="6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="200" y="274" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">push 100 chips through P1–P4</text>
+  <text x="200" y="296" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6b7268">one number out: X<tspan baseline-shift="sub" font-size="10">1</tspan> (P4 rolls)</text>
+
+  <rect x="460" y="250" width="280" height="62" rx="6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+  <text x="600" y="274" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">push 100 chips through P1–P4</text>
+  <text x="600" y="296" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#6b7268">one number out: X<tspan baseline-shift="sub" font-size="10">2</tspan> (P4 rolls)</text>
+
+  <!-- the paired difference -->
+  <path d="M200,312 C225,320 245,326 272,338" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M600,312 C575,320 555,326 528,338" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="270" y="330" width="260" height="54" rx="6" fill="#ffffff" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="400" y="353" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">D<tspan baseline-shift="sub" font-size="11">i</tspan> = X<tspan baseline-shift="sub" font-size="11">1</tspan> − X<tspan baseline-shift="sub" font-size="11">2</tspan></text>
+  <text x="400" y="373" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">shared bad luck cancels — what’s left is the die effect</text>
+
+  <!-- the test -->
+  <path d="M400,384 L400,396" fill="none" stroke="#1d5c3f" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="105" y="398" width="590" height="42" rx="21" fill="#1d5c3f"/>
+  <text x="400" y="424" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" fill="#f6f4ee">120 replications → 120 paired differences → paired t-test: 90% CI on the mean difference</text>
+</svg>

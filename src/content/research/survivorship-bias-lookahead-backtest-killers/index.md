@@ -116,6 +116,10 @@ causal   z-score: hit rate 60.5% over 539 trades
 cheating z-score: hit rate 65.4% over 266 trades
 ```
 
+![Timeline diagram showing lookahead contamination: the causal z-score's rolling window uses only past data, while the cheating z-score's full-sample mean and standard deviation leak future data into the decision at time t](./diagram-lookahead-contamination.svg)
+
+*Figure — point-in-time data availability for the causal vs cheating z-scores in the mean-reversion example. Illustrative.*
+
 The cheating signal wins by about five percentage points of hit rate — not because the strategy is better, but because it knows the true center and spread of the series, including data from after each trade. Knowing the exact long-run mean makes entry timing cleaner: the cheat enters fewer, better trades. Five points of hit rate, compounded across hundreds of trades, is the difference between a strategy that survives transaction costs and one that doesn't. And the terrifying part is how innocent the bug looks in a notebook: `x = (x - x.mean()) / x.std()` on one line, months before the backtest loop.
 
 The general rule: every feature must be computable from information timestamped at or before the decision. Rolling statistics get shifted by one period (`.shift(1)` in pandas — the most load-bearing method call in all of backtesting). Train/test splits for time series go in chronological blocks, never shuffled. And any preprocessing — normalization, imputation, outlier clipping — is fit on the past and applied forward, never fit on the whole sample.

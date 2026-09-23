@@ -189,6 +189,10 @@ MC N=100000: estimate 0.8250  SE 0.0012  95% CI [0.8226, 0.8273]
 
 *Distribution of terminal chip stacks from 100,000 simulated runs of the article's example (15 chips, p = 0.49, 100 hands). The spike at zero is ruin; the simulated survival rate (0.825) lands on the dynamic-programming exact value (0.8225). Synthetic data, for illustration only.*
 
+![Convergence plot: Monte Carlo estimates of the 100-hand survival probability at N = 1,000, 10,000 and 100,000, each with its 95% confidence interval, narrowing toward the exact dynamic-programming value 0.8225](./diagram-convergence.svg)
+
+*Figure — MC estimates of survival probability at N = 1,000 / 10,000 / 100,000, each with its 95% CI, converging to the dynamic-programming exact value 0.8225. Illustrative toy run.*
+
 The simulation converges onto the exact value, and each interval contains it. Now read it as a decision-maker: at N = 1,000 the 95% interval spans 4.5 percentage points — plenty if your decision threshold is far from the estimate, useless if you're deciding at a knife's edge near 0.82. Monte Carlo doesn't tell you what to decide; it tells you how much you know, which is what a decision actually needs.
 
 One honest footnote on this example: the dynamic program *is* the closed form here, and it ran in milliseconds — for this toy, simulation was the slower route. The example earns its place anyway, because it shows the convergence behavior against a known truth. In the problems where Monte Carlo is actually needed — the path-dependent, non-Gaussian, complex-state ones from the first section — there is no DP table to check against, and the interval is all you have. That's when the reporting discipline from the previous section stops being etiquette and starts being the entire basis of trust.

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 528" role="img" aria-label="Automated code review pipeline shape">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#1a1f1c"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="800" height="528" fill="#f6f4ee"/>
+  <text x="36" y="44" font-family="Georgia, 'Times New Roman', serif" font-size="21" fill="#1a1f1c">The pipeline shape</text>
+  <text x="36" y="66" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12.5" fill="#6b7268">illustrative — fast, deterministic checks run early; deep checks run at PR time</text>
+
+  <!-- Row A: commit -> pre-commit -> PR -->
+  <rect x="36" y="94" width="92" height="56" fill="none" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="82" y="128" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c" text-anchor="middle">commit</text>
+  <line x1="128" y1="122" x2="150" y2="122" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="152" y="94" width="216" height="56" fill="none" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="164" y="118" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c">pre-commit</text>
+  <text x="164" y="138" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">formatters · fast lint</text>
+  <text x="152" y="168" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="11" fill="#6b7268">seconds · runs locally · auto-fix</text>
+  <line x1="368" y1="122" x2="390" y2="122" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="392" y="94" width="140" height="56" fill="none" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="462" y="128" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1f1c" text-anchor="middle">pull request</text>
+  <line x1="462" y1="150" x2="462" y2="184" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Row B: PR-time deep layer -->
+  <rect x="36" y="186" width="728" height="126" fill="none" stroke="#1a1f1c" stroke-width="1"/>
+  <text x="52" y="210" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1a1f1c">PR-time — the deep layer (allowed minutes)</text>
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <rect x="56" y="220" width="160" height="76" fill="none" stroke="#1d5c3f" stroke-width="1"/>
+    <text x="66" y="244" font-size="12.5" fill="#1a1f1c">type checking</text>
+    <text x="66" y="262" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">tsc --noEmit</text>
+    <text x="66" y="276" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">mypy --strict</text>
+    <rect x="236" y="220" width="160" height="76" fill="none" stroke="#1d5c3f" stroke-width="1"/>
+    <text x="246" y="244" font-size="12.5" fill="#1a1f1c">static analysis</text>
+    <text x="246" y="262" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">Semgrep · CodeQL</text>
+    <text x="246" y="276" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">Bandit · taint tracking</text>
+    <rect x="416" y="220" width="160" height="76" fill="none" stroke="#1d5c3f" stroke-width="1"/>
+    <text x="426" y="244" font-size="12.5" fill="#1a1f1c">semantic checks</text>
+    <text x="426" y="262" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">contracts · migrations</text>
+    <text x="426" y="276" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">diff-cover · perf budgets</text>
+    <rect x="596" y="220" width="160" height="76" fill="none" stroke="#1d5c3f" stroke-width="1"/>
+    <text x="606" y="244" font-size="12.5" fill="#1a1f1c">agent reviewer</text>
+    <text x="606" y="262" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">review skills</text>
+    <text x="606" y="276" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="9.5" fill="#6b7268">checklists + scripts</text>
+  </g>
+
+  <!-- routing arrows -->
+  <line x1="150" y1="312" x2="150" y2="334" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="398" y1="312" x2="398" y2="334" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="646" y1="312" x2="646" y2="334" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Row C: severity tiers -->
+  <text x="36" y="352" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#6b7268">results post as review comments, routed by severity:</text>
+  <rect x="36" y="360" width="228" height="64" fill="#1a1f1c"/>
+  <text x="52" y="386" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#f6f4ee">BLOCK</text>
+  <text x="52" y="406" font-family="Georgia, 'Times New Roman', serif" font-size="10.5" fill="#d8d5c9">cannot merge · near-zero false positives</text>
+  <rect x="284" y="360" width="228" height="64" fill="none" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="300" y="386" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#1d5c3f">ADVISORY</text>
+  <text x="300" y="406" font-family="Georgia, 'Times New Roman', serif" font-size="10.5" fill="#6b7268">merges · comment stands as record</text>
+  <rect x="532" y="360" width="232" height="64" fill="none" stroke="#6b7268" stroke-width="1.5"/>
+  <text x="548" y="386" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#6b7268">FYI</text>
+  <text x="548" y="406" font-family="Georgia, 'Times New Roman', serif" font-size="10.5" fill="#6b7268">metrics only · no action expected</text>
+
+  <!-- Row D: human lane -->
+  <rect x="36" y="448" width="728" height="64" fill="none" stroke="#1d5c3f" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="52" y="472" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" letter-spacing="1.5" fill="#1d5c3f">HUMAN LANE — RUNS ALONGSIDE</text>
+  <text x="52" y="493" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">verify intent · judge trade-offs · own the exemptions · evolve the rules</text>
+</svg>

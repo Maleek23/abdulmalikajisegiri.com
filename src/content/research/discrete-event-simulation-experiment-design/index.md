@@ -47,6 +47,10 @@ This distinction generalizes. If you're simulating a bank branch over one busine
 
 A note on the number 120: replication count is a precision decision. The standard error of the mean shrinks as 1/√n, so each additional replication buys less precision than the last. With SD 0.18 and n = 120, the standard error is 0.18/√120 ≈ 0.0164, and the 90% interval half-width is t₀.₀₅,₁₁₉ × 0.0164 ≈ 1.658 × 0.0164 ≈ 0.027 — which rounds to the reported ±0.03. The replication count was evidently chosen (or at least happens to deliver) a CI tight enough that the two configurations' intervals don't come close to touching. That's what "enough replications" looks like: enough that the interval answers the question you actually asked.
 
+![Decision schematic: terminating simulations (starts empty, ends at a natural event) get independent replications with classical t-intervals; steady-state simulations get long runs with warm-up deletion and batch means](./diagram-terminating-vs-steady-state.svg)
+
+*Figure — Match the statistical design to the simulation type: terminating simulations get independent replications, steady-state ones get long runs with warm-up deletion.*
+
 ## Paired comparisons: compare the dice, not the luck
 
 The two die configurations weren't run on independent random streams — they were compared with a **paired** t-test, which means each replication of Team 1 was matched with a replication of Team 2 under the same underlying randomness. This is the technique of **common random numbers** (CRN), and it's the single highest-leverage variance-reduction trick in comparative simulation.
@@ -60,6 +64,10 @@ Var(D̄) = (σ₁² + σ₂² − 2ρσ₁σ₂) / n
 where ρ is the correlation between the paired outcomes. With independent streams, ρ = 0 and you pay the full sum of both variances. With common random numbers, ρ > 0 — the same luck pushes both outcomes in the same direction — and the variance of the difference shrinks. In a well-paired comparison, most of the noise in the two arms is *shared* noise, so it subtracts away.
 
 The clean way to implement CRN is not "use the same seed and hope the draws line up" — consumption order can drift between configurations. It's the **inverse-transform method on a shared uniform stream**: generate one sequence of U(0,1) draws per replication, and map each draw through each policy's own inverse CDF. Draw u = 0.3 maps to 2 under Team 1's die and to 1 under Team 2's die — same quantile, different outcome, perfectly synchronized randomness. The Python below does exactly this.
+
+![Schematic of the paired experiment design: one shared uniform stream per replication feeds both dice through their inverse CDFs, each policy runs the workflow once, and the difference in P4 rolls feeds the paired t-test](./diagram-paired-crn.svg)
+
+*Figure — Paired design with common random numbers: one shared uniform stream per replication feeds both dice; the difference in P4 rolls is what gets tested.*
 
 ## A runnable version of the experiment
 

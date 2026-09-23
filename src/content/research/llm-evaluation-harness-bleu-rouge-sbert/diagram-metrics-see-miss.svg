@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" font-family="Georgia, 'Times New Roman', serif">
+  <rect x="0" y="0" width="800" height="540" fill="#f6f4ee"/>
+  <rect x="8" y="8" width="784" height="524" fill="none" stroke="#d8d3c2" stroke-width="1"/>
+
+  <text x="400" y="52" text-anchor="middle" font-size="24" fill="#1a1f1c">What the three metrics see — and miss</text>
+  <text x="400" y="78" text-anchor="middle" font-size="13" font-style="italic" fill="#6b7268">illustrative — relative bar levels only, not measured scores</text>
+
+  <!-- Panel A: paraphrase -->
+  <rect x="60" y="100" width="680" height="200" fill="#fffdf8" stroke="#d8d3c2" stroke-width="1"/>
+  <text x="84" y="132" font-size="12" letter-spacing="2" fill="#1d5c3f">A · PARAPHRASE</text>
+  <text x="84" y="162" font-size="14.5" fill="#1a1f1c"><tspan fill="#6b7268">Reference: </tspan><tspan font-style="italic">"The patient should be monitored overnight"</tspan></text>
+  <text x="84" y="188" font-size="14.5" fill="#1a1f1c"><tspan fill="#6b7268">Model output: </tspan><tspan font-style="italic">"overnight monitoring of the patient is recommended"</tspan></text>
+  <text x="84" y="212" font-size="12.5" font-style="italic" fill="#6b7268">same clinical instruction — almost no shared 3-grams</text>
+
+  <g font-size="13" fill="#1a1f1c">
+    <text x="84" y="240">BLEU</text>
+    <rect x="170" y="229" width="52" height="13" fill="#1d5c3f"/>
+    <text x="232" y="240" fill="#6b7268">low</text>
+
+    <text x="84" y="264">ROUGE</text>
+    <rect x="170" y="253" width="52" height="13" fill="#1d5c3f"/>
+    <text x="232" y="264" fill="#6b7268">low</text>
+
+    <text x="84" y="288">SBERT</text>
+    <rect x="170" y="277" width="300" height="13" fill="#1d5c3f"/>
+    <text x="480" y="288" fill="#6b7268">high — meaning converges</text>
+  </g>
+
+  <!-- Panel B: critical token -->
+  <rect x="60" y="326" width="680" height="172" fill="#fffdf8" stroke="#d8d3c2" stroke-width="1"/>
+  <text x="84" y="358" font-size="12" letter-spacing="2" fill="#1d5c3f">B · ONE CRITICAL TOKEN</text>
+  <text x="84" y="388" font-size="14.5" fill="#1a1f1c"><tspan fill="#6b7268">Reference: </tspan>"administer <tspan font-weight="bold" fill="#1d5c3f">5mg</tspan>"</text>
+  <text x="84" y="414" font-size="14.5" fill="#1a1f1c"><tspan fill="#6b7268">Model output: </tspan>"administer <tspan font-weight="bold" fill="#1d5c3f">50mg</tspan>"</text>
+  <text x="84" y="446" font-size="12.5" fill="#6b7268">n-gram overlap: <tspan fill="#1a1f1c">nearly identical</tspan> — BLEU and ROUGE both score high</text>
+  <text x="84" y="470" font-size="12.5" fill="#6b7268">meaning: <tspan fill="#1a1f1c">one character apart, catastrophically different</tspan> — where surface similarity and meaning diverge</text>
+</svg>

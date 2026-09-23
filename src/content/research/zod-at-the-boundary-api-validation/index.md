@@ -19,6 +19,9 @@ This is the core idea: **runtime validation belongs at the trust boundary**. In 
 
 *(A note on the code: the snippets below are illustrative reconstructions of the documented stack — Express routes validated by Zod, the same pattern the project's backend uses — not verbatim repo lines. They show the patterns, not the actual files.)*
 
+![The trust boundary: untrusted client data sits outside; the Zod schema is the wall; only validated, typed data reaches the handler](./diagram-trust-boundary.svg)
+*Figure — The trust boundary: everything outside is untrusted; the schema admits only valid data.*
+
 ## Fail closed, fail once
 
 Most hand-rolled validation fails open. Consider the shape of the bug:
@@ -116,6 +119,9 @@ app.post("/api/readings", validate(readingSchema), (req, res) => {
 ```
 
 The handler's first line of defense is a schema, and the handler itself does no defending at all. That division of labor is the whole point: every route in the API gets identical, tested validation behavior from one factory, and the type the handler sees is *derived from the validator*, so the runtime and the compiler can never disagree.
+
+![Request lifecycle: the validate middleware runs schema.safeParse on the body; valid requests attach req.validated and reach the handler, invalid ones return a shaped 400](./diagram-request-lifecycle.svg)
+*Figure — Validate once at the boundary: the handler only ever sees typed data.*
 
 ## Error shaping: structured 400s, no internals
 

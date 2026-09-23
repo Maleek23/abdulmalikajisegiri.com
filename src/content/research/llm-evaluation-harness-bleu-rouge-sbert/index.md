@@ -43,6 +43,9 @@ Where it lies: cosine similarity is a blunt instrument. Scores live in a compres
 
 **The honest summary:** BLEU tells you about precision of phrasing, ROUGE about recall of content, SBERT about semantic closeness. None of them tells you whether the answer is *true*, *safe*, or *useful*. That's what the rest of the harness is for.
 
+![Concept diagram of what BLEU, ROUGE, and SBERT capture versus what they miss](./diagram-metrics-see-miss.svg)
+*Figure — what each metric sees and misses, shown with the article's own example pairs.*
+
 ## Harness architecture
 
 A real evaluation harness has five components. The metrics are only one of them.
@@ -56,6 +59,9 @@ A real evaluation harness has five components. The metrics are only one of them.
 **4. Regression tracking across model versions.** Every model change — new weights, new system prompt, new temperature — gets a full harness run, and the dashboard shows metric deltas and tag-rate deltas per category. A +2 BLEU improvement that comes with a doubled hallucination tag rate is not an improvement. Gate deployments on this: no promotion without a clean regression report.
 
 **5. Human spot-check sampling.** Automated metrics drift from human judgment; the harness needs a calibration loop. Sample outputs stratified by risk — oversample low-metric-score outputs, high-stakes task types, and anything the taggers flagged — and have humans score them on the dimensions that matter (correctness, safety, usefulness). Track agreement between automated metrics and human scores over time. When they diverge, it's the metrics that are wrong until proven otherwise.
+
+![Architecture diagram of the five-component LLM evaluation harness](./diagram-harness-architecture.svg)
+*Figure — the five harness components, the deployment gate, and the production feedback loop.*
 
 ## The code: metric computation core
 

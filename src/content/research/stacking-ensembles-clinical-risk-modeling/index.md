@@ -116,6 +116,9 @@ print("OOF prediction correlation (want this well below ~0.95):",
 
 That correlation number is the cheapest go/no-go test in ensemble work. Diverse base learners, honest OOF meta-features, regularized meta-learner — that triple is the entire secret. Everything else is tuning.
 
+![Dishonest versus honest stacking: the naive shortcut trains the meta-learner on in-sample predictions and collapses on new data, while the honest out-of-fold stack holds R² 0.78 to 0.81 on held-out data](./diagram-honest-vs-dishonest-validation.svg)
+*Figure — The naive stack looks great in-sample and fails on new data; the out-of-fold stack's R² 0.78 → 0.81 was measured on data neither tuning nor stacking ever saw.*
+
 ## A sane RandomizedSearchCV strategy
 
 The project tunes with `RandomizedSearchCV` rather than grid search, which is the right call: for a fixed compute budget, random search explores more distinct values of the hyperparameters that actually matter (Bergstra & Bengio's result holds up in practice — grids waste evaluations re-testing unimportant parameters).

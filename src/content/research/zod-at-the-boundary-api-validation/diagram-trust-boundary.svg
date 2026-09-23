@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="tb-title tb-desc">
+  <title id="tb-title">The trust boundary</title>
+  <desc id="tb-desc">Untrusted client data on the left is separated by a trust boundary wall — the Zod schema — from the typed interior on the right, where the handler works with already-validated data.</desc>
+  <defs>
+    <marker id="tb-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1a1f1c"/>
+    </marker>
+  </defs>
+
+  <!-- zone captions -->
+  <text x="24" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="3" fill="#6b7268">UNTRUSTED EXTERIOR</text>
+  <text x="366" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="3" fill="#6b7268">TYPED INTERIOR</text>
+
+  <!-- left zone -->
+  <rect x="24" y="86" width="280" height="282" rx="10" fill="#f6f4ee" stroke="#d9d3c5" stroke-width="1"/>
+  <text x="48" y="134" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#1a1f1c">POST /api/readings</text>
+  <text x="48" y="172" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#1a1f1c">{"value": "hot"}</text>
+  <text x="48" y="210" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#1a1f1c">{"unit": "kelvin"}</text>
+  <text x="48" y="248" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#1a1f1c">{"deviceId": ""}</text>
+  <text x="48" y="286" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#1a1f1c">{"admin": true, ...}</text>
+  <text x="48" y="332" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-style="italic" fill="#6b7268">req.body — type unknown</text>
+
+  <!-- arrow passing through the wall -->
+  <line x1="304" y1="228" x2="366" y2="228" stroke="#1a1f1c" stroke-width="1.5" marker-end="url(#tb-arrow)"/>
+  <text x="318" y="206" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#6b7268">parse once</text>
+
+  <!-- the wall -->
+  <rect x="328" y="58" width="16" height="332" fill="#1d5c3f"/>
+  <text transform="translate(336, 224) rotate(-90)" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="5" fill="#ffffff">TRUST BOUNDARY</text>
+
+  <!-- right zone -->
+  <rect x="366" y="86" width="410" height="282" rx="10" fill="#f6f4ee" stroke="#d9d3c5" stroke-width="1"/>
+  <rect x="400" y="126" width="216" height="58" rx="8" fill="#1d5c3f"/>
+  <text x="508" y="162" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#ffffff">req.validated</text>
+  <text x="400" y="234" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1a1f1c">handler logic</text>
+  <text x="400" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-style="italic" fill="#6b7268">never validates — the input is already valid</text>
+  <text x="400" y="306" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12.5" fill="#1a1f1c">z.infer&lt;typeof readingSchema&gt;</text>
+  <text x="400" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#6b7268">the type is derived from the validator</text>
+
+  <!-- rejection note -->
+  <text x="400" y="418" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-style="italic" fill="#6b7268">Invalid input is rejected at the wall — it never reaches the handler.</text>
+</svg>

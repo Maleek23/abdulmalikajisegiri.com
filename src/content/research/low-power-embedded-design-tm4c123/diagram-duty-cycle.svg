@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Illustrative current versus time waveform across an unattended weekend: long hibernation at microamp levels with brief feed bursts and one motion check">
+  <rect x="0" y="0" width="800" height="450" fill="#f6f4ee"/>
+
+  <text x="40" y="38" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#1a1f1c">A weekend in the life of the feeder</text>
+  <text x="40" y="60" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="13" fill="#6b7268">Illustrative — relative current over time, not measured values</text>
+
+  <!-- legend -->
+  <rect x="80" y="82" width="16" height="10" fill="#1d5c3f"/>
+  <text x="104" y="91" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">RTC wake → feed — PWM auger burst, seconds</text>
+  <rect x="80" y="102" width="16" height="10" fill="#fdfcf8" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="104" y="111" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#1a1f1c">PIR pin wake → motion check</text>
+
+  <!-- axes -->
+  <line x1="80" y1="130" x2="80" y2="340" stroke="#1a1f1c" stroke-width="1.5"/>
+  <line x1="80" y1="340" x2="760" y2="340" stroke="#1a1f1c" stroke-width="1.5"/>
+  <text x="30" y="235" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268" transform="rotate(-90 30 235)">current</text>
+  <text x="72" y="152" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#6b7268">burst</text>
+  <text x="72" y="322" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#6b7268">≈ µA</text>
+
+  <!-- hibernate floor -->
+  <line x1="80" y1="318" x2="760" y2="318" stroke="#1a1f1c" stroke-width="2"/>
+
+  <!-- bursts: feed (solid) and motion check (outlined) -->
+  <rect x="137" y="150" width="26" height="168" fill="#1d5c3f"/>
+  <rect x="267" y="150" width="26" height="168" fill="#1d5c3f"/>
+  <rect x="407" y="150" width="26" height="168" fill="#fdfcf8" stroke="#1d5c3f" stroke-width="1.5"/>
+  <rect x="547" y="150" width="26" height="168" fill="#1d5c3f"/>
+  <rect x="677" y="150" width="26" height="168" fill="#1d5c3f"/>
+
+  <text x="150" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="11" fill="#1d5c3f">FEED</text>
+  <text x="280" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="11" fill="#1d5c3f">FEED</text>
+  <text x="420" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="11" fill="#1d5c3f">MOTION</text>
+  <text x="560" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="11" fill="#1d5c3f">FEED</text>
+  <text x="690" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="11" fill="#1d5c3f">FEED</text>
+
+  <!-- flat-region annotation in a gap -->
+  <text x="625" y="296" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="12" fill="#6b7268">hibernate ≈ µA</text>
+
+  <!-- time axis -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#6b7268" text-anchor="middle">
+    <text x="80" y="360">Fri 6 PM</text>
+    <text x="250" y="360">Sat 6 AM</text>
+    <text x="420" y="360">Sat 6 PM</text>
+    <text x="590" y="360">Sun 6 AM</text>
+    <text x="760" y="360">Sun 6 PM</text>
+  </g>
+  <text x="420" y="388" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6b7268">48+ hours unattended</text>
+
+  <text x="40" y="426" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="13" fill="#6b7268">The highest-current events last seconds, a few times a day — then it’s back to hibernate.</text>
+</svg>

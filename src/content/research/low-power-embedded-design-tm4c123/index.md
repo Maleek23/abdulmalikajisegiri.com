@@ -64,6 +64,9 @@ int main(void)
 
 Hibernation has one brutal consequence that shapes everything else: **SRAM is gone on wake.** The hibernate module can save a little state, but the sane design is to treat every wake as a cold boot and keep all configuration in nonvolatile memory. Which brings us to the EEPROM.
 
+![TM4C123 low-power mode spectrum from run through sleep and deep sleep to hibernate, with the feeder's actual cycle highlighted: dispense, arm the next wake with HibernateRequest, hibernate at microamp levels, and wake on RTC match or PIR pin](./diagram-power-modes.svg)
+*Figure — the TM4C123 power-mode spectrum and the feeder's actual run-to-hibernate cycle. Illustrative.*
+
 ## Schedules belong in EEPROM — with a wear budget
 
 The feeding schedule, water-sensor calibration, and feature flags must survive power cycles, so they live in the TM4C123's on-chip EEPROM (`initEeprom`), not in RAM and not as constants in flash. EEPROM is byte-programmable and rated for far more write cycles than flash, but "more" is not "infinite" — the endurance is on the order of hundreds of thousands of cycles per block, and a careless design can burn through that.
@@ -233,6 +236,9 @@ Calibration is what turns counts into meaning: the `water cal` CLI command recor
 ## Dispense with PWM and a MOSFET — measured, not blind
 
 Food and water move through an auger and pump driven by MOSFETs under PWM control (`initpwm`). The key word is *measured*: the firmware dispenses a calibrated on-time per gram (established once, stored implicitly in the schedule's grams field), drives the PWM at a fixed duty for that duration, then cuts the MOSFET. Short, deterministic motor bursts serve the power budget too — the highest-current events in the system last seconds, a few times a day, and then it's back to hibernation.
+
+![Illustrative current-versus-time waveform across an unattended weekend: long hibernation at microamp levels punctuated by brief feed bursts and one PIR motion check](./diagram-duty-cycle.svg)
+*Figure — duty cycling across an unattended weekend: seconds of activity between hours of hibernate. Illustrative.*
 
 ## What this teaches beyond the feeder
 
