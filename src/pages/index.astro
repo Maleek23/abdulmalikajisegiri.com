@@ -26,10 +26,10 @@ const stack = [
 ]
 
 const stats = [
-  { value: "4", label: "roles", sub: "DTCC · Collins · Deloitte · OU" },
-  { value: "2", label: "degrees", sub: "M.S. OU · B.S. UT Arlington" },
+  { value: "4", count: 4, label: "roles", sub: "DTCC · Collins · Deloitte · OU" },
+  { value: "2", count: 2, label: "degrees", sub: "M.S. OU · B.S. UT Arlington" },
   { value: "CISA", label: "certified", sub: "ISACA · MATLAB / Simulink" },
-  { value: "20", label: "research notes", sub: "the working library, publishing weekly" },
+  { value: "20", count: 20, label: "research notes", sub: "the working library, publishing weekly" },
 ]
 
 const websiteSchema = {
@@ -116,7 +116,7 @@ const websiteSchema = {
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;" class="stats-grid">
         {stats.map((s) => (
           <div class="note-card" style="padding:22px 20px;text-align:left;min-height:0;">
-            <p style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--ink);">{s.value}</p>
+            <p style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--ink);">{s.count !== undefined ? <span data-count={s.count}>{s.value}</span> : s.value}</p>
             <p style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--green);margin-top:8px;">{s.label.toUpperCase()}</p>
             <p style="font-size:12px;color:var(--faint);margin-top:6px;line-height:1.5;">{s.sub}</p>
           </div>
@@ -373,6 +373,10 @@ const websiteSchema = {
       input.addEventListener('blur', function () { wrap.classList.remove('is-focused'); });
       input.addEventListener('input', function () { typed.textContent = input.value; });
       input.addEventListener('keydown', function (e) {
+        if (e.key && (e.key.length === 1 || e.key === 'Backspace' || e.key === 'Delete')) {
+          /* The 3D desk avatar types along with the visitor. */
+          document.dispatchEvent(new CustomEvent('hero:term-type'));
+        }
         if (e.key === 'Enter') {
           e.preventDefault();
           submit(input.value);
@@ -496,6 +500,41 @@ const websiteSchema = {
     term.addEventListener('click', function () {
       if (active) active.input.focus();
     });
+  })();
+  </script>
+
+  <script is:inline>
+  /* Animated counters for the BY THE NUMBERS stats — counts up when scrolled
+     into view. Reduced motion (or no IO): final value immediately. */
+  (function () {
+    'use strict';
+    var els = document.querySelectorAll('[data-count]');
+    if (!els.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function fmt(n) { return n.toLocaleString('en-US'); }
+    function targetOf(elm) { return parseInt(elm.getAttribute('data-count'), 10) || 0; }
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (elm) { elm.textContent = fmt(targetOf(elm)); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var elm = en.target;
+        io.unobserve(elm);
+        var target = targetOf(elm);
+        var t0 = null, dur = 1200;
+        function frame(ts) {
+          if (t0 === null) t0 = ts;
+          var p = Math.min(1, (ts - t0) / dur);
+          var e = 1 - Math.pow(1 - p, 3);
+          elm.textContent = fmt(Math.round(target * e));
+          if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      });
+    }, { threshold: 0.4 });
+    els.forEach(function (elm) { io.observe(elm); });
   })();
   </script>
 </PageLayout>

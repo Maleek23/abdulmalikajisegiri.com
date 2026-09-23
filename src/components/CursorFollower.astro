@@ -1,0 +1,154 @@
+---
+/**
+ * CursorFollower.astro
+ * Site-wide "not boring" cursor: a small green dot that tracks the pointer
+ * fast, plus a slower trailing ring. The ring expands over interactive
+ * elements (links, buttons, inputs), a ripple blooms on click, and hovering
+ * any Hire CTA shows a tiny "say hi" tag. Follower only — the native cursor
+ * stays visible for usability.
+ *
+ * Disabled on touch devices and under prefers-reduced-motion. Theme-matched
+ * to the editorial green accent. Zero deps, pointer-events: none everywhere.
+ */
+---
+
+<div class="cursor-fx" aria-hidden="true">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+  <div class="cursor-tag">say hi</div>
+</div>
+
+<script is:inline>
+(() => {
+  'use strict';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window) return;
+
+  var root = document.querySelector('.cursor-fx');
+  if (!root || root.hasAttribute('data-cursor-init')) return;
+  root.setAttribute('data-cursor-init', '1');
+
+  var dot = root.querySelector('.cursor-dot');
+  var ring = root.querySelector('.cursor-ring');
+  var tag = root.querySelector('.cursor-tag');
+
+  var mx = -100, my = -100;       // pointer target
+  var dx = -100, dy = -100;       // dot (fast)
+  var rx = -100, ry = -100;       // ring (slow trail)
+  var visible = false;
+
+  function damp(cur, tgt, lambda, dt) {
+    return cur + (tgt - cur) * (1 - Math.exp(-lambda * dt));
+  }
+
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    dx = damp(dx, mx, 28, dt);
+    dy = damp(dy, my, 28, dt);
+    rx = damp(rx, mx, 9, dt);
+    ry = damp(ry, my, 9, dt);
+    dot.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translate(-50%,-50%)';
+    ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+    tag.style.transform = 'translate(' + rx + 'px,' + (ry - 26) + 'px) translate(-50%,-100%)';
+    requestAnimationFrame(frame);
+  }
+
+  document.addEventListener('pointermove', function (e) {
+    mx = e.clientX; my = e.clientY;
+    if (!visible) {
+      visible = true;
+      dx = rx = mx; dy = ry = my;
+      root.classList.add('is-visible');
+    }
+  }, { passive: true });
+  document.addEventListener('pointerleave', function () {
+    visible = false;
+    root.classList.remove('is-visible');
+  });
+
+  var HOT_SEL = 'a, button, input, select, textarea, [role="button"], .term, summary';
+  document.addEventListener('pointerover', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var hot = t.closest(HOT_SEL);
+    ring.classList.toggle('is-hot', !!hot);
+    tag.classList.toggle('is-on', !!t.closest('a[href="/hire"]'));
+  }, { passive: true });
+
+  // click ripple
+  document.addEventListener('pointerdown', function (e) {
+    var s = document.createElement('span');
+    s.className = 'cursor-ripple';
+    s.style.left = e.clientX + 'px';
+    s.style.top = e.clientY + 'px';
+    root.appendChild(s);
+    s.addEventListener('animationend', function () { s.remove(); });
+  }, { passive: true });
+
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<style>
+  .cursor-fx {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .cursor-fx.is-visible { opacity: 1; }
+  .cursor-dot, .cursor-ring, .cursor-tag, .cursor-ripple {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+  }
+  .cursor-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px rgba(46, 160, 90, 0.55);
+  }
+  .cursor-ring {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--green);
+    opacity: 0.55;
+    transition: width 0.18s ease, height 0.18s ease, opacity 0.18s ease, border-color 0.18s ease;
+  }
+  .cursor-ring.is-hot {
+    width: 46px; height: 46px;
+    opacity: 0.9;
+  }
+  .cursor-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--paper);
+    background: var(--green);
+    padding: 3px 8px;
+    border-radius: 999px;
+    opacity: 0;
+    transform-origin: bottom center;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+  }
+  .cursor-tag.is-on { opacity: 1; }
+  .cursor-ripple {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--green);
+    transform: translate(-50%, -50%);
+    animation: cursor-ripple 0.5s ease-out forwards;
+  }
+  @keyframes cursor-ripple {
+    from { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    to { opacity: 0; transform: translate(-50%, -50%) scale(4.2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-fx { display: none; }
+  }
+</style>

@@ -3,10 +3,17 @@
  * HeroAvatar.astro
  * A living desk scene for the homepage hero: a low-poly engineer typing at a
  * tiny desk with a glowing terminal, whose eyes drift between his screen and
- * the visitor's cursor. Reacts to the hero terminal (whoami = wave, unknown
- * command = facepalm), idles (coffee sip, then sleep), reacts to scrolling
- * (nods at projects, inspects with a magnifier at research), respects dark
- * mode (desk lamp), and hides a click easter egg (spin + "hello world" burst).
+ * the visitor's cursor. When the visitor types in the hero terminal, he types
+ * too (hero:term-type keystroke sync). Reacts to the hero terminal
+ * (whoami = wave, unknown command = facepalm), idles (coffee sip, then
+ * sleep), reacts to scrolling (nods at projects, inspects with a magnifier
+ * at research), respects dark mode (desk lamp), and hides a click easter egg
+ * (spin + "hello world" burst).
+ *
+ * Composition: desk sits between camera and avatar; the monitor is off to the
+ * left, angled toward both avatar and camera ("over-the-shoulder" feel). Depth
+ * separation is by construction — avatar z-max (-0.43) never reaches monitor
+ * z-min (-0.14), so no geometry can clip.
  *
  * - three.js r160 via pinned CDN, zero npm deps. Lazy-init via
  *   IntersectionObserver; pauses offscreen / tab hidden; pixel ratio capped.
@@ -19,7 +26,7 @@
 <div class="hero-avatar" data-hero-avatar>
   <canvas
     role="img"
-    aria-label="Interactive 3D scene: a stylized low-poly engineer typing at a tiny desk. His eyes follow your cursor."
+    aria-label="Interactive 3D scene: a stylized low-poly engineer typing at a tiny desk. His eyes follow your cursor, and he types along when you use the terminal."
   ></canvas>
 
   <div
@@ -29,33 +36,27 @@
   >
     <svg viewBox="0 0 300 260" aria-hidden="true" focusable="false">
       <rect x="4" y="4" width="292" height="252" rx="16" fill="var(--green-soft)" />
-      <rect x="96" y="150" width="10" height="70" fill="#8a6f4d" />
-      <rect x="194" y="150" width="10" height="70" fill="#8a6f4d" />
-      <rect x="20" y="138" width="260" height="16" rx="5" fill="#a08055" />
-      <rect x="52" y="142" width="8" height="8" fill="#0c2417" />
-      <rect x="150" y="76" width="14" height="62" fill="#3a3f46" />
-      <rect x="118" y="40" width="96" height="66" rx="7" fill="#23262b" />
-      <rect x="125" y="47" width="82" height="52" rx="4" fill="#0c2417" />
-      <rect x="131" y="55" width="34" height="5" rx="2" fill="#4ade80" />
-      <rect x="131" y="65" width="52" height="5" rx="2" fill="#2f9e5f" />
-      <rect x="131" y="75" width="20" height="5" rx="2" fill="#4ade80" />
-      <rect x="131" y="85" width="10" height="8" fill="#4ade80" />
-      <rect x="196" y="112" width="60" height="10" rx="3" fill="#2e3238" />
-      <rect x="200" y="108" width="52" height="6" rx="3" fill="#3a3f46" />
-      <circle cx="248" cy="120" r="11" fill="#f6f5f0" />
-      <rect x="244" y="104" width="8" height="12" rx="2" fill="#f6f5f0" />
-      <rect x="196" y="88" width="10" height="50" fill="#3a3f46" />
-      <rect x="188" y="80" width="26" height="12" rx="6" fill="#2b2f36" />
-      <rect x="196" y="92" width="10" height="10" fill="#ffd9a0" opacity="0.85" />
-      <rect x="206" y="96" width="72" height="44" rx="12" fill="#1c6b4a" />
-      <rect x="228" y="84" width="28" height="20" rx="7" fill="#6f452e" />
-      <circle cx="242" cy="66" r="30" fill="#6f452e" />
-      <path d="M212 64 Q214 38 242 36 Q270 38 272 64 Q264 46 242 46 Q220 46 212 64 Z" fill="#16120d" />
-      <circle cx="232" cy="66" r="5.5" fill="#fdfcf8" />
-      <circle cx="252" cy="66" r="5.5" fill="#fdfcf8" />
-      <circle cx="233" cy="67" r="2.4" fill="#17150f" />
-      <circle cx="253" cy="67" r="2.4" fill="#17150f" />
-      <path d="M232 82 Q242 89 252 82" stroke="#2b1c12" stroke-width="3.5" stroke-linecap="round" fill="none" />
+      <rect x="30" y="150" width="10" height="70" fill="#8a6f4d" />
+      <rect x="250" y="150" width="10" height="70" fill="#8a6f4d" />
+      <rect x="14" y="138" width="272" height="16" rx="5" fill="#a08055" />
+      <rect x="60" y="76" width="86" height="62" rx="7" fill="#23262b" />
+      <rect x="67" y="83" width="72" height="48" rx="4" fill="#0c2417" />
+      <rect x="73" y="91" width="30" height="5" rx="2" fill="#4ade80" />
+      <rect x="73" y="101" width="46" height="5" rx="2" fill="#2f9e5f" />
+      <rect x="73" y="111" width="18" height="5" rx="2" fill="#4ade80" />
+      <rect x="56" y="138" width="10" height="46" fill="#3a3f46" />
+      <rect x="160" y="146" width="96" height="8" rx="3" fill="#2e3238" />
+      <rect x="196" y="96" width="64" height="46" rx="12" fill="#1c6b4a" />
+      <rect x="206" y="84" width="26" height="20" rx="7" fill="#6f452e" />
+      <circle cx="219" cy="66" r="28" fill="#6f452e" />
+      <path d="M192 64 Q194 40 219 38 Q244 40 246 64 Q238 48 219 48 Q200 48 192 64 Z" fill="#16120d" />
+      <circle cx="210" cy="66" r="5" fill="#fdfcf8" />
+      <circle cx="228" cy="66" r="5" fill="#fdfcf8" />
+      <circle cx="211" cy="67" r="2.2" fill="#17150f" />
+      <circle cx="229" cy="67" r="2.2" fill="#17150f" />
+      <path d="M210 81 Q219 87 228 81" stroke="#2b1c12" stroke-width="3.2" stroke-linecap="round" fill="none" />
+      <circle cx="272" cy="128" r="10" fill="#f6f5f0" />
+      <rect x="268" y="114" width="8" height="12" rx="2" fill="#f6f5f0" />
     </svg>
   </div>
 
@@ -121,9 +122,11 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
 
         const scene = new THREE.Scene();
+        // Over-the-shoulder: camera off to the right so we see his face (3/4)
+        // and the glowing screen angled toward us.
         const camera = new THREE.PerspectiveCamera(36, 4 / 3.4, 0.1, 50);
-        camera.position.set(0, 0.5, 6.6);
-        camera.lookAt(0, 0.15, 0);
+        camera.position.set(0.6, 0.75, 6.3);
+        camera.lookAt(-0.15, 0.05, -0.4);
 
         scene.add(new THREE.HemisphereLight(0xfffdf4, 0x1c6b4a, 0.85));
         const key = new THREE.DirectionalLight(0xffffff, 1.4);
@@ -139,56 +142,60 @@
             new THREE.MeshStandardMaterial({ color, roughness: 0.92, metalness: 0, flatShading: true })
           );
 
-        /* ---------------- avatar ---------------- */
+        /* ---------------- avatar (realistic proportions, less bobblehead) ---------------- */
         const avatar = new THREE.Group();
+        avatar.position.set(0.35, 0, -0.95);
         scene.add(avatar);
 
-        const torso = flat(new THREE.CylinderGeometry(0.55, 0.9, 1.05, 7), SHIRT);
-        torso.position.set(0, -0.75, -0.45);
+        const torso = flat(new THREE.CylinderGeometry(0.48, 0.68, 1.0, 7), SHIRT);
+        torso.position.set(0, -0.72, 0);
         avatar.add(torso);
-        const collar = flat(new THREE.CylinderGeometry(0.27, 0.31, 0.13, 7), PAPER);
-        collar.position.set(0, -0.18, -0.45);
+        const collar = flat(new THREE.CylinderGeometry(0.26, 0.30, 0.12, 7), PAPER);
+        collar.position.set(0, -0.18, 0);
         avatar.add(collar);
-        const neck = flat(new THREE.CylinderGeometry(0.19, 0.21, 0.28, 7), SKIN);
-        neck.position.set(0, -0.06, -0.45);
+        const neck = flat(new THREE.CylinderGeometry(0.17, 0.19, 0.30, 7), SKIN);
+        neck.position.set(0, -0.04, 0);
         avatar.add(neck);
 
         const head = new THREE.Group();
         const HEAD_Y = 0.12;
-        head.position.set(0, HEAD_Y, -0.45);
+        head.position.set(0, HEAD_Y, 0);
         avatar.add(head);
 
-        const skull = flat(new THREE.SphereGeometry(0.62, 7, 6), SKIN);
-        skull.position.set(0, 0.62, 0);
+        // slimmer, slightly taller skull — closer to real head/body ratio
+        const skull = flat(new THREE.SphereGeometry(0.52, 8, 7), SKIN);
+        skull.position.set(0, 0.60, 0);
+        skull.scale.set(0.94, 1.03, 0.96);
         head.add(skull);
+        // short cropped hair
         const hair = flat(
-          new THREE.SphereGeometry(0.645, 7, 5, 0, Math.PI * 2, 0, Math.PI * 0.45),
+          new THREE.SphereGeometry(0.535, 8, 6, 0, Math.PI * 2, 0, Math.PI * 0.48),
           HAIR
         );
-        hair.position.set(0, 0.64, 0);
-        hair.scale.set(1.02, 0.92, 1.02);
+        hair.position.set(0, 0.62, -0.01);
+        hair.scale.set(0.96, 0.95, 0.98);
         head.add(hair);
         for (const s of [-1, 1]) {
-          const ear = flat(new THREE.SphereGeometry(0.11, 6, 5), SKIN);
-          ear.position.set(s * 0.60, 0.58, 0.02);
+          const ear = flat(new THREE.SphereGeometry(0.10, 6, 5), SKIN);
+          ear.position.set(s * 0.485, 0.55, 0.01);
           ear.scale.set(0.55, 1, 0.75);
           head.add(ear);
         }
 
         function makeEye(sx) {
           const g = new THREE.Group();
-          g.position.set(sx * 0.23, 0.66, 0.52);
-          const ball = flat(new THREE.SphereGeometry(0.13, 12, 10), EYE_W);
-          ball.scale.set(1, 1.12, 0.55);
+          g.position.set(sx * 0.195, 0.62, 0.455);
+          const ball = flat(new THREE.SphereGeometry(0.115, 12, 10), EYE_W);
+          ball.scale.set(1, 1.1, 0.55);
           g.add(ball);
-          const pupil = flat(new THREE.SphereGeometry(0.055, 10, 8), INKC);
-          pupil.position.z = 0.078;
+          const pupil = flat(new THREE.SphereGeometry(0.05, 10, 8), INKC);
+          pupil.position.z = 0.068;
           g.add(pupil);
           const glint = new THREE.Mesh(
-            new THREE.SphereGeometry(0.016, 6, 5),
+            new THREE.SphereGeometry(0.015, 6, 5),
             new THREE.MeshBasicMaterial({ color: 0xffffff })
           );
-          glint.position.set(0.02, 0.022, 0.046);
+          glint.position.set(0.018, 0.02, 0.04);
           pupil.add(glint);
           head.add(g);
           return { group: g, pupil, base: pupil.position.clone(), pos: g.position.clone() };
@@ -197,58 +204,63 @@
         const eyeR = makeEye(1);
 
         for (const s of [-1, 1]) {
-          const brow = flat(new THREE.BoxGeometry(0.21, 0.05, 0.055), HAIR);
-          brow.position.set(s * 0.24, 0.86, 0.50);
+          const brow = flat(new THREE.BoxGeometry(0.19, 0.045, 0.05), HAIR);
+          brow.position.set(s * 0.20, 0.79, 0.435);
           brow.rotation.z = -s * 0.10;
           head.add(brow);
         }
-        const nose = flat(new THREE.SphereGeometry(0.068, 6, 5), SKIN_DK);
-        nose.position.set(0, 0.50, 0.58);
-        nose.scale.set(0.9, 1.1, 0.9);
+        const nose = flat(new THREE.SphereGeometry(0.06, 6, 5), SKIN_DK);
+        nose.position.set(0, 0.46, 0.475);
+        nose.scale.set(0.9, 1.15, 0.9);
         head.add(nose);
         const smile = new THREE.Mesh(
-          new THREE.TorusGeometry(0.15, 0.028, 6, 14, Math.PI),
+          new THREE.TorusGeometry(0.125, 0.024, 6, 14, Math.PI),
           new THREE.MeshStandardMaterial({ color: 0x2b1c12, roughness: 0.9 })
         );
-        smile.position.set(0, 0.36, 0.55);
+        smile.position.set(0, 0.335, 0.45);
         smile.rotation.z = Math.PI;
         head.add(smile);
 
+        // arms reach forward over the desk to the keyboard
         function makeArm(side) {
           const g = new THREE.Group();
-          g.position.set(side * 0.60, -0.30, -0.45);
-          const limb = flat(new THREE.BoxGeometry(0.24, 0.72, 0.24), SHIRT);
-          limb.position.y = -0.33;
+          g.position.set(side * 0.50, -0.12, 0.05);
+          const limb = flat(new THREE.BoxGeometry(0.22, 0.50, 0.22), SHIRT);
+          limb.position.y = -0.22;
           g.add(limb);
-          const hand = flat(new THREE.SphereGeometry(0.14, 7, 6), SKIN);
-          hand.position.y = -0.72;
+          const hand = flat(new THREE.SphereGeometry(0.13, 7, 6), SKIN);
+          hand.position.y = -0.50;
           g.add(hand);
           avatar.add(g);
           return g;
         }
         const armL = makeArm(-1);
         const armR = makeArm(1);
+        const TYPING_X = -1.35; // arms leaned forward onto the keyboard
 
-        /* ---------------- desk & props ---------------- */
+        /* ---------------- desk & props ----------------
+           Depth plan (world): avatar z-max -0.43 · keyboard z -0.43..-0.07 ·
+           monitor z -0.14..0.24 · desk z -0.40..1.00. Avatar and monitor are
+           z-separated by ~0.3, so they can never clip. */
         const desk = new THREE.Group();
         scene.add(desk);
 
-        const deskTop = flat(new THREE.BoxGeometry(2.7, 0.12, 1.3), WOOD);
-        deskTop.position.set(0, -0.30, 0.35);
+        const deskTop = flat(new THREE.BoxGeometry(2.9, 0.12, 1.4), WOOD);
+        deskTop.position.set(0, -0.34, 0.30);
         desk.add(deskTop);
         for (const sx of [-1, 1]) {
           for (const sz of [-1, 1]) {
             const leg = flat(new THREE.BoxGeometry(0.12, 1.05, 0.12), WOOD_DK);
-            leg.position.set(sx * 1.2, -0.88, 0.35 + sz * 0.55);
+            leg.position.set(sx * 1.3, -0.95, 0.30 + sz * 0.60);
             desk.add(leg);
           }
         }
         // chair (mostly hidden behind avatar)
-        const seat = flat(new THREE.BoxGeometry(0.95, 0.12, 0.85), METAL);
-        seat.position.set(0, -1.28, -0.62);
+        const seat = flat(new THREE.BoxGeometry(0.90, 0.12, 0.80), METAL);
+        seat.position.set(0.35, -1.30, -1.10);
         desk.add(seat);
-        const backrest = flat(new THREE.BoxGeometry(0.95, 0.95, 0.12), METAL);
-        backrest.position.set(0, -0.82, -1.08);
+        const backrest = flat(new THREE.BoxGeometry(0.90, 0.90, 0.12), METAL);
+        backrest.position.set(0.35, -0.85, -1.50);
         desk.add(backrest);
 
         // monitor with a live-typed terminal screen (canvas texture)
@@ -284,36 +296,37 @@
         }
         drawScreen();
 
+        // monitor: left of the avatar, tipped slightly toward him AND the camera
         const monitor = new THREE.Group();
-        monitor.position.set(-0.62, 0.52, 0.42);
-        monitor.rotation.y = 0.5;
-        monitor.rotation.x = -0.05;
+        monitor.position.set(-0.72, 0.30, 0.05);
+        monitor.rotation.y = 0.28;
+        monitor.rotation.x = -0.03;
         desk.add(monitor);
-        const stand = flat(new THREE.BoxGeometry(0.1, 0.42, 0.1), METAL);
-        stand.position.set(-0.62, -0.02, 0.42);
+        const stand = flat(new THREE.BoxGeometry(0.10, 0.24, 0.10), METAL);
+        stand.position.set(-0.72, -0.17, 0.05);
         desk.add(stand);
-        const frame = flat(new THREE.BoxGeometry(1.2, 0.82, 0.07), 0x23262b);
+        const frame = flat(new THREE.BoxGeometry(1.15, 0.78, 0.07), 0x23262b);
         monitor.add(frame);
         const screenMesh = new THREE.Mesh(
-          new THREE.PlaneGeometry(1.06, 0.68),
+          new THREE.PlaneGeometry(1.02, 0.65),
           new THREE.MeshBasicMaterial({ map: screenTex })
         );
         screenMesh.position.z = 0.041;
         monitor.add(screenMesh);
-        const screenPoint = new THREE.Vector3(-0.55, 0.5, 0.55);
+        const screenPoint = new THREE.Vector3(-0.60, 0.30, 0.12);
 
         const screenGlow = new THREE.PointLight(0x4ade80, 1.4, 7, 1.6);
-        screenGlow.position.set(-0.45, 0.55, 0.75);
+        screenGlow.position.set(-0.50, 0.35, 0.55);
         scene.add(screenGlow);
 
-        // keyboard
-        const kb = flat(new THREE.BoxGeometry(1.05, 0.06, 0.38), METAL);
-        kb.position.set(0.28, -0.21, 0.52);
-        kb.rotation.x = 0.06;
+        // keyboard in front of the avatar, hands hover over it
+        const kb = flat(new THREE.BoxGeometry(1.0, 0.06, 0.36), METAL);
+        kb.position.set(0.35, -0.25, -0.25);
+        kb.rotation.x = 0.05;
         desk.add(kb);
         for (let r = 0; r < 3; r++) {
-          const row = flat(new THREE.BoxGeometry(0.95, 0.025, 0.07), 0x3a3f46);
-          row.position.set(0.28, -0.175, 0.42 + r * 0.11);
+          const row = flat(new THREE.BoxGeometry(0.90, 0.025, 0.07), 0x3a3f46);
+          row.position.set(0.35, -0.215, -0.33 + r * 0.08);
           desk.add(row);
         }
 
@@ -335,29 +348,29 @@
         handle.position.set(0.11, 0, 0);
         handle.rotation.z = -Math.PI / 2;
         cup.add(handle);
-        const CUP_REST = new THREE.Vector3(0.92, -0.13, 0.30);
-        const CUP_SIP = new THREE.Vector3(0.10, 0.42, 0.14);
+        const CUP_REST = new THREE.Vector3(1.00, -0.17, 0.45);
+        const CUP_SIP = new THREE.Vector3(0.42, 0.28, -0.55);
         cup.position.copy(CUP_REST);
         desk.add(cup);
 
         // desk lamp (on in dark mode)
         const lampBase = flat(new THREE.CylinderGeometry(0.16, 0.19, 0.08, 10), METAL);
-        lampBase.position.set(-1.08, -0.20, 0.05);
+        lampBase.position.set(-1.18, -0.24, -0.10);
         desk.add(lampBase);
-        const lampArm = flat(new THREE.BoxGeometry(0.07, 0.85, 0.07), METAL);
-        lampArm.position.set(-1.08, 0.22, 0.05);
+        const lampArm = flat(new THREE.BoxGeometry(0.07, 0.80, 0.07), METAL);
+        lampArm.position.set(-1.18, 0.15, -0.10);
         lampArm.rotation.z = 0.18;
         desk.add(lampArm);
         const lampHeadMat = new THREE.MeshStandardMaterial({
           color: 0x2b2f36, roughness: 0.7, emissive: 0xffd9a0, emissiveIntensity: 0.15
         });
         const lampHead = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.24, 10), lampHeadMat);
-        lampHead.position.set(-0.98, 0.68, 0.08);
+        lampHead.position.set(-1.08, 0.58, -0.06);
         lampHead.rotation.z = 0.9;
         desk.add(lampHead);
         const lampSpot = new THREE.SpotLight(0xffe2b0, 0, 9, 0.6, 0.6, 1.2);
-        lampSpot.position.set(-0.98, 0.68, 0.08);
-        lampSpot.target.position.set(-0.4, -0.3, 0.4);
+        lampSpot.position.set(-1.08, 0.58, -0.06);
+        lampSpot.target.position.set(-0.5, -0.3, 0.2);
         scene.add(lampSpot);
         scene.add(lampSpot.target);
 
@@ -388,7 +401,7 @@
         const magHandle = flat(new THREE.BoxGeometry(0.055, 0.34, 0.055), WOOD_DK);
         magHandle.position.y = -0.32;
         mag.add(magHandle);
-        const MAG_POS = new THREE.Vector3(-0.85, -0.28, 0.25);
+        const MAG_POS = new THREE.Vector3(-1.00, -0.18, 0.55);
         mag.position.copy(MAG_POS);
         mag.rotation.z = 0.35;
         mag.visible = false;
@@ -404,11 +417,11 @@
         shg.fillStyle = sgrad;
         shg.fillRect(0, 0, 128, 128);
         const blob = new THREE.Mesh(
-          new THREE.PlaneGeometry(3.4, 3.4),
+          new THREE.PlaneGeometry(4.2, 4.2),
           new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shc), transparent: true, depthWrite: false })
         );
         blob.rotation.x = -Math.PI / 2;
-        blob.position.y = -1.52;
+        blob.position.y = -1.62;
         scene.add(blob);
 
         /* ---------------- text sprites: zzz + hello-world burst ---------------- */
@@ -478,6 +491,8 @@
         let narrowCur = 1;
         let nextBlink = 2.2, blinkT = -1;
         let nextGlance = 5, glance = null;
+        // keystroke sync: he types when the visitor types in the hero terminal
+        let tapCount = 0, lastTypeT = 0;
 
         const raycaster = new THREE.Raycaster();
         const ndc = new THREE.Vector2(0, 0);
@@ -541,6 +556,13 @@
         document.addEventListener("hero:term-activity", () => {
           wake(); lastActive = performance.now(); sipped = false;
         });
+        // keystroke sync: visitor types → he types (alternating taps + head bob)
+        document.addEventListener("hero:term-type", () => {
+          if (reduceMotion) return;
+          tapCount++;
+          lastTypeT = performance.now();
+          wake(); lastActive = performance.now(); sipped = false;
+        });
 
         // scroll choreography: nod at projects, magnifier at research
         const reactCool = { nod: 0, inspect: 0 };
@@ -593,7 +615,7 @@
           if (raycaster.ray.intersectPlane(trackPlane, hitP)) gazeW.copy(hitP);
           else gazeW.copy(screenPoint);
           tmpV.copy(screenPoint).lerp(gazeW, attention);
-          if (S.mode === "wave") tmpV.set(0, 0.75, 5);
+          if (S.mode === "wave") tmpV.set(0.6, 0.75, 5);
           else if (S.mode === "inspect") tmpV.copy(MAG_POS);
           else if (S.mode === "sleep") tmpV.copy(screenPoint);
 
@@ -617,7 +639,10 @@
           head.rotation.y = damp(head.rotation.y, yawT, 7, dt);
           head.rotation.x = damp(head.rotation.x, pitchT, 7, dt);
           head.rotation.z = damp(head.rotation.z, S.mode === "sleep" ? 0.12 : Math.sin(t * 0.85) * 0.02, 6, dt);
-          head.position.y = HEAD_Y + (S.mode === "sleep" ? -0.06 : Math.sin(t * 1.4) * 0.02);
+          // keystroke head bob rides on top of the idle bob
+          const typePulse = !reduceMotion && S.mode === "typing" && (now - lastTypeT < 450);
+          const typeBob = typePulse ? Math.abs(Math.sin(tapCount * Math.PI)) * 0.025 : 0;
+          head.position.y = HEAD_Y + (S.mode === "sleep" ? -0.06 : Math.sin(t * 1.4) * 0.02) + typeBob;
 
           // pupils: track gaze, saccade while "reading", dilate on fast cursor
           if (!reduceMotion && S.mode === "typing" && attention < 0.3 && t > nextGlance) {
@@ -654,22 +679,30 @@
           }
           eyeL.group.scale.y = eyeR.group.scale.y = lid * narrowCur;
 
-          // arms
-          const wobL = S.mode === "typing" && !reduceMotion ? Math.sin(t * 7) * 0.07 : 0;
-          const wobR = S.mode === "typing" && !reduceMotion ? Math.sin(t * 7 + Math.PI) * 0.07 : 0;
+          // arms: keystroke-synced alternating taps while the visitor types,
+          // gentle anti-phase wobble while he types on his own
+          let wobL = 0, wobR = 0;
+          if (typePulse) {
+            const ph = tapCount * Math.PI;
+            wobL = Math.sin(ph) * 0.17;
+            wobR = Math.sin(ph + Math.PI) * 0.17;
+          } else if (S.mode === "typing" && !reduceMotion) {
+            wobL = Math.sin(t * 7) * 0.07;
+            wobR = Math.sin(t * 7 + Math.PI) * 0.07;
+          }
           if (S.mode === "wave") {
-            poseArm(armL, -0.5, -0.15, dt);
+            poseArm(armL, -0.5, -0.12, dt);
             armR.rotation.x = damp(armR.rotation.x, Math.sin(t * 11) * 0.45, 10, dt);
             armR.rotation.z = damp(armR.rotation.z, 2.5, 10, dt);
           } else if (S.mode === "facepalm") {
-            poseArm(armL, -0.5, -0.15, dt);
+            poseArm(armL, -0.5, -0.12, dt);
             poseArm(armR, -2.45, 0.5, dt);
           } else if (S.mode === "sleep") {
-            poseArm(armL, -0.35, -0.12, dt);
-            poseArm(armR, -0.35, 0.12, dt);
+            poseArm(armL, -0.35, -0.10, dt);
+            poseArm(armR, -0.35, 0.10, dt);
           } else {
-            poseArm(armL, -0.85, -0.15, dt, wobL);
-            poseArm(armR, -0.85, 0.15, dt, wobR);
+            poseArm(armL, TYPING_X, -0.12, dt, wobL);
+            poseArm(armR, TYPING_X, 0.12, dt, wobR);
           }
 
           // coffee cup

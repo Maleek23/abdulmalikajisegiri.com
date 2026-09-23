@@ -5,6 +5,7 @@ import BaseHead from "@components/BaseHead.astro"
 import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import Drawer from "@components/Drawer.astro"
+import CursorFollower from "@components/CursorFollower.astro"
 const { title, description, schema, image } = Astro.props
 import { SITE } from "@consts"
 ---
@@ -22,5 +23,6 @@ import { SITE } from "@consts"
       <slot />
     </main>
     <Footer />
+    <CursorFollower />
   </body>
 </html>

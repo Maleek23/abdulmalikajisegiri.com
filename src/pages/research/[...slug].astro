@@ -48,6 +48,50 @@ const articleSchema = [
 ---
 
 <PageLayout title={title} description={summary} schema={articleSchema} image={image}>
+  <div class="read-progress" aria-hidden="true"><span></span></div>
+  <script is:inline>
+  /* Reading progress bar for research notes — fills as you scroll.
+     Reduced motion: no transition, width still updates. */
+  (function () {
+    'use strict';
+    var bar = document.querySelector('.read-progress span');
+    if (!bar) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      var p = max > 0 ? h.scrollTop / max : 0;
+      bar.style.width = (p * 100).toFixed(2) + '%';
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+  </script>
+  <style>
+    .read-progress {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      z-index: 9000;
+      background: transparent;
+      pointer-events: none;
+    }
+    .read-progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--green);
+      transition: width 0.08s linear;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .read-progress span { transition: none; }
+    }
+  </style>
   <TopLayout>
     <div class="animate">
       <ArticleTopLayout entry={post}/>
