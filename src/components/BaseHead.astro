@@ -13,17 +13,38 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const { title, description, image = "/open-graph.jpg", schema } = Astro.props
 
 // Global entity signal: every page declares who this site is about.
-// TODO: extend sameAs with real LinkedIn / X / YouTube / Instagram URLs
-// once the handles are known. Only list profiles that actually exist.
+// All facts below are from the verified resume (2026-09-22). Only list
+// profiles that actually exist.
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Abdulmalik Ajisegiri",
   "url": "https://abdulmalikajisegiri.com/",
-  "jobTitle": "Systems Engineer",
-  "description": "Systems engineering and model risk professional specializing in model validation, advanced analytics, AI/ML governance, and model-based systems engineering.",
+  "jobTitle": "Model Risk & Validation Engineer",
+  "description": "Model Risk & Validation Engineer specializing in model validation, SR 11-7 compliance, AI/ML governance, and model-based systems engineering.",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "DTCC",
+  },
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Oklahoma",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Texas at Arlington",
+    },
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Dallas-Fort Worth",
+    "addressRegion": "TX",
+    "addressCountry": "US",
+  },
   "sameAs": [
     "https://github.com/Maleek23",
+    "https://www.linkedin.com/in/malikajisegiri/",
   ],
   "knowsAbout": [
     "Systems Engineering",
@@ -33,6 +54,7 @@ const personSchema = {
     "Model-Based Systems Engineering",
     "Optimization",
     "Quantitative Analytics",
+    "SR 11-7",
   ],
 }
 ---
