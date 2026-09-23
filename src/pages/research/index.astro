@@ -14,19 +14,21 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
   (a, b) => a.localeCompare(b),
 );
 
+// Pre-hydration height estimate: featured card + controls + compact rows.
 const estimated_initial_size =
-  28 + posts.length * 158 + (posts.length - 1) * 12;
+  420 + 230 + posts.length * 96 + (posts.length - 1) * 2;
 ---
 
 <PageLayout title={RESEARCH.TITLE} description={RESEARCH.DESCRIPTION}>
   <TopLayout>
     <div class="animate">
-      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+      <div class="kicker">THE LIBRARY</div>
+      <h1 class="sec-title" style="margin-bottom:12px;">
         {RESEARCH.TITLE}
       </h1>
-      <div class="mt-1">
+      <p class="sec-sub" style="max-width:640px;">
         {RESEARCH.DESCRIPTION}
-      </div>
+      </p>
     </div>
   </TopLayout>
   <BottomLayout>

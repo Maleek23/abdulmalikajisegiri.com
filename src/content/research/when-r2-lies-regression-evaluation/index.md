@@ -158,6 +158,20 @@ With a 10:1 cost ratio, the optimal threshold lands below 0.5 — you accept mor
 
 *Figure — Under asymmetric costs, the optimal flag threshold moves away from the naive default.*
 
+<div class="widget-card" id="cost-threshold-widget">
+  <p class="widget-kicker">INTERACTIVE ILLUSTRATION</p>
+  <h3 class="widget-title">Move the cost ratio, watch the threshold move</h3>
+  <p class="widget-sub">The article's expected-cost sweep, recomputed live: 20,000 synthetic risk scores evaluated across 91 candidate thresholds. Drag the slider to change how much a missed case costs relative to a false alarm.</p>
+  <div class="widget-controls">
+    <label for="ct-ratio">Cost ratio C<sub>FN</sub> : C<sub>FP</sub> = <strong data-ratio-label>10 : 1</strong></label>
+    <input id="ct-ratio" type="range" min="1" max="20" step="1" value="10" data-ratio>
+  </div>
+  <canvas class="widget-canvas" aria-label="Live expected-cost curve: the cost-optimal threshold marker moves as the cost ratio slider changes"></canvas>
+  <p class="widget-readout" data-readout></p>
+  <p class="widget-note">Illustrative costs and synthetic data from the article's own setup (seed 7). Real cost ratios come from the clinical workflow, not from this demo.</p>
+</div>
+<script src="/js/cost-threshold-widget.js" defer></script>
+
 ## The replacement toolkit, part 4: honest uncertainty intervals
 
 Point predictions without uncertainty are overconfident by construction. Two practical ways to attach intervals:

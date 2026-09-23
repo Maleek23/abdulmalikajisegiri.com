@@ -67,16 +67,8 @@ export const SEARCH: Page = {
   DESCRIPTION: "Search all research notes and projects by keyword.",
 }
 
-// Links
-export const LINKS: Links = [
-  {
-    TEXT: "About",
-    HREF: "/about",
-  },
-  {
-    TEXT: "Engineering",
-    HREF: "/engineering",
-  },
+// Navigation — grouped for the header/drawer redesign
+export const NAV_MAIN: Links = [
   {
     TEXT: "Projects",
     HREF: "/projects",
@@ -85,6 +77,17 @@ export const LINKS: Links = [
     TEXT: "Research",
     HREF: "/research",
   },
+  {
+    TEXT: "Engineering",
+    HREF: "/engineering",
+  },
+  {
+    TEXT: "About",
+    HREF: "/about",
+  },
+]
+
+export const NAV_MORE: Links = [
   {
     TEXT: "Quant",
     HREF: "/quant",
@@ -96,10 +99,6 @@ export const LINKS: Links = [
   {
     TEXT: "Resume",
     HREF: "/resume",
-  },
-  {
-    TEXT: "Hire",
-    HREF: "/hire",
   },
   {
     TEXT: "Contact",

@@ -15,6 +15,26 @@ Monte Carlo simulation is the art of answering questions with randomness: when y
 
 > **Companion repository:** [Poker-Chip-Simulation](https://github.com/Maleek23/Poker-Chip-Simulation)
 
+<div class="widget-card" id="mc-widget">
+  <p class="widget-kicker">INTERACTIVE ILLUSTRATION</p>
+  <h3 class="widget-title">Watch the simulation converge</h3>
+  <p class="widget-sub">This runs the article's chip-stack experiment live in your browser — 15 chips, win probability 0.49, 100 hands — with the exact dynamic-programming answer computed alongside for reference. Same setup as the Python above, seed 2026.</p>
+  <div class="widget-controls">
+    <label>Trials
+      <select data-trials>
+        <option value="1000">1,000</option>
+        <option value="10000" selected>10,000</option>
+        <option value="100000">100,000</option>
+      </select>
+    </label>
+    <button type="button" data-run>Run simulation</button>
+  </div>
+  <canvas class="widget-canvas" aria-label="Live Monte Carlo convergence plot: running survival-probability estimate with 95 percent confidence band converging toward the exact value"></canvas>
+  <p class="widget-readout" data-readout></p>
+  <p class="widget-note">Illustrative toy parameters from the article. The band is ±1.96·SE around the running estimate — watch it narrow as trials accumulate.</p>
+</div>
+<script src="/js/mc-widget.js" defer></script>
+
 ## When Monte Carlo beats closed-form
 
 Closed-form math wins whenever it exists and its assumptions hold. The expected value of a normal, the Black–Scholes price — when the formula is exact, simulating is just a slower way to be wrong. Monte Carlo earns its keep in three situations:

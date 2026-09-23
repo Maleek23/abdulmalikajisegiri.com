@@ -253,5 +253,225 @@ const websiteSchema = {
       letter-spacing: .12em; color: var(--muted);
     }
     .lib-row-arrow { font-size: 20px; color: var(--green); flex-shrink: 0; }
+    /* Interactive terminal prompt — same height as the static cursor line it replaces */
+    .term-active { position: relative; display: flex; align-items: baseline; min-height: 1.9em; }
+    .term-active .term-cursor { visibility: hidden; }
+    .term-active.is-focused .term-cursor { visibility: visible; }
+    .term-typed { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--panel-ink); }
+    .term-kb {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      opacity: 0; border: 0; padding: 0; margin: 0;
+      font-size: 16px; /* stops iOS auto-zoom on focus */
+      background: transparent; color: transparent; caret-color: transparent;
+    }
   </style>
+
+  <script is:inline>
+  /* Interactive hero terminal — progressive enhancement.
+     No JS: the static transcript above renders exactly as before.
+     With JS: the trailing "$ ▊" line becomes a live prompt. */
+  (function () {
+    'use strict';
+    var term = document.querySelector('.term');
+    if (!term) return;
+    var body = term.querySelector('.term-body');
+    if (!body || !body.lastElementChild) return;
+
+    /* Real slugs, hardcoded from src/content (verified published). */
+    var PROJECT_URLS = {
+      'agentic-mrm-platform': '/projects/agentic-mrm-platform/',
+      'quantedge-labs': '/projects/quantedge-labs/',
+      'cardiac-surgery-risk-model': '/projects/cardiac-surgery-risk-model/'
+    };
+    var RESEARCH_SLUGS = [
+      'validating-models-like-a-skeptic',
+      'stacking-ensembles-clinical-risk-modeling',
+      'llm-evaluation-harness-bleu-rouge-sbert',
+      'when-r2-lies-regression-evaluation',
+      'survivorship-bias-lookahead-backtest-killers',
+      'how-system-calls-work-tiny-c-kernel',
+      'discrete-event-simulation-experiment-design',
+      'angle-of-arrival-embedded-audio-localization',
+      'automated-code-review-pipeline',
+      'dma-double-buffering-sensor-capture',
+      'monte-carlo-decisions-under-uncertainty',
+      'zod-at-the-boundary-api-validation',
+      'low-power-embedded-design-tm4c123',
+      'optimization-metaheuristics-decisions',
+      'mbse-requirements-traceability',
+      'backtesting-without-fooling-yourself',
+      'detecting-model-decay-monitoring',
+      'stress-testing-scenario-analysis',
+      'verification-validation-systems-lifecycle',
+      'requirements-engineering-complex-systems'
+    ];
+    var QUIPS = [
+      "try 'help'",
+      "nope. try 'help'",
+      "the terminal judges you silently. try 'help'"
+    ];
+    var quipIdx = 0;
+    var history = [];
+    var histIdx = 0;
+    var active = null;
+
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text !== undefined && text !== null) n.textContent = text;
+      return n;
+    }
+
+    function print(text, cls) {
+      body.appendChild(el('p', cls || 'term-dim', text));
+    }
+
+    function echoCmd(cmd) {
+      var p = el('p');
+      p.appendChild(el('span', 'term-prompt', '$'));
+      p.appendChild(document.createTextNode(' ' + cmd));
+      body.appendChild(p);
+    }
+
+    function makePrompt() {
+      var wrap = el('div', 'term-active');
+      wrap.appendChild(el('span', 'term-prompt', '$'));
+      wrap.appendChild(document.createTextNode(' '));
+      var typed = el('span', 'term-typed', '');
+      var cursor = el('span', 'term-cursor', '▊');
+      var input = el('input', 'term-kb');
+      input.setAttribute('type', 'text');
+      input.setAttribute('autocomplete', 'off');
+      input.setAttribute('autocapitalize', 'off');
+      input.setAttribute('autocorrect', 'off');
+      input.setAttribute('spellcheck', 'false');
+      input.setAttribute('aria-label', 'Terminal input. Type help for a list of commands.');
+      wrap.appendChild(typed);
+      wrap.appendChild(cursor);
+      wrap.appendChild(input);
+      body.appendChild(wrap);
+
+      input.addEventListener('focus', function () { wrap.classList.add('is-focused'); });
+      input.addEventListener('blur', function () { wrap.classList.remove('is-focused'); });
+      input.addEventListener('input', function () { typed.textContent = input.value; });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submit(input.value);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          moveHist(-1);
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          moveHist(1);
+        }
+      });
+      active = { wrap: wrap, input: input, typed: typed };
+    }
+
+    function moveHist(d) {
+      if (!history.length || !active) return;
+      histIdx = Math.min(history.length, Math.max(0, histIdx + d));
+      var v = histIdx < history.length ? history[histIdx] : '';
+      active.input.value = v;
+      active.typed.textContent = v;
+    }
+
+    function submit(raw) {
+      var cmd = raw.trim();
+      var wasFocused = active && document.activeElement === active.input;
+      body.removeChild(active.wrap);
+      if (cmd) {
+        echoCmd(cmd);
+      } else {
+        var p = el('p');
+        p.appendChild(el('span', 'term-prompt', '$'));
+        body.appendChild(p);
+      }
+      if (cmd) {
+        history.push(cmd);
+        histIdx = history.length;
+        run(cmd);
+      }
+      makePrompt();
+      /* Keep the keyboard up on mobile / keep typing on desktop. */
+      if (wasFocused && active) active.input.focus();
+    }
+
+    function doOpen(q) {
+      q = (q || '').trim().toLowerCase();
+      if (!q) { print("usage: open <name>   (e.g. open quantedge)"); return; }
+      var matches = [];
+      Object.keys(PROJECT_URLS).forEach(function (s) {
+        if (s.indexOf(q) !== -1) matches.push([PROJECT_URLS[s], s]);
+      });
+      RESEARCH_SLUGS.forEach(function (s) {
+        if (s.indexOf(q) !== -1) matches.push(['/research/' + s + '/', s]);
+      });
+      if (matches.length === 1) {
+        print('opening ' + matches[0][0] + ' …');
+        var url = matches[0][0];
+        setTimeout(function () { window.location.href = url; }, 650);
+      } else if (matches.length > 1) {
+        print('multiple matches — be more specific:');
+        matches.slice(0, 8).forEach(function (m) { print('  ' + m[1]); });
+      } else {
+        print("no match for '" + q + "' — try 'ls projects/' or 'ls research/'");
+      }
+    }
+
+    function run(cmd) {
+      var parts = cmd.split(/\s+/);
+      var verb = parts[0].toLowerCase();
+      var arg = parts.slice(1).join(' ').toLowerCase();
+
+      if (verb === 'help') {
+        print('available commands:');
+        print('  help               show this help');
+        print('  whoami             who is this guy');
+        print('  ls                 list sections');
+        print('  ls projects/       list case studies');
+        print('  ls research/       list research notes');
+        print('  open <name>        open a project or note (fuzzy match)');
+        print('  contact            get in touch');
+        print('  hire               why you should hire this guy');
+        print('  clear              clear the terminal');
+      } else if (verb === 'whoami') {
+        print('abdulmalik-ajisegiri — systems engineer, model validator');
+      } else if (verb === 'cat' && arg === 'current_role.txt') {
+        print('Model Risk & Validation Engineer @ DTCC — SR 11-7, LLMs, challenger models');
+      } else if (verb === 'ls' && !arg) {
+        print('projects/  research/  about  resume  contact');
+      } else if (verb === 'ls' && (arg === 'projects' || arg === 'projects/')) {
+        print(Object.keys(PROJECT_URLS).map(function (s) { return s + '/'; }).join('  '));
+      } else if (verb === 'ls' && (arg === 'research' || arg === 'research/')) {
+        print(RESEARCH_SLUGS.join('  '));
+      } else if (verb === 'open') {
+        doOpen(arg);
+      } else if (verb === 'hire' || verb === 'recruit') {
+        print('Abdulmalik Ajisegiri — Model Risk & Validation Engineer @ DTCC.');
+        print('SR 11-7, LLM evaluation, MBSE. M.S. Systems Engineering (OU, 3.7). CISA. DFW, TX.');
+        print('→ /hire for the 60-second version');
+        print('→ abdulmalikajisegiri@gmail.com');
+      } else if (verb === 'contact') {
+        print('opening mail client …');
+        setTimeout(function () { window.location.href = 'mailto:abdulmalikajisegiri@gmail.com'; }, 600);
+      } else if (verb === 'clear') {
+        body.innerHTML = '';
+      } else {
+        print('command not found: ' + parts[0] + ' — ' + QUIPS[quipIdx % QUIPS.length]);
+        quipIdx++;
+      }
+    }
+
+    /* Swap the static "$ ▊" line for the live prompt — same height, no layout shift. */
+    body.removeChild(body.lastElementChild);
+    makePrompt();
+
+    /* Tapping anywhere on the terminal focuses it (opens the native keyboard on mobile). */
+    term.addEventListener('click', function () {
+      if (active) active.input.focus();
+    });
+  })();
+  </script>
 </PageLayout>
