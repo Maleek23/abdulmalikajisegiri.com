@@ -1,6 +1,6 @@
 ---
 title: "Model-Based Systems Engineering and Requirements Traceability"
-summary: "Why traceability is the backbone of MBSE and how to build it so it survives contact with real projects."
+summary: "Traceability is what makes MBSE work: the needs-to-verification chain, typed links, trace matrices, change-impact analysis, kept alive in real projects."
 date: "2026-07-09"
 tags: ["software-engineering"]
 draft: false

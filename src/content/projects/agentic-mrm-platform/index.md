@@ -30,4 +30,4 @@ This platform attacks the overhead, not the judgment. An agentic AI system that 
 
 ## Status
 
-In active development since early 2026. The classification workflow and pipeline tracker are functional; artifact generation templates are being iterated against realistic model documentation. Lessons from this build feed directly into my [research notes on model validation](/research/validating-models-like-a-skeptic) — the skepticism in those pieces comes from watching where automation helps and where it confidently invents.
+In active development since early 2026 — currently prototyping the classification workflow and pipeline tracker, and iterating on artifact generation templates against realistic model documentation. Lessons from this build feed directly into my [research notes on model validation](/research/validating-models-like-a-skeptic) — the skepticism in those pieces comes from watching where automation helps and where it confidently invents.

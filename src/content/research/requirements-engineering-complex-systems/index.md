@@ -1,6 +1,6 @@
 ---
 title: "From Stakeholder Needs to Verification: Requirements Engineering for Complex Systems"
-summary: "Elicitation to verification: writing requirements that are actually verifiable and tracing them end to end."
+summary: "From stakeholder needs to verification via a toy parcel-sorting facility: elicitation, verifiable requirements, decomposition, change, end-to-end tracing."
 date: "2026-07-18"
 tags: ["software-engineering"]
 draft: false

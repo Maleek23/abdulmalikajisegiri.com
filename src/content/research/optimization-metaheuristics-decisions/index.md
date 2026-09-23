@@ -1,6 +1,6 @@
 ---
 title: "Using Optimization and Metaheuristics for Engineering Decision Problems"
-summary: "When gradient methods aren't enough: genetic algorithms, simulated annealing, and friends for messy engineering trade spaces."
+summary: "When gradients stall on messy trade spaces: simulated annealing, genetic algorithms, particle swarm on synthetic toys, compared under an honest protocol."
 date: "2026-07-13"
 tags: ["software-engineering"]
 draft: false

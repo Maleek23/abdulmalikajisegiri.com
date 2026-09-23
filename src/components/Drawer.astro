@@ -11,7 +11,7 @@ const groups = [
     ...NAV_MAIN.filter((l) => l.HREF === "/about"),
     ...NAV_MORE.filter((l) => l.HREF === "/resume" || l.HREF === "/contact"),
   ]},
-  { label: "ELSEWHERE", links: NAV_MORE.filter((l) => l.HREF === "/quant" || l.HREF === "/photography") },
+  { label: "ELSEWHERE", links: NAV_MORE.filter((l) => ["/ai-ml", "/model-risk", "/mbse", "/systems-engineering", "/quant", "/photography"].includes(l.HREF)) },
 ]
 let idx = 0
 ---

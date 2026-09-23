@@ -1,6 +1,6 @@
 ---
 title: "When R² Lies: Evaluating Regression for High-Stakes Decisions"
-summary: "A cardiac risk model went from R² 0.78 to 0.81 — and that still isn't the number that decides whether the model is safe to use. Here's what R² actually measures, why it misleads (calibration blindness, scale dependence, symmetric costs), and the decision-grade evaluation toolkit that replaces it: calibration curves, cost-aware thresholds, and honest uncertainty intervals."
+summary: "Why R² can’t tell you a clinical model is safe: calibration, cost-aware thresholds, subgroup slices, and honest uncertainty beyond the leaderboard number."
 date: "2026-09-07"
 tags: ["machine-learning", "validation", "statistics"]
 draft: false

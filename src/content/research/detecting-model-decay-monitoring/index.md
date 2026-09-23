@@ -1,6 +1,6 @@
 ---
 title: "Detecting Model Decay: Ongoing Monitoring in Production"
-summary: "Models rot. Population stability, performance drift, and feedback loops — building monitoring that pages you before stakeholders notice."
+summary: "Monitoring that catches decay before stakeholders do: PSI and drift checks, signal-vs-noise tracking, retraining triggers, alerts without pager fatigue."
 date: "2026-06-30"
 tags: ["risk-management", "machine-learning"]
 draft: false

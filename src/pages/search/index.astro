@@ -15,7 +15,7 @@ const projects = (await getCollection("projects")).filter(
 const data = [...posts, ...projects] as CollectionEntry<"research">[];
 ---
 
-<PageLayout title={SEARCH.TITLE} description={SEARCH.DESCRIPTION}>
+<PageLayout title={SEARCH.TITLE} description={SEARCH.DESCRIPTION} robots="noindex,nofollow">
   <TopLayout>
     <div class="animate page-heading">
       {SEARCH.TITLE}

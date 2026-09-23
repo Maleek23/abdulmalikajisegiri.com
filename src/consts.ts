@@ -89,6 +89,22 @@ export const NAV_MAIN: Links = [
 
 export const NAV_MORE: Links = [
   {
+    TEXT: "AI / ML",
+    HREF: "/ai-ml",
+  },
+  {
+    TEXT: "Model Risk",
+    HREF: "/model-risk",
+  },
+  {
+    TEXT: "MBSE",
+    HREF: "/mbse",
+  },
+  {
+    TEXT: "Systems Engineering",
+    HREF: "/systems-engineering",
+  },
+  {
     TEXT: "Quant",
     HREF: "/quant",
   },

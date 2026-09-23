@@ -4,12 +4,11 @@ import TopLayout from "@layouts/TopLayout.astro"
 import BottomLayout from "@layouts/BottomLayout.astro"
 import { PHOTOGRAPHY } from "@consts"
 
-// TODO: replace these placeholder tiles with 6–9 real teaser images
-// once photography assets are available.
+// Placeholder tiles until real photography assets are available.
 const placeholders = Array.from({ length: 6 }, (_, i) => i)
 ---
 
-<PageLayout title={PHOTOGRAPHY.TITLE} description={PHOTOGRAPHY.DESCRIPTION}>
+<PageLayout title={PHOTOGRAPHY.TITLE} description={PHOTOGRAPHY.DESCRIPTION} robots="noindex,nofollow">
   <TopLayout>
     <div class="animate">
       <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
@@ -37,7 +36,6 @@ const placeholders = Array.from({ length: 6 }, (_, i) => i)
       </div>
 
       <div class="not-prose my-8 text-center">
-        <!-- TODO: confirm leekshotit.com is live before launch; update if the domain differs -->
         <a href="https://leekshotit.com" target="_blank" class="inline-block py-3 px-6 rounded text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 transition-opacity">
           View the full portfolio at leekshotit.com ↗
         </a>

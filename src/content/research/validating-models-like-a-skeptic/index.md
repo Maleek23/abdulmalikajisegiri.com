@@ -1,6 +1,6 @@
 ---
 title: "Validating Models Like a Skeptic: The Outcomes-Analysis Playbook"
-summary: "SR 11-7 — the Federal Reserve's model-risk guidance — rests on three pillars: conceptual soundness, ongoing monitoring, and outcomes analysis. This is the practitioner's applied companion: assumption inventories, challenger models, backtesting, sensitivity analysis, and PSI drift monitoring, with code for each."
+summary: "The SR 11-7 validation playbook: conceptual soundness, outcomes analysis with challenger models, ongoing monitoring — the attempt to kill your model."
 date: "2026-09-20"
 tags: ["validation", "risk-management", "machine-learning"]
 draft: false

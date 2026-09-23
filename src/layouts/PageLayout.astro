@@ -6,7 +6,7 @@ import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import Drawer from "@components/Drawer.astro"
 import CursorFollower from "@components/CursorFollower.astro"
-const { title, description, schema, image } = Astro.props
+const { title, description, schema, image, robots } = Astro.props
 import { SITE } from "@consts"
 ---
 
@@ -14,7 +14,7 @@ import { SITE } from "@consts"
 <html lang="en">
   <head>
     <!-- build-marker: 2026-09-23-redeploy -->
-    <BaseHead title={`${title} | ${SITE.TITLE}`} description={description} schema={schema} image={image} />
+    <BaseHead title={`${title} | ${SITE.TITLE}`} description={description} schema={schema} image={image} robots={robots} />
   </head>
   <body>
     <Header />

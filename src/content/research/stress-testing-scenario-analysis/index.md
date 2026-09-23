@@ -1,6 +1,6 @@
 ---
 title: "Stress Testing and Scenario Analysis for Quantitative Models"
-summary: "Historical, hypothetical, and reverse stress tests — designing scenarios that break your model on purpose, before reality does."
+summary: "Designing historical, hypothetical, and reverse stress scenarios that break your model on purpose before reality does: severity ladders and governance."
 date: "2026-06-25"
 tags: ["risk-management", "quantitative-finance"]
 draft: false

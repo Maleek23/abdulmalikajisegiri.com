@@ -1,6 +1,6 @@
 ---
 title: "DMA Double-Buffering for Continuous Sensor Capture"
-summary: "Why per-sample interrupts collapse at high sample rates, and how the DMA ping-pong pattern fixes it: the double-buffer design, half-transfer and transfer-complete handlers, overrun math, D-cache coherency, and honest buffer sizing — grounded in a 4-microphone angle-of-arrival system on the TM4C123."
+summary: "Why per-sample interrupts collapse at high rates, and how DMA ping-pong keeps sensor streams gapless: buffer sizing, overrun math, cache coherency."
 date: "2026-08-15"
 tags: ["embedded-systems", "signal-processing"]
 draft: false

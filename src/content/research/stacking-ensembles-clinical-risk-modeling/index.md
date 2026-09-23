@@ -1,6 +1,6 @@
 ---
 title: "Stacking Ensembles That Actually Generalize: Lessons from Clinical Risk Modeling"
-summary: "Stacking Random Forest and Gradient Boosting lifted a clinical risk model from R² 0.78 to 0.81 — but the gain only counts if the validation is honest. Here's the out-of-fold discipline, the tuning strategy, and the validation skepticism that make stacking safe in high-stakes settings."
+summary: "Out-of-fold stacking discipline and validation skepticism that keep ensemble gains honest — R² 0.78 base model vs 0.81 stacked, on a clinical risk project."
 date: "2026-09-11"
 tags: ["machine-learning", "validation"]
 draft: false

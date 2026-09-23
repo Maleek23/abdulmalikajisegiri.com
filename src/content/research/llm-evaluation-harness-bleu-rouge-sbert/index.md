@@ -1,6 +1,6 @@
 ---
 title: "Building an LLM Evaluation Harness: BLEU, ROUGE, SBERT, and Risk Tagging"
-summary: "A practical guide to building an LLM evaluation harness: what BLEU, ROUGE, and SBERT cosine similarity actually measure, where each one lies, and the architecture — prompt datasets, risk tagging, regression tracking, human spot-checks — that turns metrics into model-risk management."
+summary: "A repeatable LLM evaluation harness: what BLEU, ROUGE, and SBERT actually measure, where each misleads, and the architecture turning scores to governance."
 date: "2026-09-16"
 tags: ["llm-evaluation", "risk-management"]
 draft: false

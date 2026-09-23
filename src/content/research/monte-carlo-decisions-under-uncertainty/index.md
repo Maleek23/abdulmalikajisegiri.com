@@ -1,6 +1,6 @@
 ---
 title: "Monte Carlo for Decisions Under Uncertainty"
-summary: "When simulation beats closed-form math, why halving your error costs four times the samples, and how antithetic variates and common random numbers buy precision without more runs — with runnable numpy throughout and a chip-stack survival example converging to its exact answer."
+summary: "When simulation beats closed-form math: the 1/√N error tax, antithetic variates and common random numbers for variance reduction, and honest reporting."
 date: "2026-08-29"
 tags: ["simulation", "statistics"]
 draft: false

@@ -1,6 +1,6 @@
 ---
 title: "Backtesting Quantitative Strategies Without Fooling Yourself"
-summary: "The standard ways backtests lie — lookahead bias, survivorship bias, overfitting — and a validation workflow that catches them."
+summary: "The ways backtests lie — lookahead bias, survivorship bias, costs, overfitting — shown in runnable Python, plus a walk-forward workflow that catches each."
 date: "2026-07-04"
 tags: ["quantitative-finance", "validation"]
 draft: false

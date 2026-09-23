@@ -1,6 +1,6 @@
 ---
 title: "Angle of Arrival on a Budget: Localizing Sound with Four Microphones and a Cortex-M4"
-summary: "How time-difference-of-arrival, GCC-PHAT cross-correlation, and DMA double-buffering combine to locate a sound source on a TM4C123GH6PM — plus the honest limits."
+summary: "Localizing sound with four microphones and a Cortex-M4: time-difference-of-arrival, GCC-PHAT cross-correlation, DMA double-buffering, and honest limits."
 date: "2026-08-20"
 tags: ["embedded-systems", "signal-processing"]
 draft: false

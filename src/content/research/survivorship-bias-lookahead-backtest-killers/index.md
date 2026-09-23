@@ -1,6 +1,6 @@
 ---
 title: "Survivorship Bias and Lookahead: Two Backtest Killers, with Code"
-summary: "Two classic bugs inflate backtested returns: survivorship bias (testing on assets that exist today) and lookahead bias (using information not available at trade time). Both demonstrated in runnable numpy, with the discipline checklist that keeps them out."
+summary: "Two classic backtest bugs in runnable numpy: survivorship bias tests only assets that exist today; lookahead bias trades on unknowable information."
 date: "2026-09-02"
 tags: ["quantitative-finance", "validation", "statistics"]
 draft: false
