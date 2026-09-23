@@ -168,6 +168,8 @@ With a 10:1 cost ratio, the optimal threshold lands below 0.5 — you accept mor
   </div>
   <canvas class="widget-canvas" aria-label="Live expected-cost curve: the cost-optimal threshold marker moves as the cost ratio slider changes"></canvas>
   <p class="widget-readout" data-readout></p>
+  <div data-cm></div>
+  <div data-costbar></div>
   <p class="widget-note">Illustrative costs and synthetic data from the article's own setup (seed 7). Real cost ratios come from the clinical workflow, not from this demo.</p>
 </div>
 <script src="/js/cost-threshold-widget.js" defer></script>

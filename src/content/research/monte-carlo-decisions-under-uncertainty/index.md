@@ -18,8 +18,11 @@ Monte Carlo simulation is the art of answering questions with randomness: when y
 <div class="widget-card" id="mc-widget">
   <p class="widget-kicker">INTERACTIVE ILLUSTRATION</p>
   <h3 class="widget-title">Watch the simulation converge</h3>
-  <p class="widget-sub">This runs the article's chip-stack experiment live in your browser — 15 chips, win probability 0.49, 100 hands — with the exact dynamic-programming answer computed alongside for reference. Same setup as the Python above, seed 2026.</p>
+  <p class="widget-sub">The article's chip-stack survival experiment, live in your browser — now with adjustable parameters. Change the win probability, starting stack, or hand count and watch the exact dynamic-programming answer move while the simulation chases it. The lower panel shows where the trials actually ended: the gap between the simulated mean and the untruncated expected value is the ruin drag. Seed 2026, reproducible.</p>
   <div class="widget-controls">
+    <label>Win prob. <input type="range" min="0.40" max="0.60" step="0.005" value="0.49" data-p> <strong data-p-label>0.49</strong></label>
+    <label>Chips <input type="range" min="5" max="30" step="1" value="15" data-chips> <strong data-chips-label>15</strong></label>
+    <label>Hands <input type="range" min="20" max="200" step="10" value="100" data-hands> <strong data-hands-label>100</strong></label>
     <label>Trials
       <select data-trials>
         <option value="1000">1,000</option>
@@ -29,8 +32,11 @@ Monte Carlo simulation is the art of answering questions with randomness: when y
     </label>
     <button type="button" data-run>Run simulation</button>
   </div>
-  <canvas class="widget-canvas" aria-label="Live Monte Carlo convergence plot: running survival-probability estimate with 95 percent confidence band converging toward the exact value"></canvas>
+  <canvas class="widget-canvas" data-plot aria-label="Live Monte Carlo convergence plot: running survival-probability estimate with 95 percent confidence band converging toward the exact value"></canvas>
   <p class="widget-readout" data-readout></p>
+  <p class="widget-subhead">Distribution of final stacks</p>
+  <canvas class="widget-canvas" data-hist aria-label="Histogram of final chip stacks across trials, with simulated mean and untruncated expected value lines"></canvas>
+  <p class="widget-readout" data-hist-readout></p>
   <p class="widget-note">Illustrative toy parameters from the article. The band is ±1.96·SE around the running estimate — watch it narrow as trials accumulate.</p>
 </div>
 <script src="/js/mc-widget.js" defer></script>

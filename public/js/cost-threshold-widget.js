@@ -54,13 +54,18 @@
   for (var ti = 0; ti < NT; ti++) thresholds[ti] = 0.05 + ti * 0.01;
 
   // P(miss) and P(false alarm) per threshold — independent of the cost ratio.
+  // Also keep raw counts so the confusion matrix at t* is exact, not rounded.
   var pMiss = new Float64Array(NT), pFA = new Float64Array(NT);
+  var cntFN = new Float64Array(NT), cntFP = new Float64Array(NT);
+  var nHigh = 0;
+  for (i = 0; i < N; i++) nHigh += high[i];
   for (ti = 0; ti < NT; ti++) {
     var t = thresholds[ti], fn = 0, fp = 0;
     for (i = 0; i < N; i++) {
       if (risk[i] >= t) { if (!high[i]) fp++; }
       else if (high[i]) fn++;
     }
+    cntFN[ti] = fn; cntFP[ti] = fp;
     pMiss[ti] = fn / N;
     pFA[ti] = fp / N;
   }
@@ -70,6 +75,8 @@
   var slider = root.querySelector('[data-ratio]');
   var ratioLabel = root.querySelector('[data-ratio-label]');
   var readout = root.querySelector('[data-readout]');
+  var cmBox = root.querySelector('[data-cm]');
+  var costbarBox = root.querySelector('[data-costbar]');
   var curRatio = parseInt(slider.value, 10) || 10;
 
   function cssVar(name) {
@@ -170,6 +177,52 @@
       ' &middot; E[cost] at t=0.50: <strong>' + res.c50.toFixed(3) + '</strong>' +
       ' &middot; at t*: <strong>' + res.bestC.toFixed(3) + '</strong>' +
       ' (' + save.toFixed(1) + '% lower)';
+
+    drawCM(ratio, res);
+    drawCostbar(ratio, res);
+  }
+
+  // Confusion matrix at t* (raw counts — exact, not rounded).
+  function drawCM(ratio, res) {
+    if (!cmBox) return;
+    var k = res.best;
+    var fn = cntFN[k], fp = cntFP[k];
+    var tp = nHigh - fn, tn = (N - nHigh) - fp;
+    function pct(c) { return (100 * c / N).toFixed(1) + '%'; }
+    cmBox.innerHTML =
+      '<p class="widget-subhead">Confusion matrix at t* = ' + res.tStar.toFixed(2) + ' <span>(n = ' +
+      N.toLocaleString('en-US') + ')</span></p>' +
+      '<table class="widget-cm-table" aria-label="Confusion matrix at the cost-optimal threshold">' +
+      '<thead><tr><th></th><th scope="col">Flagged high-risk</th><th scope="col">Not flagged</th></tr></thead>' +
+      '<tbody>' +
+      '<tr><th scope="row">Actually high-risk</th>' +
+      '<td class="cm-tp"><strong>' + tp.toLocaleString('en-US') + '</strong><span>TP &middot; ' + pct(tp) + '</span></td>' +
+      '<td class="cm-fn"><strong>' + fn.toLocaleString('en-US') + '</strong><span>miss &middot; ' + pct(fn) + '</span></td></tr>' +
+      '<tr><th scope="row">Actually low-risk</th>' +
+      '<td class="cm-fp"><strong>' + fp.toLocaleString('en-US') + '</strong><span>false alarm &middot; ' + pct(fp) + '</span></td>' +
+      '<td class="cm-tn"><strong>' + tn.toLocaleString('en-US') + '</strong><span>TN &middot; ' + pct(tn) + '</span></td></tr>' +
+      '</tbody></table>';
+  }
+
+  // Cost breakdown: how much of E[cost] at t* comes from misses vs false alarms.
+  function drawCostbar(ratio, res) {
+    if (!costbarBox) return;
+    var k = res.best;
+    var missC = ratio * pMiss[k], faC = pFA[k], total = missC + faC;
+    var missPct = total > 0 ? 100 * missC / total : 0;
+    var faPct = total > 0 ? 100 * faC / total : 0;
+    costbarBox.innerHTML =
+      '<p class="widget-subhead">Where the expected cost goes at t* <span>(C<sub>FN</sub> : C<sub>FP</sub> = ' +
+      ratio + ' : 1)</span></p>' +
+      '<div class="widget-costbar" role="img" aria-label="Cost breakdown: ' +
+      missPct.toFixed(1) + ' percent from misses, ' + faPct.toFixed(1) + ' percent from false alarms">' +
+      '<div class="costbar-miss" style="width:' + missPct.toFixed(2) + '%"></div>' +
+      '<div class="costbar-fa" style="width:' + faPct.toFixed(2) + '%"></div>' +
+      '</div>' +
+      '<p class="widget-costbar-legend"><span class="sw sw-miss"></span>misses: <strong>' +
+      missC.toFixed(3) + '</strong> (' + missPct.toFixed(1) + '%)' +
+      ' &nbsp;&middot;&nbsp; <span class="sw sw-fa"></span>false alarms: <strong>' +
+      faC.toFixed(3) + '</strong> (' + faPct.toFixed(1) + '%)</p>';
   }
 
   slider.addEventListener('input', function () {

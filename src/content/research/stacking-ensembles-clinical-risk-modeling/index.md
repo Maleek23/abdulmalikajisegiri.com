@@ -119,6 +119,20 @@ That correlation number is the cheapest go/no-go test in ensemble work. Diverse 
 ![Dishonest versus honest stacking: the naive shortcut trains the meta-learner on in-sample predictions and collapses on new data, while the honest out-of-fold stack holds R² 0.78 to 0.81 on held-out data](./diagram-honest-vs-dishonest-validation.svg)
 *Figure — The naive stack looks great in-sample and fails on new data; the out-of-fold stack's R² 0.78 → 0.81 was measured on data neither tuning nor stacking ever saw.*
 
+<div class="widget-card" id="overfit-widget">
+  <p class="widget-kicker">INTERACTIVE ILLUSTRATION</p>
+  <h3 class="widget-title">Feel the optimism gap open up</h3>
+  <p class="widget-sub">The article's honesty lesson in miniature: a noisy regression fit with polynomials of degree 1–12, computed live by exact least squares. Drag the degree slider — training error falls monotonically while validation error U-turns. The gap between them is the <em>optimism gap</em>: everything a model claims in-sample that new data refuses to confirm. This is the failure mode out-of-fold validation exists to catch.</p>
+  <div class="widget-controls">
+    <label>Polynomial degree <input type="range" min="1" max="12" step="1" value="3" data-degree> <strong data-degree-label>3</strong></label>
+  </div>
+  <canvas class="widget-canvas" data-fit aria-label="Scatter plot of training and validation data with the fitted polynomial curve"></canvas>
+  <canvas class="widget-canvas widget-canvas-short" data-err aria-label="Training versus validation RMSE as polynomial degree increases"></canvas>
+  <p class="widget-readout" data-readout></p>
+  <p class="widget-note">Synthetic data, seed 7 — 40 training and 40 validation points around a sine curve. Dots are training data, crosses are held-out validation the fit never saw.</p>
+</div>
+<script src="/js/overfit-widget.js" defer></script>
+
 ## A sane RandomizedSearchCV strategy
 
 The project tunes with `RandomizedSearchCV` rather than grid search, which is the right call: for a fixed compute budget, random search explores more distinct values of the hyperparameters that actually matter (Bergstra & Bengio's result holds up in practice — grids waste evaluations re-testing unimportant parameters).

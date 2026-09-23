@@ -51,6 +51,32 @@ A note on the number 120: replication count is a precision decision. The standar
 
 *Figure — Match the statistical design to the simulation type: terminating simulations get independent replications, steady-state ones get long runs with warm-up deletion.*
 
+<div class="widget-card" id="clt-widget">
+  <p class="widget-kicker">INTERACTIVE ILLUSTRATION</p>
+  <h3 class="widget-title">Build a sampling distribution by hand</h3>
+  <p class="widget-sub">The article's replication lesson, live: each replication is one draw from the distribution of a performance measure. Pick a population shape — even a badly skewed or bimodal one — choose a sample size, then add replications and watch the distribution of sample means narrow toward a normal curve centered on the true mean, with standard error shrinking as σ/√n. Click the population panel to draw a single observation and see how little one draw tells you.</p>
+  <div class="widget-controls">
+    <label>Population
+      <select data-population>
+        <option value="skewed" selected>Right-skewed</option>
+        <option value="uniform">Uniform</option>
+        <option value="bimodal">Bimodal</option>
+      </select>
+    </label>
+    <label>Sample size n <input type="range" min="5" max="200" step="5" value="30" data-n> <strong data-n-label>30</strong></label>
+    <button type="button" data-add1>+1 replication</button>
+    <button type="button" data-add100>+100 replications</button>
+    <button type="button" data-run500>Run 500</button>
+    <button type="button" data-reset>Reset</button>
+  </div>
+  <canvas class="widget-canvas widget-canvas-short" data-pop aria-label="Population distribution histogram; click to draw a single observation"></canvas>
+  <canvas class="widget-canvas" data-samp aria-label="Sampling distribution of the sample mean building up toward a normal curve"></canvas>
+  <p class="widget-readout" data-readout></p>
+  <p class="widget-readout" data-sample></p>
+  <p class="widget-note">60,000 synthetic values per population, generated live (seed 1234) — the population mean and SD are computed from the data, not assumed. The smooth curve is N(μ, σ/√n).</p>
+</div>
+<script src="/js/clt-widget.js" defer></script>
+
 ## Paired comparisons: compare the dice, not the luck
 
 The two die configurations weren't run on independent random streams — they were compared with a **paired** t-test, which means each replication of Team 1 was matched with a replication of Team 2 under the same underlying randomness. This is the technique of **common random numbers** (CRN), and it's the single highest-leverage variance-reduction trick in comparative simulation.

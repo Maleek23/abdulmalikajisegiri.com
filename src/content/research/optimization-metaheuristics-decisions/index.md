@@ -28,6 +28,27 @@ Gradient-based and convex methods make assumptions that messy problems violate:
 
 None of this means classical methods are obsolete. It means the first question of any optimization effort is *what kind of problem is this?* If it is convex, continuous, and single-objective, use the classical tools; they give guarantees metaheuristics cannot. Metaheuristics are for the rest.
 
+<div class="widget-card" id="gd-widget">
+  <p class="widget-kicker">INTERACTIVE ILLUSTRATION</p>
+  <h3 class="widget-title">Watch gradient descent get trapped</h3>
+  <p class="widget-sub">Gradient descent on a double-well landscape, live in your browser — f(x) = x⁴ − 3x² + x, the same shape as the article's toy problem. Start in the right-hand valley and gradient descent converges happily… into the <em>local</em> minimum, never finding the deeper one. Crank the learning rate and watch it oscillate or blow up; flip to simulated annealing and watch the Boltzmann rule climb out of the trap. Click the plot to choose a starting point.</p>
+  <div class="widget-controls">
+    <label>Method
+      <select data-method>
+        <option value="gd" selected>Gradient descent</option>
+        <option value="sa">Simulated annealing</option>
+      </select>
+    </label>
+    <label>Learning rate <input type="range" min="-3" max="0" step="0.05" value="-1.3" data-lr> <strong data-lr-label>0.05</strong></label>
+    <label>Start x <input type="range" min="-2.5" max="2.5" step="0.1" value="1.8" data-start> <strong data-start-label>1.8</strong></label>
+    <button type="button" data-run>Run</button>
+  </div>
+  <canvas class="widget-canvas" aria-label="Gradient descent playground: loss landscape with the optimizer's path drawn live"></canvas>
+  <p class="widget-readout" data-readout></p>
+  <p class="widget-note">Illustrative toy landscape. The minima markers are located numerically at load (grid search + Newton refinement) — try starting left of x = −0.5 versus right of it and compare where each method lands.</p>
+</div>
+<script src="/js/gd-widget.js" defer></script>
+
 ## Simulated annealing, concretely
 
 Simulated annealing walks a single solution through the space, accepting worse moves with probability `exp(-Δ/T)` — the Boltzmann rule — where the "temperature" T decreases over time. Early heat lets the search climb out of local optima; cooling settles it into a good basin. The method shines on problems with a natural neighborhood structure (swap, insert, perturb) and is the simplest of the three workhorses to implement correctly.

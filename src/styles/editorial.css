@@ -1096,6 +1096,82 @@ input[name="search"]::placeholder {
   margin: 10px 0 0;
   line-height: 1.6;
 }
+.widget-subhead {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin: 22px 0 10px;
+}
+.widget-subhead span { color: var(--muted); letter-spacing: 0; text-transform: none; }
+.widget-canvas-short { height: 220px; }
+
+/* confusion matrix */
+.widget-cm-table {
+  width: 100%;
+  max-width: 560px;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  margin: 4px 0 6px;
+}
+.widget-cm-table th, .widget-cm-table td {
+  border: 1px solid var(--line-strong);
+  padding: 10px 12px;
+  text-align: left;
+}
+.widget-cm-table thead th {
+  background: var(--card);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.widget-cm-table tbody th {
+  background: var(--card);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 11.5px;
+  max-width: 130px;
+}
+.widget-cm-table td strong { display: block; font-size: 15px; color: var(--ink); }
+.widget-cm-table td span { color: var(--muted); font-size: 11px; }
+.widget-cm-table td.cm-tp { background: rgba(28,107,74,0.10); }
+.widget-cm-table td.cm-tn { background: rgba(28,107,74,0.05); }
+.widget-cm-table td.cm-fn { background: rgba(168,60,42,0.10); }
+.widget-cm-table td.cm-fp { background: rgba(168,60,42,0.06); }
+
+/* cost breakdown bar */
+.widget-costbar {
+  display: flex;
+  width: 100%;
+  max-width: 640px;
+  height: 26px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--paper);
+  margin: 4px 0 8px;
+}
+.costbar-miss { background: var(--green); min-width: 2px; transition: width 0.25s ease; }
+.costbar-fa { background: var(--faint); min-width: 2px; transition: width 0.25s ease; }
+.widget-costbar-legend {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.7;
+}
+.widget-costbar-legend .sw {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+  vertical-align: baseline;
+}
+.sw-miss { background: var(--green); }
+.sw-fa { background: var(--faint); }
 @media (max-width: 480px) {
   .widget-card { padding: 20px 16px; }
   .widget-canvas { height: 260px; }
