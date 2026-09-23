@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" role="img" aria-label="Illustrative PSI drift dashboard: binned reference versus current score distributions, with PSI stability bands at 0.1 and 0.25 and an illustrative marker at PSI 0.31 in the investigate zone.">
+<rect x="0" y="0" width="800" height="470" rx="10" fill="#f6f4ee"/>
+<text x="40" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="21" fill="#1a1f1c">PSI drift dashboard: reference vs. current score distributions</text>
+<text x="40" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#6b7268">Illustrative sketch — synthetic data; bin edges fixed from reference quantiles.</text>
+<rect x="94.0" y="265.6" width="26" height="30.4" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="122.0" y="286.5" width="26" height="9.5" fill="#1d5c3f"/>
+<rect x="156.0" y="220.0" width="26" height="76.0" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="184.0" y="277.0" width="26" height="19.0" fill="#1d5c3f"/>
+<rect x="218.0" y="174.4" width="26" height="121.6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="246.0" y="254.2" width="26" height="41.8" fill="#1d5c3f"/>
+<rect x="280.0" y="128.8" width="26" height="167.2" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="308.0" y="216.2" width="26" height="79.8" fill="#1d5c3f"/>
+<rect x="342.0" y="106.0" width="26" height="190.0" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="370.0" y="174.4" width="26" height="121.6" fill="#1d5c3f"/>
+<rect x="404.0" y="136.4" width="26" height="159.6" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="432.0" y="132.6" width="26" height="163.4" fill="#1d5c3f"/>
+<rect x="466.0" y="185.8" width="26" height="110.2" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="494.0" y="106.0" width="26" height="190.0" fill="#1d5c3f"/>
+<rect x="528.0" y="227.6" width="26" height="68.4" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="556.0" y="117.4" width="26" height="178.6" fill="#1d5c3f"/>
+<rect x="590.0" y="261.8" width="26" height="34.2" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="618.0" y="159.2" width="26" height="136.8" fill="#1d5c3f"/>
+<rect x="652.0" y="280.8" width="26" height="15.2" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<rect x="680.0" y="212.4" width="26" height="83.6" fill="#1d5c3f"/>
+<line x1="90" y1="296" x2="710" y2="296" stroke="#1a1f1c" stroke-width="1.5"/>
+<line x1="90" y1="96" x2="90" y2="296" stroke="#1a1f1c" stroke-width="1.5"/>
+<line x1="90" y1="296" x2="90" y2="302" stroke="#1a1f1c" stroke-width="1"/>
+<text x="90" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.0</text>
+<line x1="214" y1="296" x2="214" y2="302" stroke="#1a1f1c" stroke-width="1"/>
+<text x="214" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.2</text>
+<line x1="338" y1="296" x2="338" y2="302" stroke="#1a1f1c" stroke-width="1"/>
+<text x="338" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.4</text>
+<line x1="462" y1="296" x2="462" y2="302" stroke="#1a1f1c" stroke-width="1"/>
+<text x="462" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.6</text>
+<line x1="586" y1="296" x2="586" y2="302" stroke="#1a1f1c" stroke-width="1"/>
+<text x="586" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.8</text>
+<line x1="710" y1="296" x2="710" y2="302" stroke="#1a1f1c" stroke-width="1"/>
+<text x="710" y="318" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">1.0</text>
+<text x="400" y="338" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">model score</text>
+<text x="34" y="196" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c" transform="rotate(-90 34 196)">share of window</text>
+<rect x="104" y="104" width="14" height="14" fill="#f6f4ee" stroke="#1a1f1c" stroke-width="1.25"/>
+<text x="126" y="116" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#1a1f1c">reference (validation)</text>
+<rect x="104" y="126" width="14" height="14" fill="#1d5c3f"/>
+<text x="126" y="138" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#1a1f1c">current (production)</text>
+<text x="90" y="366" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1a1f1c">PSI stability bands</text>
+<rect x="90.0" y="376" width="124.0" height="32" fill="#dce8de" stroke="#1a1f1c" stroke-width="1"/>
+<text x="152.0" y="398" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1a1f1c">stable</text>
+<rect x="214.0" y="376" width="186.0" height="32" fill="#ece2c2" stroke="#1a1f1c" stroke-width="1"/>
+<text x="307.0" y="398" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1a1f1c">watch</text>
+<rect x="400.0" y="376" width="310.0" height="32" fill="#e6cbc5" stroke="#1a1f1c" stroke-width="1"/>
+<text x="555.0" y="398" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1a1f1c">investigate</text>
+<line x1="90.0" y1="408" x2="90.0" y2="414" stroke="#1a1f1c" stroke-width="1"/>
+<text x="90.0" y="430" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0</text>
+<line x1="214.0" y1="408" x2="214.0" y2="414" stroke="#1a1f1c" stroke-width="1"/>
+<text x="214.0" y="430" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.1</text>
+<line x1="400.0" y1="408" x2="400.0" y2="414" stroke="#1a1f1c" stroke-width="1"/>
+<text x="400.0" y="430" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.25</text>
+<line x1="710.0" y1="408" x2="710.0" y2="414" stroke="#1a1f1c" stroke-width="1"/>
+<text x="710.0" y="430" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0.5</text>
+<line x1="474.4" y1="368" x2="474.4" y2="408" stroke="#a33b2e" stroke-width="2.5"/>
+<circle cx="474.4" cy="368" r="4.5" fill="#a33b2e"/>
+<text x="484.4" y="372" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#1a1f1c">PSI = 0.31 — investigate</text>
+<text x="40" y="452" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" font-style="italic" fill="#6b7268">When the score histogram shifts, the validated operating point no longer describes who gets flagged.</text>
+</svg>

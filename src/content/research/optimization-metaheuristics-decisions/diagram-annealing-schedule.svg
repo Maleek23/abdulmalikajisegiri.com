@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Illustrative sketch of simulated annealing: geometric temperature cooling schedule on the left, and best-so-far convergence of annealing versus greedy descent on a synthetic double-well landscape on the right.">
+<rect x="0" y="0" width="800" height="450" rx="10" fill="#f6f4ee"/>
+<text x="40" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#1a1f1c">Simulated annealing: cooling schedule and convergence</text>
+<text x="40" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" fill="#6b7268">Illustrative sketch — synthetic double-well landscape; both methods get the same evaluation budget.</text>
+<text x="384" y="84" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-style="italic" fill="#1a1f1c">temperature schedule</text>
+<text x="384" y="102" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#6b7268">T(k) = 10 x 0.9995^k</text>
+<line x1="84" y1="362.0" x2="384" y2="362.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="76" y="366.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0</text>
+<line x1="84" y1="304.4" x2="384" y2="304.4" stroke="#d8d4c8" stroke-width="1"/>
+<text x="76" y="308.4" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">2</text>
+<line x1="84" y1="246.8" x2="384" y2="246.8" stroke="#d8d4c8" stroke-width="1"/>
+<text x="76" y="250.8" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">4</text>
+<line x1="84" y1="189.2" x2="384" y2="189.2" stroke="#d8d4c8" stroke-width="1"/>
+<text x="76" y="193.2" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">6</text>
+<line x1="84" y1="131.6" x2="384" y2="131.6" stroke="#d8d4c8" stroke-width="1"/>
+<text x="76" y="135.6" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">8</text>
+<line x1="84" y1="74.0" x2="384" y2="74.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="76" y="78.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">10</text>
+<line x1="84.0" y1="362" x2="84.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="84.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0</text>
+<line x1="144.0" y1="362" x2="144.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="144.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">1000</text>
+<line x1="204.0" y1="362" x2="204.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="204.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">2000</text>
+<line x1="264.0" y1="362" x2="264.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="264.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">3000</text>
+<line x1="324.0" y1="362" x2="324.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="324.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">4000</text>
+<line x1="384.0" y1="362" x2="384.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="384.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">5000</text>
+<line x1="84" y1="362" x2="384" y2="362" stroke="#1a1f1c" stroke-width="1.5"/>
+<line x1="84" y1="74" x2="84" y2="362" stroke="#1a1f1c" stroke-width="1.5"/>
+<path d="M84.0,74.0 L88.3,84.0 L92.5,93.7 L96.8,103.2 L101.1,112.3 L105.4,121.1 L109.7,129.5 L114.0,137.7 L118.3,145.5 L122.5,153.1 L126.8,160.5 L131.1,167.5 L135.4,174.4 L139.7,180.9 L144.0,187.3 L148.3,193.4 L152.5,199.3 L156.8,205.1 L161.1,210.5 L165.4,215.9 L169.7,221.0 L174.0,226.0 L178.3,230.7 L182.5,235.3 L186.8,239.8 L191.1,244.1 L195.4,248.2 L199.7,252.2 L204.0,256.1 L208.3,259.8 L212.5,263.3 L216.8,266.8 L221.1,270.1 L225.4,273.4 L229.7,276.5 L234.0,279.5 L238.3,282.4 L242.5,285.2 L246.8,287.9 L251.1,290.5 L255.4,293.0 L259.7,295.4 L264.0,297.8 L268.3,300.0 L272.5,302.2 L276.8,304.3 L281.1,306.3 L285.4,308.3 L289.7,310.1 L294.0,312.0 L298.3,313.7 L302.5,315.4 L306.8,317.1 L311.1,318.6 L315.4,320.2 L319.7,321.6 L324.0,323.0 L328.3,324.4 L332.5,325.7 L336.8,327.0 L341.1,328.2 L345.4,329.4 L349.7,330.5 L354.0,331.7 L358.3,332.7 L362.5,333.7 L366.8,334.7 L371.1,335.7 L375.4,336.6 L379.7,337.5 L384.0,338.4" fill="none" stroke="#1d5c3f" stroke-width="3" stroke-linejoin="round"/>
+<text x="120" y="140" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1a1f1c">hot: worse moves accepted,</text>
+<text x="120" y="157" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1a1f1c">escapes local optima</text>
+<text x="272" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1d5c3f">cold: settles like greedy</text>
+<text x="234" y="436" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1a1f1c">iteration k</text>
+<text x="22" y="218" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#1a1f1c" transform="rotate(-90 22 218)">temperature T</text>
+<text x="744" y="84" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-style="italic" fill="#1a1f1c">best-so-far convergence</text>
+<text x="744" y="124" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#6b7268">accept worse move with P = exp(-d/T)</text>
+<line x1="464" y1="353.0" x2="744" y2="353.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="357.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">-3</text>
+<line x1="464" y1="308.0" x2="744" y2="308.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="312.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">-2</text>
+<line x1="464" y1="263.0" x2="744" y2="263.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="267.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">-1</text>
+<line x1="464" y1="218.0" x2="744" y2="218.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="222.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0</text>
+<line x1="464" y1="173.0" x2="744" y2="173.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="177.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">1</text>
+<line x1="464" y1="128.0" x2="744" y2="128.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="132.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">2</text>
+<line x1="464" y1="83.0" x2="744" y2="83.0" stroke="#d8d4c8" stroke-width="1"/>
+<text x="456" y="87.0" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">3</text>
+<line x1="464.0" y1="362" x2="464.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="464.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">0</text>
+<line x1="520.0" y1="362" x2="520.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="520.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">1000</text>
+<line x1="576.0" y1="362" x2="576.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="576.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">2000</text>
+<line x1="632.0" y1="362" x2="632.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="632.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">3000</text>
+<line x1="688.0" y1="362" x2="688.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="688.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">4000</text>
+<line x1="744.0" y1="362" x2="744.0" y2="368" stroke="#6b7268" stroke-width="1"/>
+<text x="744.0" y="384" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7268">5000</text>
+<line x1="464" y1="362" x2="744" y2="362" stroke="#1a1f1c" stroke-width="1.5"/>
+<line x1="464" y1="74" x2="464" y2="362" stroke="#1a1f1c" stroke-width="1.5"/>
+<path d="M464.0,-30.6 L468.0,94.6 L472.1,94.6 L476.2,94.6 L480.2,94.6 L484.3,94.6 L488.3,94.6 L492.4,94.6 L496.4,94.6 L500.5,94.6 L504.5,94.6 L508.6,94.6 L512.7,94.6 L516.7,94.6 L520.8,94.6 L524.8,94.6 L528.9,94.6 L532.9,94.6 L537.0,94.6 L541.1,94.6 L545.1,94.6 L549.2,94.6 L553.2,94.6 L557.3,94.6 L561.3,94.6 L565.4,94.6 L569.4,94.6 L573.5,94.6 L577.6,94.6 L581.7,94.6 L585.7,94.6 L589.7,94.6 L593.8,94.6 L597.8,94.6 L601.9,94.6 L606.0,94.6 L610.0,94.6 L614.1,94.6 L618.2,94.6 L622.2,94.6 L626.2,94.6 L630.3,94.6 L634.4,94.6 L638.4,94.6 L642.5,94.6 L646.6,94.6 L650.6,94.6 L654.7,94.6 L658.7,94.6 L662.8,94.6 L666.8,94.6 L670.9,94.6 L675.0,94.6 L679.0,94.6 L683.1,94.6 L687.1,94.6 L691.2,94.6 L695.2,94.6 L699.3,94.6 L703.3,94.6 L707.4,94.6 L711.5,94.6 L715.5,94.6 L719.6,94.6 L723.6,94.6 L727.7,94.6 L731.7,94.6 L735.8,94.6 L739.9,94.6 L743.9,94.6" fill="none" stroke="#6b7268" stroke-width="2.5" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<path d="M464.0,-106.2 L468.0,94.0 L472.1,94.4 L476.2,94.6 L480.2,94.6 L484.3,94.6 L488.3,349.0 L492.4,349.5 L496.4,349.5 L500.5,349.5 L504.5,349.5 L508.6,349.5 L512.7,349.5 L516.7,349.5 L520.8,349.5 L524.8,349.5 L528.9,349.5 L532.9,349.5 L537.0,349.5 L541.1,349.5 L545.1,349.5 L549.2,349.5 L553.2,349.5 L557.3,349.5 L561.3,349.5 L565.4,349.5 L569.4,349.5 L573.5,349.5 L577.6,349.5 L581.7,349.5 L585.7,349.5 L589.7,349.5 L593.8,349.5 L597.8,349.5 L601.9,349.5 L606.0,349.5 L610.0,349.5 L614.1,349.5 L618.2,349.5 L622.2,349.5 L626.2,349.5 L630.3,349.5 L634.4,349.5 L638.4,349.5 L642.5,349.5 L646.6,349.5 L650.6,349.5 L654.7,349.5 L658.7,349.5 L662.8,349.5 L666.8,349.5 L670.9,349.5 L675.0,349.5 L679.0,349.5 L683.1,349.5 L687.1,349.5 L691.2,349.5 L695.2,349.5 L699.3,349.5 L703.3,349.5 L707.4,349.5 L711.5,349.5 L715.5,349.5 L719.6,349.5 L723.6,349.5 L727.7,349.5 L731.7,349.5 L735.8,349.5 L739.9,349.5 L743.9,349.5" fill="none" stroke="#1d5c3f" stroke-width="3" stroke-linejoin="round"/>
+<text x="648" y="152" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#6b7268">greedy: trapped in a local well</text>
+<text x="560" y="335.5" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#1d5c3f">annealing escapes, then settles</text>
+<line x1="478" y1="414" x2="516" y2="414" stroke="#1d5c3f" stroke-width="3"/>
+<text x="524" y="418" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12.5" fill="#1a1f1c">simulated annealing</text>
+<line x1="478" y1="436" x2="516" y2="436" stroke="#6b7268" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="524" y="440" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12.5" fill="#1a1f1c">greedy descent (same start, same budget)</text>
+</svg>

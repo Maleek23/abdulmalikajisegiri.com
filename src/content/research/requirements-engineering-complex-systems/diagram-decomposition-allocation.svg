@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 640" role="img" aria-labelledby="da-title da-desc">
+  <title id="da-title">Requirement decomposition and allocation tree for a toy parcel-sorting system</title>
+  <desc id="da-desc">Stakeholder need SN-01 decomposes into system requirements SYS-014, SYS-015, and SYS-022, each allocated to subsystem owners in controls, mechanical, and HMI software. DER-003 is a derived requirement tracing to a design decision rather than a stakeholder need.</desc>
+
+  <rect x="0" y="0" width="840" height="640" fill="#f6f4ee"/>
+
+  <text x="420" y="32" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" letter-spacing="3" fill="#6b7268">REQUIREMENTS DECOMPOSITION · TOY EXAMPLE</text>
+  <text x="420" y="66" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#1a1f1c">One need, decomposed and allocated</text>
+
+  <!-- Stakeholder need -->
+  <rect x="270" y="96" width="300" height="70" fill="#1d5c3f"/>
+  <text x="420" y="124" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#ffffff">SN-01 — stakeholder need</text>
+  <text x="420" y="146" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-style="italic" fill="#e8ece7">Clear the peak backlog without adding a shift</text>
+
+  <!-- Decomposition bus -->
+  <line x1="420" y1="166" x2="420" y2="190" stroke="#1d5c3f" stroke-width="1.5"/>
+  <line x1="150" y1="190" x2="690" y2="190" stroke="#1d5c3f" stroke-width="1.5"/>
+  <line x1="150" y1="190" x2="150" y2="206" stroke="#1d5c3f" stroke-width="1.5"/>
+  <line x1="420" y1="190" x2="420" y2="206" stroke="#1d5c3f" stroke-width="1.5"/>
+  <line x1="690" y1="190" x2="690" y2="206" stroke="#1d5c3f" stroke-width="1.5"/>
+  <polygon points="145,206 155,206 150,214" fill="#1d5c3f"/>
+  <polygon points="415,206 425,206 420,214" fill="#1d5c3f"/>
+  <polygon points="685,206 695,206 690,214" fill="#1d5c3f"/>
+  <text x="434" y="184" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">decomposes into</text>
+
+  <!-- System requirement cards -->
+  <g>
+    <rect x="30" y="214" width="240" height="80" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="46" y="240" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" font-weight="bold" fill="#1d5c3f">SYS-014</text>
+    <text x="46" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">sort ≥ 2,400 parcels/hr</text>
+    <text x="46" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">at peak, standard crew</text>
+  </g>
+  <g>
+    <rect x="300" y="214" width="240" height="80" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="316" y="240" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" font-weight="bold" fill="#1d5c3f">SYS-015</text>
+    <text x="316" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">mis-sort rate ≤ 1 in 5,000</text>
+    <text x="316" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">at peak load</text>
+  </g>
+  <g>
+    <rect x="570" y="214" width="240" height="80" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="586" y="240" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" font-weight="bold" fill="#1d5c3f">SYS-022</text>
+    <text x="586" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">one operator per line;</text>
+    <text x="586" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#1a1f1c">≤ 2 interactions per exception</text>
+  </g>
+
+  <!-- Allocation trunks (drawn behind boxes) -->
+  <line x1="150" y1="294" x2="150" y2="470" stroke="#1d5c3f" stroke-width="1.5"/>
+  <line x1="420" y1="294" x2="420" y2="470" stroke="#1d5c3f" stroke-width="1.5"/>
+  <line x1="690" y1="294" x2="690" y2="470" stroke="#1d5c3f" stroke-width="1.5"/>
+  <text x="432" y="336" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">allocated to</text>
+
+  <!-- Subsystem boxes -->
+  <g>
+    <rect x="30" y="348" width="240" height="52" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="44" y="368" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">CTL-041 · CONTROLS</text>
+    <text x="44" y="388" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">divert-gate cycle ≤ 300 ms</text>
+  </g>
+  <g>
+    <rect x="30" y="408" width="240" height="52" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="44" y="428" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">MEC-103 · MECHANICAL</text>
+    <text x="44" y="448" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">belt speed 2.5 m/s ± 2%</text>
+  </g>
+  <g>
+    <rect x="300" y="348" width="240" height="52" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="314" y="368" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">CTL-052 · CONTROLS</text>
+    <text x="314" y="388" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">misread detected within 2 s</text>
+  </g>
+  <g>
+    <rect x="300" y="408" width="240" height="52" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="314" y="428" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">MEC-118 · MECHANICAL</text>
+    <text x="314" y="448" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">chute capacity ≥ 40 parcels</text>
+  </g>
+  <g>
+    <rect x="570" y="348" width="240" height="52" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="584" y="368" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">HMI-201 · HMI SOFTWARE</text>
+    <text x="584" y="388" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">exceptions listed by dwell time</text>
+  </g>
+  <g>
+    <rect x="570" y="408" width="240" height="52" fill="#fffdf8" stroke="#d9d4c5" stroke-width="1"/>
+    <text x="584" y="428" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">HMI-207 · HMI SOFTWARE</text>
+    <text x="584" y="448" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">resolution in ≤ 2 taps</text>
+  </g>
+
+  <!-- Derived requirement -->
+  <line x1="150" y1="470" x2="150" y2="492" stroke="#1d5c3f" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="145,492 155,492 150,500" fill="#1d5c3f"/>
+  <text x="162" y="490" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">derived</text>
+  <rect x="30" y="500" width="390" height="62" fill="none" stroke="#1d5c3f" stroke-width="1.5" stroke-dasharray="7,5"/>
+  <text x="46" y="524" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="bold" fill="#1d5c3f">DER-003 · DERIVED REQUIREMENT</text>
+  <text x="46" y="544" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" fill="#1a1f1c">sensor debounce ≥ 50 ms — traces to a design decision, not to SN-01</text>
+
+  <!-- Footnote -->
+  <text x="420" y="592" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">Every box traces upward to SN-01 — except DER-003, which traces to a recorded design decision.</text>
+  <text x="420" y="610" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-style="italic" fill="#6b7268">Real allocations cross columns; the tree shows primary allocation.</text>
+</svg>

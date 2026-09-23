@@ -3,7 +3,8 @@ title: "Stress Testing and Scenario Analysis for Quantitative Models"
 summary: "Historical, hypothetical, and reverse stress tests — designing scenarios that break your model on purpose, before reality does."
 date: "2026-06-25"
 tags: ["risk-management", "quantitative-finance"]
-draft: true
+draft: false
+image: "/research/stress-testing-scenario-analysis/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*
@@ -35,13 +36,84 @@ Bad stress tests are worse than none, because they produce false confidence. Des
 - **Calibrate severity honestly.** "Severe but plausible" is the standard phrase, and both words do work. Too mild and the test tells you nothing; too extreme and the results get dismissed as fantasy. One practical approach: anchor hypothetical scenarios to historical precedents and then extend them — the 2008 shock, but 1.5x, or applied to today's portfolio concentrations.
 - **Keep the transmission mechanism explicit.** Document how the scenario propagates: which risk factors move, by how much, over what horizon, and through which channels they hit the portfolio. A scenario whose mechanics are opaque can't be challenged, and an unchallengeable stress test is theater.
 
+## Sensitivity grids: mapping the break points
+
+Before committing to full narrative scenarios, a sensitivity grid maps *where* a model breaks — cheaply and systematically. Pick two or three key risk factors, shock them across a grid of coherent severities, and record the model's output at each cell. The exercise below uses a deliberately toy loss function; all numbers are synthetic illustrations of the method, not calibrated to any real portfolio:
+
+```python
+# --- Synthetic setup: a toy loss function (illustrative stand-in) ---
+import numpy as np
+
+rng = np.random.default_rng(7)
+
+def stressed_loss(unemp_shock, spread_shock, liquidity_haircut=0.0):
+    """Toy model: losses compound nonlinearly (illustrative only)."""
+    base = 100.0                                   # synthetic baseline units
+    credit = 18.0 * unemp_shock ** 2               # credit deteriorates quadratically
+    funding = 6.0 * spread_shock * (1 + unemp_shock)  # cross-term: spreads bite harder when credit is weak
+    forced_sale = liquidity_haircut * (credit + funding)
+    return base + credit + funding + forced_sale
+```
+
+```python
+# shock grid: unemployment (pp) x credit spreads (100s of bps), coherent pairs
+unemp = np.array([0, 2, 4, 6, 8])          # percentage-point rises
+spreads = np.array([0, 1.5, 3.0, 4.5, 6])  # spread blowouts, illustrative scale
+tolerance = 250.0                          # synthetic loss limit
+
+grid = np.array([[stressed_loss(u, s) for s in spreads] for u in unemp])
+breach = grid > tolerance
+
+print("rows: unemployment shock, cols: spread shock — X marks the break point:")
+for i, u in enumerate(unemp):
+    print(f"  unemp+{u}pp |", " ".join(f"{v:6.0f}{'X' if b else ' '}" for v, b in zip(grid[i], breach[i])))
+```
+
+Two things to read off the grid. First, the **break-point contour** — the line where cells flip from safe to breached — tells you how much compound stress the portfolio absorbs before failure.
+
+Second, the **interaction term**: if the breached region grows faster diagonally than along either axis, the model's risk is driven by joint moves, not single factors — which is exactly what one-factor-at-a-time sensitivity misses. The grid is also the cheapest place to discover which factors deserve full narrative scenarios: the ones that reach the contour first.
+
+Document the contour itself, not just the scenario outcomes: it is the artifact a challenger or an independent reviewer will probe first.
+
 ## Reverse stress testing in practice
 
 Reverse stress testing deserves elaboration because it's conceptually different. The procedure: define the failure condition precisely (capital breach, liquidity exhaustion, a loss beyond tolerance), then search — analytically or computationally — for the scenarios that produce it. Then, crucially, assess plausibility: is this failure path something the real world could walk?
 
 What makes this powerful is that it finds *combinations* nobody would have constructed forward. The failure mode of a complex portfolio is often a specific cocktail of moderate moves — nothing dramatic in isolation — that interact badly. Forward scenario design rarely finds those because each individual move looks too boring to include. Reverse testing finds them because it starts from the outcome and asks what inputs produce it.
 
-The honest output of a reverse stress test is sometimes uncomfortable: a failure path that is entirely plausible and currently unmitigated. That's the test doing its job.
+A simple computational version: bisect on a coherent shock vector's severity until the loss just breaches tolerance. This finds the *minimum* scenario that breaks you — the closest failure, and usually the most instructive one:
+
+```python
+# --- reverse search: smallest coherent shock that breaches tolerance (illustrative) ---
+def coherent_shock(severity):
+    """Scale a coherent shock narrative: unemployment, spreads, liquidity move together."""
+    return stressed_loss(unemp_shock=8.0 * severity,
+                         spread_shock=6.0 * severity,
+                         liquidity_haircut=0.5 * severity)
+
+lo, hi = 0.0, 1.0
+while hi - lo > 1e-4:
+    mid = (lo + hi) / 2
+    if coherent_shock(mid) > tolerance:
+        hi = mid        # still breaks: tighten from above
+    else:
+        lo = mid        # survives: tighten from below
+print(f"break point at severity {hi:.3f} -> loss {coherent_shock(hi):.0f} (tolerance {tolerance:.0f})")
+```
+
+The honest output of a reverse stress test is sometimes uncomfortable: a failure path that is entirely plausible and currently unmitigated. That's the test doing its job. The follow-up questions are always the same: can we hedge it, limit it, or hold a buffer against it — and if none of those, do we document *why* we accept it?
+
+![The reverse stress test loop: define the failure condition, search scenario space for paths that produce it, assess plausibility, then mitigate or monitor — and refresh as the portfolio changes](./diagram-reverse-stress-loop.svg)
+
+*Figure — reverse stress testing works backward from failure: find the break point first, then judge whether the world can reach it.*
+
+## Historical replay, done honestly
+
+Replaying a historical crisis means applying the *actual joint moves* from that episode to today's exposures — not cherry-picked single-factor shocks. The honest version has three guardrails:
+
+1. **Apply the full joint vector.** Use the co-movements that actually occurred (rates, spreads, FX, liquidity proxies), because the joint behavior is the whole point of using history. Applying only the dramatic moves and leaving the offsets out fabricates a worse history than the one that happened.
+2. **Rebase to today's portfolio.** Historical scenarios must be run through current positions and current concentrations, not the exposures that existed at the time. A 2008 replay on a portfolio with none of 2008's concentrations is nostalgia, not risk management.
+3. **State the regime caveat.** The structure of markets changes — liquidity provision, leverage, correlations under stress. A historical replay assumes the transmission mechanics still hold. Document where they don't, and build a hypothetical extension of the history for the parts that broke: the 2008 moves, replayed through today's market structure.
 
 ## Governance and documentation
 
@@ -51,6 +123,10 @@ Stress testing without governance is a modeling exercise; with governance, it's 
 - **Regular refresh.** Scenarios decay. A scenario set that isn't updated as portfolios, markets, and the world change becomes a museum. New concentrations, new products, and new regimes all demand new scenarios.
 - **Documentation that enables replication.** The scenario definitions, the assumptions, the transmission mechanics, and the results should be documented so that a third party can reproduce and critique the exercise. "We ran stress tests" is not documentation.
 - **Linkage to action.** Stress results should feed decisions: limits, hedging, contingency planning, capital buffers. A stress test whose results never constrain anything is a compliance artifact.
+
+## Severity ladders: from monitoring to action
+
+A scenario set without pre-committed responses is a weather report. For each material scenario, define a severity ladder: at a 10% stress loss, monitoring intensifies; at 20%, hedging is triggered; at the break point, contingency plans activate. The thresholds are set *before* the scenario runs — committing to responses in advance is what keeps a bad quarter from turning into improvisation. The ladder also disciplines scenario design: a scenario whose every severity lands below the first rung was never severe enough to matter, and one that jumps straight to the top rung is telling you the tolerance itself may be miscalibrated.
 
 ## Common pitfalls
 
@@ -68,8 +144,8 @@ The point of stress testing was never the number. It's the understanding: which 
 
 Break your model on purpose, in as many coherent ways as you can imagine and a few you find by working backward from failure. Reality will eventually run its own stress test. The only choice is whether you've already seen the results.
 
-## Related
+## Related reading
 
-- [Model Risk & Validation](/model-risk)
-- [Quantitative Work](/quant)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic/)
+- [Backtesting Without Fooling Yourself](/research/backtesting-without-fooling-yourself/)
 - [Building an LLM Evaluation Harness: BLEU, ROUGE, SBERT, and Risk Tagging](/research/llm-evaluation-harness-bleu-rouge-sbert)

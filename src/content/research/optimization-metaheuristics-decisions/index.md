@@ -3,10 +3,13 @@ title: "Using Optimization and Metaheuristics for Engineering Decision Problems"
 summary: "When gradient methods aren't enough: genetic algorithms, simulated annealing, and friends for messy engineering trade spaces."
 date: "2026-07-13"
 tags: ["software-engineering"]
-draft: true
+draft: false
+image: "/research/optimization-metaheuristics-decisions/og.png"
 ---
 
 *By [Abdulmalik Ajisegiri](/about)*
+
+*All code below is self-contained Python over synthetic toy problems — a double-well landscape and a synthetic parts catalog — written to be read and run, not copied from any production system. Every number shown is illustrative, not measured.*
 
 ## The decision problem, formalized
 
@@ -25,28 +28,148 @@ Gradient-based and convex methods make assumptions that messy problems violate:
 
 None of this means classical methods are obsolete. It means the first question of any optimization effort is *what kind of problem is this?* If it is convex, continuous, and single-objective, use the classical tools; they give guarantees metaheuristics cannot. Metaheuristics are for the rest.
 
-## A metaheuristic tour
+## Simulated annealing, concretely
 
-Metaheuristics are high-level search strategies that guide exploration of difficult spaces without requiring the problem's mathematical structure. Three workhorses cover most cases:
+Simulated annealing walks a single solution through the space, accepting worse moves with probability `exp(-Δ/T)` — the Boltzmann rule — where the "temperature" T decreases over time. Early heat lets the search climb out of local optima; cooling settles it into a good basin. The method shines on problems with a natural neighborhood structure (swap, insert, perturb) and is the simplest of the three workhorses to implement correctly.
 
-**Genetic algorithms (GAs)** maintain a population of candidate solutions and evolve it through selection, crossover, and mutation. They are natural for combinatorial and discrete problems — scheduling, layout, configuration — because the crossover operation combines partial solutions in ways that respect problem structure. Their strength is global exploration; their weakness is slow fine-grained convergence.
+Here is a complete SA solver over an illustrative toy landscape — a double well with sinusoidal ripples, so gradient descent gets trapped — with a box constraint handled as a quadratic penalty:
 
-**Simulated annealing (SA)** walks a single solution through the space, accepting worse moves with a probability that decreases over time — the "temperature." The physics metaphor is apt: early heat lets the search escape local optima; cooling settles it into a good basin. SA shines on problems with a natural neighborhood structure (swap, insert, perturb) and is simpler to implement and tune than GAs.
+```python
+# --- Illustrative toy problem: synthetic double-well landscape ---
+import math
+import random
+
+def cost(x):                       # synthetic, non-convex; NOT a real cost model
+    return (x ** 2 - 4) ** 2 + 3 * math.sin(2.5 * x)
+
+def penalized(x):                  # box constraint |x| <= 3 via quadratic penalty
+    return cost(x) + 1000 * max(0, abs(x) - 3) ** 2
+
+def anneal(start, steps=5000, t0=10.0, cooling=0.9995, seed=0):
+    rng = random.Random(seed)
+    x, fx = start, penalized(start)
+    best, best_fx, T = x, fx, t0
+    trace = []                     # best-so-far per iteration (convergence curve)
+    for _ in range(steps):
+        cand = x + rng.gauss(0, 0.6)
+        f_cand = penalized(cand)
+        delta = f_cand - fx
+        if delta < 0 or rng.random() < math.exp(-delta / T):
+            x, fx = cand, f_cand
+            best, best_fx = (x, fx) if fx < best_fx else (best, best_fx)
+        T *= cooling
+        trace.append(best_fx)
+    return best, best_fx, trace
+
+x_star, f_star, hist = anneal(start=-1.0, seed=3)
+print(f"best x = {x_star:.3f}, cost = {f_star:.3f}   (illustrative)")
+```
+
+Run it and compare against plain greedy descent from the same start: greedy slides into the nearest well and stops; annealing's early heat lets it hop the barrier. The figure below sketches exactly this behavior — the cooling schedule that makes escape-then-settle possible, and the convergence gap between annealing and a greedy local search given the same evaluation budget:
+
+![Simulated annealing illustration: geometric temperature cooling schedule (left) and a best-so-far convergence sketch where annealing escapes the local optimum that traps greedy descent (right)](./diagram-annealing-schedule.svg)
+
+*Figure — geometric cooling drives escape-then-settle behavior; under the same evaluation budget, annealing escapes the trap that stops greedy descent (illustrative sketch, not measured data).*
+
+Three implementation notes that separate working SA from broken SA:
+
+- **Scale the temperature to the cost scale.** The acceptance rule `exp(-Δ/T)` only makes sense if T is on the order of typical Δ values. Normalize or calibrate: start T so the initial acceptance rate of worsening moves is around 50–80%.
+- **Track best-so-far, not the final state.** The walk is stochastic; the final position can be worse than an earlier one. Keep the incumbent.
+- **The cooling schedule is the method.** Geometric cooling (`T *= alpha`) is the default; too fast and you get expensive greedy search, too slow and you burn budget wandering. `alpha` in [0.99, 0.9999] per-step is the usual working range.
+
+## Genetic algorithms, concretely
+
+Where SA walks one solution, a GA evolves a population through selection, crossover, and mutation. GAs are the natural choice for combinatorial problems — scheduling, layout, configuration, subset selection — because crossover combines partial solutions in ways that respect problem structure. Their strength is global exploration; their weakness is slow fine-grained convergence.
+
+Toy example: pick exactly 8 parts from a synthetic catalog of 20 to maximize total reliability without blowing a budget — a knapsack-flavored configuration problem:
+
+```python
+# --- Illustrative toy problem: synthetic parts catalog ---
+import random
+
+rng = random.Random(7)
+N, K, BUDGET = 20, 8, 60
+price = [rng.randint(2, 15) for _ in range(N)]
+reliability = [round(rng.uniform(0.5, 0.99), 3) for _ in range(N)]
+
+def fitness(pick):                       # pick: list of N 0/1 genes
+    if sum(pick) != K:
+        return -1e9                      # hard constraint via death penalty
+    over = max(0, sum(p * g for p, g in zip(price, pick)) - BUDGET)
+    return sum(r * g for r, g in zip(reliability, pick)) - 5.0 * over
+
+def evolve(pop_size=120, generations=200, seed=1):
+    rng = random.Random(seed)
+    pop = [[rng.randint(0, 1) for _ in range(N)] for _ in range(pop_size)]
+
+    def tournament():
+        a, b = rng.sample(pop, 2)
+        return a if fitness(a) >= fitness(b) else b
+
+    for _ in range(generations):
+        nxt = []
+        while len(nxt) < pop_size:
+            p1, p2 = tournament(), tournament()
+            cut = rng.randrange(N)
+            child = p1[:cut] + p2[cut:]             # single-point crossover
+            if rng.random() < 0.05:                 # mutation
+                i = rng.randrange(N)
+                child[i] ^= 1
+            nxt.append(child)
+        pop = nxt
+    return max(pop, key=fitness)
+
+winner = evolve()
+print(f"fitness = {fitness(winner):.3f}   (illustrative, synthetic catalog)")
+```
+
+The operator choices encode domain knowledge, and that is both the power and the risk: a crossover that preserves feasible structure (e.g. swapping whole time-windows in a schedule) explores meaningfully; a generic crossover on a problem whose feasibility is fragile just manufactures broken children that the penalty function then rejects. If crossover isn't doing structural work for your problem, a GA degrades into parallel random search with extra steps — the ablation test in the tuning section will catch this.
+
+## Handling constraints without lying to yourself
+
+Constraints arrive in three flavors, and each wants a different treatment:
+
+- **Penalty methods.** Add a penalty term to the objective, as in the SA example. Easy and general, but the penalty weight is now a parameter with teeth: too small and the "optimum" is infeasible; too large and the landscape becomes a cliff that blocks the search from *crossing* infeasible regions to reach good feasible ones — even when the shortest path between two feasible solutions passes through infeasibility. Start moderate, and consider scaling the penalty up over the run (like temperature in reverse).
+- **Repair operators.** Project infeasible solutions back into feasibility (swap parts until the budget holds, clip to bounds). Repair keeps every evaluation honest — the objective is only ever evaluated on feasible points — but repair must be cheap, and biased repair can silently steer the search.
+- **Feasibility-preserving operators.** Design the representation so infeasible solutions can't be expressed (permutation encodings for orderings, exact-K subsets via swap-only mutation). This is the cleanest option when the structure allows it; it moves the constraint from the objective into the representation where it belongs.
+
+Whatever you choose, **report feasibility separately from objective value.** "Cost 4.2" next to "3 constraints violated by this much" is honest; a penalized score alone lets an infeasible optimum masquerade as a solution.
+
+## Particle swarm and the rest of the tour
 
 **Particle swarm optimization (PSO)** flies a population of particles through continuous space, each pulled toward its own best position and the swarm's best. It is a strong default for continuous, non-convex, moderately-dimensioned problems — fewer moving parts than a GA, better global behavior than pure gradient descent.
 
 Beyond the big three: **tabu search** for combinatorial problems where memory of visited solutions prevents cycling, **differential evolution** for continuous black-box optimization, and **Bayesian optimization** when each objective evaluation is expensive (a simulation taking hours) and the budget is dozens of evaluations, not thousands.
 
-Multi-objective problems deserve **NSGA-II** or similar Pareto-based methods, which return the frontier rather than forcing the objectives into an arbitrary weighted sum. The weighted-sum hack collapses the trade-off before the decision-maker ever sees it — exactly backwards from how engineering decisions should be made.
+Multi-objective problems deserve **NSGA-II** or similar Pareto-based methods, which return the frontier rather than forcing the objectives into an arbitrary weighted sum. The weighted-sum hack collapses the trade-off before the decision-maker ever sees it — exactly backwards from how engineering decisions should be made. A useful middle ground when you must ship a single number: optimize under several weightings and plot the resulting points — a poor man's frontier that at least shows the trade-off's shape before anyone commits to it.
 
-## Tuning without superstition
+## Comparing methods honestly
 
-Metaheuristics have parameters — population sizes, mutation rates, cooling schedules, inertia weights — and tuning them by folklore produces superstition, not performance. Discipline looks like this:
+Metaheuristics are stochastic, and comparing them by "best run found" is evaluation theater. The honest comparison harness has three rules:
 
-- **Separate the tuning problem from the decision problem.** Tune the optimizer on a representative test set of problem instances, then freeze the parameters and evaluate on held-out instances. Tuning on the same instance you report results on is the optimization analog of backtest overfitting.
-- **Budget the evaluations.** Every method should be compared under the same objective-function evaluation budget — wall-clock fairness, not iteration-count fairness, since one GA generation may cost as much as a hundred SA steps.
-- **Report distributions, not best runs.** Metaheuristics are stochastic. Report the mean, median, and spread across multiple random seeds. A method whose "best" beats everything but whose median loses is a lottery ticket.
-- **Ablate before you believe.** If the fancy operator doesn't improve on random restarts of a simpler method, the complexity is unjustified. The burden of proof is on the elaborate configuration.
+```python
+# --- comparison protocol (pseudocode; plug in anneal/evolve above) ---
+import numpy as np
+
+BUDGET = 600_000          # same objective-function evaluations for every method
+SEEDS = range(20)         # same seeds for every method
+
+def race(method):          # method(seed, budget) -> best feasible objective
+    return [method(seed=s, budget=BUDGET) for s in SEEDS]
+
+for name, vals in [("simulated annealing", race(anneal)),
+                   ("genetic algorithm", race(evolve)),
+                   ("random restart greedy", race(restart_greedy))]:
+    vals = np.array(vals)
+    print(f"{name:22s} median={np.median(vals):.3f}  "
+          f"p10={np.percentile(vals,10):.3f}  p90={np.percentile(vals,90):.3f}")
+```
+
+1. **Equal evaluation budget, not equal iterations.** One GA generation can cost as much as a hundred SA steps; wall-clock or evaluation-count fairness, never iteration-count fairness.
+2. **Distributions, not bests.** Report median and spread across seeds. A method whose best beats everything but whose median loses is a lottery ticket.
+3. **Ablate before you believe.** Random-restart greedy is the null hypothesis. If the fancy operator doesn't beat it under the same budget, the complexity is unjustified — the burden of proof is on the elaborate configuration.
+
+Also separate the *tuning* problem from the *decision* problem: tune the optimizer on a representative set of problem instances, freeze the parameters, then evaluate on held-out instances. Tuning the cooling schedule on the same instance you report results on is the optimization analog of backtest overfitting.
 
 ## Avoiding over-tuning to the problem instance
 
@@ -60,8 +183,9 @@ Countermeasures mirror those in model validation, because the failure is the sam
 
 Optimization is a tool for *making decisions under uncertainty*, and the uncertainty deserves as much modeling effort as the search. A metaheuristic that finds the global optimum of the wrong problem is precise, expensive, and useless.
 
-## Related
+## Related reading
 
+- [Monte Carlo for Decisions Under Uncertainty](/research/monte-carlo-decisions-under-uncertainty/)
+- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic/)
 - [Engineering](/engineering)
 - [Quantitative Work](/quant)
-- [Validating Models Like a Skeptic: The Outcomes-Analysis Playbook](/research/validating-models-like-a-skeptic)

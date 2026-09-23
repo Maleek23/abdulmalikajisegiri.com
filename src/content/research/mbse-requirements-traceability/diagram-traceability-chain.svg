@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 640" width="920" height="640" role="img">
+  <!--Requirements -> model elements -> verification traceability chain. Hand-authored.-->
+  <rect x="0" y="0" width="920" height="640" fill="#f6f4ee" />
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1d5c3f" />
+    </marker>
+  </defs>
+  <path d="M190,172 C250,172 190,166 250,166" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M190,296 C250,296 190,178 250,178" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M190,296 C250,296 190,414 250,414" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M190,420 C250,420 190,352 250,352" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,172 C480,172 420,164 480,164" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,234 C480,234 420,172 480,172" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,420 C480,420 420,180 480,180" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,358 C480,358 420,234 480,234" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,172 C480,172 420,288 480,288" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,234 C480,234 420,296 480,296" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,296 C480,296 420,304 480,304" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,296 C480,296 420,354 480,354" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M420,420 C480,420 420,362 480,362" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M480,358 C420,358 480,302 420,302" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 4" />
+  <path d="M710,166 C650,166 480,166 420,166" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M710,178 C650,178 480,234 420,234" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M710,240 C650,240 480,178 420,178" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M710,296 C650,296 480,296 420,296" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <path d="M710,358 C650,358 480,358 420,358" stroke="#1d5c3f" stroke-width="1.4" fill="none" marker-end="url(#arrow)" />
+  <rect x="20" y="150" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="32" y="169" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">N1</text>
+  <text x="32" y="185" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Safe operation</text>
+  <rect x="20" y="274" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="32" y="293" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">N2</text>
+  <text x="32" y="309" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Long service life</text>
+  <rect x="20" y="398" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="32" y="417" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">N3</text>
+  <text x="32" y="433" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Energy efficiency</text>
+  <rect x="250" y="150" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="262" y="169" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">R1</text>
+  <text x="262" y="185" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Cell temp 15–45 °C</text>
+  <rect x="250" y="212" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="262" y="231" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">R2</text>
+  <text x="262" y="247" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Pack ΔT &lt;= 5 °C</text>
+  <rect x="250" y="274" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="262" y="293" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">R3</text>
+  <text x="262" y="309" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Runaway alert &lt;= 2 s</text>
+  <rect x="250" y="336" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="262" y="355" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">R4</text>
+  <text x="262" y="371" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Pump power &lt;= 150 W</text>
+  <rect x="250" y="398" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="262" y="417" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">R5</text>
+  <text x="262" y="433" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Pump-failure survival</text>
+  <rect x="480" y="150" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="492" y="169" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">A1</text>
+  <text x="492" y="185" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Cooling plate</text>
+  <rect x="480" y="212" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="492" y="231" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">A2</text>
+  <text x="492" y="247" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Coolant pump</text>
+  <rect x="480" y="274" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="492" y="293" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">A3</text>
+  <text x="492" y="309" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Temp. sensor array</text>
+  <rect x="480" y="336" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="492" y="355" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">A4</text>
+  <text x="492" y="371" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Thermal controller</text>
+  <rect x="710" y="150" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="722" y="169" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">V1</text>
+  <text x="722" y="185" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Thermal chamber test</text>
+  <rect x="710" y="212" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="722" y="231" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">V2</text>
+  <text x="722" y="247" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">CFD analysis</text>
+  <rect x="710" y="274" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="722" y="293" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">V3</text>
+  <text x="722" y="309" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Fault-injection test</text>
+  <rect x="710" y="336" width="170" height="44" rx="7" fill="#fbfaf6" stroke="#1a1f1c" stroke-width="1" />
+  <text x="722" y="355" fill="#1a1f1c" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="bold" text-anchor="start">V4</text>
+  <text x="722" y="371" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">Power measurement</text>
+  <text x="460" y="48" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="bold" text-anchor="middle">The traceability chain: from stakeholder needs to verification</text>
+  <text x="105" y="108" fill="#1d5c3f" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="normal" text-anchor="middle" letter-spacing="2">STAKEHOLDER NEEDS</text>
+  <text x="335" y="108" fill="#1d5c3f" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="normal" text-anchor="middle" letter-spacing="2">REQUIREMENTS</text>
+  <text x="565" y="108" fill="#1d5c3f" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="normal" text-anchor="middle" letter-spacing="2">ARCHITECTURE</text>
+  <text x="795" y="108" fill="#1d5c3f" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="normal" text-anchor="middle" letter-spacing="2">VERIFICATION</text>
+  <text x="220" y="162" fill="#1d5c3f" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="normal" text-anchor="middle" font-style="italic">derives</text>
+  <text x="675" y="288" fill="#1d5c3f" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="normal" text-anchor="middle" font-style="italic">verifies</text>
+  <rect x="245" y="393" width="180" height="54" rx="10" fill="none" stroke="#a94438" stroke-width="1.6" stroke-dasharray="7 5" />
+  <text x="250" y="468" fill="#a94438" font-family="Georgia, 'Times New Roman', serif" font-size="12.5" font-weight="normal" text-anchor="start" font-style="italic">orphan — no verification link</text>
+  <text x="20" y="508" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="start">Link types</text>
+  <line x1="20" y1="530" x2="54" y2="530" stroke="#1d5c3f" stroke-width="1.4" marker-end="url(#arrow)" />
+  <text x="60" y="534" fill="#1d5c3f" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" font-weight="normal" text-anchor="start" font-style="italic">derives</text>
+  <text x="20" y="552" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">a requirement exists because of</text>
+  <text x="20" y="568" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">a need or parent requirement</text>
+  <line x1="250" y1="530" x2="284" y2="530" stroke="#1d5c3f" stroke-width="1.4" marker-end="url(#arrow)" />
+  <text x="290" y="534" fill="#1d5c3f" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" font-weight="normal" text-anchor="start" font-style="italic">satisfies</text>
+  <text x="250" y="552" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">an architecture element is the</text>
+  <text x="250" y="568" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">reason the requirement will be met</text>
+  <line x1="480" y1="530" x2="514" y2="530" stroke="#1d5c3f" stroke-width="1.4" marker-end="url(#arrow)" />
+  <text x="520" y="534" fill="#1d5c3f" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" font-weight="normal" text-anchor="start" font-style="italic">verifies</text>
+  <text x="480" y="552" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">a test, analysis, or inspection</text>
+  <text x="480" y="568" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">demonstrates the requirement</text>
+  <line x1="710" y1="530" x2="744" y2="530" stroke="#1d5c3f" stroke-width="1.4" marker-end="url(#arrow)" stroke-dasharray="6 4" />
+  <text x="750" y="534" fill="#1d5c3f" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" font-weight="normal" text-anchor="start" font-style="italic">refines</text>
+  <text x="710" y="552" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">an element elaborates how a</text>
+  <text x="710" y="568" fill="#1a1f1c" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">requirement is realized</text>
+  <rect x="20" y="592" width="46" height="22" rx="5" fill="none" stroke="#a94438" stroke-width="1.6" stroke-dasharray="7 5" />
+  <text x="74" y="608" fill="#a94438" font-family="Georgia, 'Times New Roman', serif" font-size="11.5" font-weight="normal" text-anchor="start">orphan — an element with a missing trace link (R5 has no verification activity)</text>
+</svg>
