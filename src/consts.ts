@@ -21,8 +21,8 @@ export const ENGINEERING: Page = {
 
 // Research Page
 export const RESEARCH: Page = {
-  TITLE: "Research",
-  DESCRIPTION: "Technical research notes by Abdulmalik Ajisegiri on model validation, systems engineering, MBSE, optimization, and quantitative methods.",
+  TITLE: "Research Library",
+  DESCRIPTION: "Twenty research notes by Abdulmalik Ajisegiri on model validation, systems engineering, MBSE, optimization, and quantitative methods — the working library behind the case studies.",
 }
 
 // Projects Page

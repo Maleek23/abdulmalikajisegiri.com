@@ -2,12 +2,13 @@
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
+import { formatDate } from "@lib/utils"
 import { SITE, SOCIALS } from "@consts"
 
 const posts = (await getCollection("research"))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0,3)
+  .slice(0,6)
 
 const projects = (await getCollection("projects"))
   .filter(project => !project.data.draft)
@@ -15,11 +16,6 @@ const projects = (await getCollection("projects"))
   .slice(0,3)
 
 const readingTime = (body: string) => Math.max(1, Math.ceil(body.split(/\s+/).length / 200))
-
-const thumbFor = (post: (typeof posts)[number]) =>
-  post.slug === "stacking-ensembles-clinical-risk-modeling"
-    ? "/research/stacking-ensembles-clinical-risk-modeling/stacking-architecture.png"
-    : post.data.image
 
 const stack = [
   "Python", "SQL", "C/C++", "TypeScript",
@@ -32,7 +28,7 @@ const stats = [
   { value: "4", label: "roles", sub: "DTCC · Collins · Deloitte · OU" },
   { value: "2", label: "degrees", sub: "M.S. OU · B.S. UT Arlington" },
   { value: "CISA", label: "certified", sub: "ISACA · MATLAB / Simulink" },
-  { value: "20", label: "research notes", sub: "in the series, publishing weekly" },
+  { value: "20", label: "research notes", sub: "the working library, publishing weekly" },
 ]
 
 const websiteSchema = {
@@ -72,29 +68,34 @@ const websiteSchema = {
           <p class="term-dim">abdulmalik-ajisegiri — systems engineer, model validator</p>
           <p><span class="term-prompt">$</span> cat current_role.txt</p>
           <p class="term-dim">Model Risk &amp; Validation Engineer @ DTCC — SR 11-7, LLMs, challenger models</p>
-          <p><span class="term-prompt">$</span> ls research/ | head -3</p>
-          <p class="term-dim">validating-models-like-a-skeptic/ stacking-ensembles/ llm-evaluation-harness/</p>
+          <p><span class="term-prompt">$</span> ls projects/ | head -3</p>
+          <p class="term-dim">agentic-mrm-platform/ quantedge-labs/ cardiac-surgery-risk-model/</p>
           <p><span class="term-prompt">$</span> <span class="term-cursor">▊</span></p>
         </div>
       </div>
 
       <div class="animate" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;">
-        <a href="/research" class="btn-solid">Read the research</a>
-        <a href="/projects" class="btn-ghost">View projects</a>
+        <a href="/projects" class="btn-solid">View selected work</a>
+        <a href="/research" class="btn-ghost">Browse the library</a>
         <a href="mailto:abdulmalikajisegiri@gmail.com" class="btn-ghost">Contact</a>
       </div>
     </div>
   </section>
 
-  <!-- TECH STACK -->
+  <!-- SELECTED WORK -->
   <section class="ed-block animate">
     <div class="ed-wrap">
-      <div class="kicker">01 / STACK &amp; STANDARDS</div>
-      <h2 class="sec-title" style="margin-bottom:12px;">Tools of the trade.</h2>
-      <p class="sec-sub" style="margin-bottom:28px;">The tools and frameworks I work in — from my resume, not a wish list.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;">
-        {stack.map((item) => (
-          <span class="pill">{item.toUpperCase()}</span>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+        <div>
+          <div class="kicker">01 / SELECTED WORK</div>
+          <h2 class="sec-title">Built, not theorized.</h2>
+          <p class="sec-sub" style="margin-top:10px;max-width:640px;">Case studies and platforms — the work the research notes come from.</p>
+        </div>
+        <a href="/projects" class="note-link" style="margin-top:0;">All projects &rarr;</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:20px;">
+        {projects.map((project) => (
+          <ArrowCard entry={project} pill={true} />
         ))}
       </div>
     </div>
@@ -117,30 +118,15 @@ const websiteSchema = {
     </div>
   </section>
 
-  <!-- FEATURED RESEARCH -->
+  <!-- TECH STACK -->
   <section class="ed-block animate">
     <div class="ed-wrap">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
-        <div>
-          <div class="kicker">03 / FEATURED RESEARCH</div>
-          <h2 class="sec-title">Notes from the bench.</h2>
-        </div>
-        <a href="/research" class="note-link" style="margin-top:0;">All research notes &rarr;</a>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr;gap:20px;">
-        {posts.map((post) => (
-          <a href={`/research/${post.slug}`} class="note-card" style="text-decoration:none;padding:0;overflow:hidden;">
-            <div style="aspect-ratio:2/1;width:100%;overflow:hidden;background:var(--green-soft);">
-              <img src={thumbFor(post)} alt={post.data.title} loading="lazy"
-                style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
-            </div>
-            <div style="padding:26px 28px;">
-              <div class="note-meta"><span>RESEARCH NOTE</span><span>{readingTime(post.body)} MIN READ</span></div>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.summary}</p>
-              <span class="note-link">Read the article &rarr;</span>
-            </div>
-          </a>
+      <div class="kicker">03 / STACK &amp; STANDARDS</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Tools of the trade.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;">The tools and frameworks I work in — from my resume, not a wish list.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        {stack.map((item) => (
+          <span class="pill">{item.toUpperCase()}</span>
         ))}
       </div>
     </div>
@@ -177,19 +163,30 @@ const websiteSchema = {
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- LIBRARY -->
   <section class="ed-block animate">
     <div class="ed-wrap">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:8px;">
         <div>
-          <div class="kicker">05 / CASE STUDIES</div>
-          <h2 class="sec-title">Built, not theorized.</h2>
+          <div class="kicker">05 / THE LIBRARY</div>
+          <h2 class="sec-title">Notes from the bench.</h2>
+          <p class="sec-sub" style="margin-top:10px;max-width:640px;">Twenty research notes on validation, quant research, simulation, and embedded systems — the working library behind the case studies.</p>
         </div>
-        <a href="/projects" class="note-link" style="margin-top:0;">All projects &rarr;</a>
+        <a href="/research" class="note-link" style="margin-top:0;">Browse all 20 notes &rarr;</a>
       </div>
-      <div style="display:grid;grid-template-columns:1fr;gap:20px;">
-        {projects.map((project) => (
-          <ArrowCard entry={project} pill={true} />
+      <div class="lib-index">
+        {posts.map((post) => (
+          <a href={`/research/${post.slug}`} class="lib-row">
+            <div class="lib-row-main">
+              <h3>{post.data.title}</h3>
+              <div class="lib-row-meta">
+                <span>{formatDate(post.data.date).toUpperCase()}</span>
+                <span>{readingTime(post.body)} MIN READ</span>
+                <span>{post.data.tags.slice(0, 2).join(" · ").toUpperCase()}</span>
+              </div>
+            </div>
+            <span class="lib-row-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         ))}
       </div>
     </div>
@@ -205,7 +202,7 @@ const websiteSchema = {
         <p style="font-size:16px;line-height:1.7;color:var(--ink);">
           <b>Model Risk &amp; Validation Engineer</b> at DTCC, working the AI/ML model-risk lifecycle —
           SR 11-7 determination, independent validation, LLM evaluation. Based in Dallas–Fort Worth, TX.
-          Writing a 20-note series on validation, quant research, simulation, and embedded systems.
+          Building an agentic model-risk platform and writing a 20-note research series on validation, quant research, simulation, and embedded systems.
         </p>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
           <a href="/about" class="btn-solid">About me</a>
@@ -239,5 +236,22 @@ const websiteSchema = {
     @media (max-width: 640px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
+    .lib-index { border-top: 1px solid var(--line); margin-top: 20px; }
+    .lib-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; padding: 18px 12px; border-bottom: 1px solid var(--line);
+      text-decoration: none; transition: background .15s ease;
+    }
+    .lib-row:hover { background: var(--green-soft); }
+    .lib-row-main h3 {
+      font-family: var(--serif); font-size: 19px; font-weight: 600;
+      line-height: 1.35; color: var(--ink); margin: 0 0 6px;
+    }
+    .lib-row-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 14px;
+      font-family: var(--mono); font-size: 10.5px;
+      letter-spacing: .12em; color: var(--muted);
+    }
+    .lib-row-arrow { font-size: 20px; color: var(--green); flex-shrink: 0; }
   </style>
 </PageLayout>
