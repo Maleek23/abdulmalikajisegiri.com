@@ -1,0 +1,196 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import ArrowCard from "@components/ArrowCard"
+import { getCollection } from "astro:content"
+
+const projects = (await getCollection("projects"))
+  .filter(project => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+
+const roles = [
+  {
+    title: "Model Risk & Validation Engineer",
+    org: "DTCC",
+    dates: "Aug 2024 – Present",
+    detail: "End-to-end model-risk lifecycle for AI/ML and quantitative models: identification, SR 11-7 determination and classification, and independent validation — backtesting, sensitivity analysis, benchmarking, challenger models. Built quantitative evaluation frameworks (SQL, Power BI, Python NLP metrics, stress-testing, statistical benchmarks) for production AI/ML systems including LLMs, RAG pipelines, and NLP classifiers.",
+    tags: ["SR 11-7", "LLM evaluation", "Python", "SQL"],
+  },
+  {
+    title: "Graduate Teaching Assistant, Model-Based Systems Engineering",
+    org: "University of Oklahoma",
+    dates: "Aug 2025 – May 2026",
+    detail: "Led graduate labs for ISE 5893 (MBSE): Cameo Systems Modeler, MATLAB/Simulink, and Python for scenario and sensitivity analysis. Requirements traceability and lifecycle verification & validation.",
+    tags: ["MBSE", "Cameo", "MATLAB/Simulink"],
+  },
+  {
+    title: "Software Systems R&D Engineer",
+    org: "Collins Aerospace (RTX)",
+    dates: "Aug 2023 – Aug 2024",
+    detail: "Event-driven C++ test harness simulating 80+ RF command scenarios for embedded avionics, cutting development test cycles ~80%. MBSE (Cameo, MATLAB/Simulink) across 300+ Jama requirements for DO-178C verification and HF frequency-control testing. Held U.S. Secret clearance.",
+    tags: ["C++", "DO-178C", "Embedded", "Secret clearance"],
+  },
+  {
+    title: "Cyber Risk Intern",
+    org: "Deloitte LLP",
+    dates: "May 2022 – Aug 2023",
+    detail: "Control-gap assessments, hardening of 5 REST APIs (NIST CSF), and incident-response planning across 50+ engineers.",
+    tags: ["NIST CSF", "Risk assessment"],
+  },
+]
+
+const facts = [
+  { label: "BASED", value: "Dallas–Fort Worth, TX" },
+  { label: "CURRENT ROLE", value: "Model Risk & Validation Engineer @ DTCC" },
+  { label: "CLEARANCE", value: "Held U.S. Secret clearance (Collins / RTX)" },
+  { label: "CERTIFICATIONS", value: "CISA · MATLAB Certified · Simulink Certified" },
+  { label: "EDUCATION", value: "M.S. Systems Engineering, OU '26 (3.7) · B.S. Computer Engineering, UT Arlington" },
+  { label: "COMMUNITIES", value: "NSBE · ISACA" },
+]
+---
+
+<PageLayout
+  title="Hire Abdulmalik Ajisegiri"
+  description="The 60-second version: Abdulmalik Ajisegiri is a Model Risk & Validation Engineer at DTCC specializing in SR 11-7, AI/ML validation, and systems engineering. Career timeline, selected work, resume, and contact."
+>
+  <!-- HERO -->
+  <section style="padding: 72px 0 0;">
+    <div class="ed-wrap">
+      <p class="animate kicker" style="margin-bottom:10px;">FOR RECRUITERS &amp; HIRING MANAGERS</p>
+      <h1 class="animate sec-title" style="font-size:clamp(38px,5vw,58px);">
+        The 60-second version.
+      </h1>
+      <p class="animate sec-sub" style="margin-top:16px;max-width:680px;font-size:17px;line-height:1.75;">
+        I'm Abdulmalik Ajisegiri, a <b>Model Risk &amp; Validation Engineer at DTCC</b> working
+        the AI/ML model-risk lifecycle — SR 11-7 determination, independent validation,
+        LLM evaluation. Before that: embedded avionics R&amp;D at Collins Aerospace (RTX)
+        and cyber risk at Deloitte. M.S. Systems Engineering (OU, 3.7), CISA-certified,
+        based in Dallas–Fort Worth.
+      </p>
+      <div class="animate" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;">
+        <a href="mailto:abdulmalikajisegiri@gmail.com?subject=Opportunity%20for%20Abdulmalik%20Ajisegiri" class="btn-solid">abdulmalikajisegiri@gmail.com</a>
+        <a href="/resume" class="btn-ghost">Resume</a>
+        <a href="https://www.linkedin.com/in/malikajisegiri/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACT GRID -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">01 / AT A GLANCE</div>
+      <h2 class="sec-title" style="margin-bottom:28px;">The facts.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="facts-grid">
+        {facts.map((f) => (
+          <div class="note-card" style="padding:22px 20px;min-height:0;">
+            <p style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--green);">{f.label}</p>
+            <p style="font-size:15px;line-height:1.6;color:var(--ink);margin-top:10px;">{f.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div class="kicker">02 / THE RECORD</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Where I've been.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;max-width:640px;">Click any role to expand. Every claim here is on the resume.</p>
+      <div class="timeline">
+        {roles.map((role, i) => (
+          <details class="tl-item" open={i === 0}>
+            <summary class="tl-summary">
+              <span class="tl-rail" aria-hidden="true"><span class="tl-dot"></span></span>
+              <span class="tl-head">
+                <span class="tl-title">{role.title}</span>
+                <span class="tl-org">{role.org} · {role.dates}</span>
+              </span>
+              <span class="tl-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="tl-body">
+              <p>{role.detail}</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+                {role.tags.map((t) => (<span class="pill">{t.toUpperCase()}</span>))}
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="ed-block animate">
+    <div class="ed-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+        <div>
+          <div class="kicker">03 / PROOF</div>
+          <h2 class="sec-title">The work.</h2>
+        </div>
+        <a href="/projects" class="note-link" style="margin-top:0;">All projects &rarr;</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:20px;">
+        {projects.map((project) => (
+          <ArrowCard entry={project} pill={true} />
+        ))}
+      </div>
+      <p class="sec-sub" style="margin-top:24px;max-width:640px;">
+        Plus <a href="/research" style="color:var(--green);">20 research notes</a> documenting
+        the validation practice in the open — the thinking behind the work, not just the output.
+      </p>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="ed-block animate" style="border-bottom:none;">
+    <div class="ed-wrap">
+      <div class="kicker">04 / NEXT STEP</div>
+      <h2 class="sec-title" style="margin-bottom:12px;">Let's talk.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;max-width:640px;">
+        Building model risk, validation, or AI governance teams? The fastest way to reach me is email.
+      </p>
+      <div class="note-card" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px;">
+        <a href="mailto:abdulmalikajisegiri@gmail.com?subject=Opportunity%20for%20Abdulmalik%20Ajisegiri" class="btn-solid">abdulmalikajisegiri@gmail.com</a>
+        <a href="https://github.com/Maleek23" target="_blank" rel="noopener" class="note-link" style="margin-top:0;">GitHub &rarr;</a>
+        <a href="https://www.linkedin.com/in/malikajisegiri/" target="_blank" rel="noopener" class="note-link" style="margin-top:0;">LinkedIn &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 700px) {
+      .facts-grid { grid-template-columns: 1fr !important; }
+    }
+    .timeline { position: relative; margin-top: 8px; }
+    .tl-item {
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--paper); margin-bottom: 12px; overflow: hidden;
+    }
+    .tl-summary {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 22px; cursor: pointer; list-style: none;
+    }
+    .tl-summary::-webkit-details-marker { display: none; }
+    .tl-summary:hover { background: var(--green-soft); }
+    .tl-rail { position: relative; width: 14px; flex-shrink: 0; display: flex; justify-content: center; }
+    .tl-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 0 4px var(--green-soft);
+    }
+    .tl-head { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+    .tl-title { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+    .tl-org { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+    .tl-toggle { position: relative; width: 18px; height: 18px; flex-shrink: 0; }
+    .tl-toggle::before, .tl-toggle::after {
+      content: ""; position: absolute; background: var(--green);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .tl-toggle::before { width: 14px; height: 2px; }
+    .tl-toggle::after { width: 2px; height: 14px; transition: opacity .15s ease; }
+    .tl-item[open] .tl-toggle::after { opacity: 0; }
+    .tl-body { padding: 0 22px 22px 52px; }
+    .tl-body p { font-size: 15px; line-height: 1.75; color: var(--ink); max-width: 720px; }
+    @media (max-width: 640px) { .tl-body { padding-left: 22px; } }
+  </style>
+</PageLayout>

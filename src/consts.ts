@@ -98,6 +98,10 @@ export const LINKS: Links = [
     HREF: "/resume",
   },
   {
+    TEXT: "Hire",
+    HREF: "/hire",
+  },
+  {
     TEXT: "Contact",
     HREF: "/contact",
   },
