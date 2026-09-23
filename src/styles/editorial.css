@@ -193,6 +193,8 @@ span.pill:hover {
   font-family: var(--mono);
   font-size: 13.5px;
   line-height: 1.9;
+  overflow-x: auto;
+  overflow-wrap: break-word;
 }
 
 .term-prompt {
@@ -365,9 +367,107 @@ span.pill:hover {
   font-size: 14px;
 }
 
+/* ============================================================
+   RESPONSIVE — small phones → tablets → wide desktop
+   Breakpoints: 1024px (tablet), 700px (large phone),
+   480px (small phone). Design language unchanged.
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .ed-foot-cta {
+    padding: 56px 0;
+  }
+}
+
 @media (max-width: 700px) {
   .ed-foot-cols {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ed-block {
+    padding: 64px 0;
+  }
+
+  .note-card {
+    padding: 24px 22px;
+  }
+
+  .term-body {
+    font-size: 12.5px;
+    padding: 18px 16px 20px;
+  }
+
+  .code-panel pre {
+    font-size: 12.5px;
+  }
+
+  .ed-foot-cta {
+    padding: 48px 0;
+  }
+
+  /* Wide markdown tables in articles scroll instead of breaking layout */
+  article table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ed-wrap {
+    padding: 0 20px;
+  }
+
+  .ed-block {
+    padding: 48px 0;
+  }
+
+  .kicker {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .note-card {
+    padding: 22px 20px;
+  }
+
+  .note-card h3 {
+    font-size: 20px;
+  }
+
+  .term-body {
+    font-size: 12px;
+    line-height: 1.8;
+    padding: 16px 14px 18px;
+  }
+
+  .code-panel pre {
+    font-size: 12px;
+    padding: 14px;
+  }
+
+  /* Stack CTAs full-width for easy tapping on small phones */
+  .btn-solid,
+  .btn-ghost,
+  .btn-paper {
+    width: 100%;
+    text-align: center;
+  }
+
+  .ed-foot-cols {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 36px 0;
+  }
+
+  .ed-foot-cta {
+    padding: 40px 0;
+    gap: 24px;
+  }
+
+  .arrow-card {
+    gap: 12px;
   }
 }
 
