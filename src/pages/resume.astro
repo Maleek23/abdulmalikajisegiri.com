@@ -16,9 +16,14 @@ import { RESUME } from "@consts"
           {RESUME.DESCRIPTION}
         </div>
       </div>
-      <button onclick="window.print()" class="shrink-0 mt-2 py-2 px-4 rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 transition-colors print:hidden">
-        Print / Save as PDF
-      </button>
+      <div class="flex items-center gap-3">
+        <a href="/Abdulmalik-Ajisegiri-Resume.pdf" download class="shrink-0 mt-2 py-2 px-4 rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 transition-colors print:hidden">
+          Download PDF
+        </a>
+        <button onclick="window.print()" class="shrink-0 mt-2 py-2 px-4 rounded text-sm border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 transition-colors print:hidden">
+          Print
+        </button>
+      </div>
     </div>
   </TopLayout>
   <BottomLayout>
