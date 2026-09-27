@@ -82,6 +82,33 @@ html {
   font-family: var(--sans);
 }
 
+/* Mobile safety net: a single rogue wide element must never create
+   horizontal page scroll. `clip` (not `hidden`) keeps position:sticky
+   descendants working. */
+html,
+body {
+  overflow-x: clip;
+}
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Touch hardening: no tap highlight flash, no double-tap zoom delay on
+   controls. (Avatar canvases keep their own `touch-action: pan-y`.) */
+a,
+button,
+input,
+select,
+textarea,
+summary,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 html,
 body {
   @apply h-full w-full antialiased;

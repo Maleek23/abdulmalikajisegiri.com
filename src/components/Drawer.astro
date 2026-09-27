@@ -71,12 +71,18 @@ let idx = 0
 <style>
   #drawer.open {
     @apply h-full;
+    height: 100dvh; /* mobile Safari: exclude browser chrome */
   }
   .drawer-inner {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
     padding: 84px 28px 40px;
+    /* Notched phones: keep content clear of the notch / home indicator */
+    padding-top: calc(84px + env(safe-area-inset-top));
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    padding-left: calc(28px + env(safe-area-inset-left));
+    padding-right: calc(28px + env(safe-area-inset-right));
     overflow-y: auto;
     display: flex;
     flex-direction: column;

@@ -512,13 +512,7 @@ span.pill:hover {
     padding: 48px 0;
   }
 
-  /* Wide markdown tables in articles scroll instead of breaking layout */
-  article table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-  }
+  /* (Wide markdown tables now scroll at every width — see TOUCH HARDENING.) */
 }
 
 @media (max-width: 480px) {
@@ -1176,4 +1170,88 @@ input[name="search"]::placeholder {
   .widget-card { padding: 20px 16px; }
   .widget-canvas { height: 260px; }
   .widget-title { font-size: 19px; }
+}
+
+/* ============================================================
+   TOUCH + SMALL-SCREEN HARDENING
+   Phones (~360-430px) and tablets (~768-1024px).
+   Desktop rendering is unchanged: every rule below is scoped to
+   coarse pointers, small viewports, or env() which is 0 on desktop.
+   ============================================================ */
+
+/* 44px minimum touch targets on touch devices */
+@media (pointer: coarse) {
+  .ed-icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .tag-pill,
+  .btn-surprise,
+  .btn-sort {
+    min-height: 44px;
+  }
+  .widget-controls button,
+  .widget-controls select {
+    min-height: 44px;
+  }
+  .widget-controls input[type="range"] {
+    min-height: 44px; /* taller grab area for thumbs */
+  }
+}
+
+/* iOS Safari auto-zooms on focus when a form control is < 16px */
+@media (max-width: 700px) {
+  .widget-controls select {
+    font-size: 16px;
+  }
+}
+
+/* Wide markdown tables scroll at every viewport width, not just phones —
+   tablets (701-1024px) can overflow too. overflow-x:auto is a no-op when
+   the table already fits, so desktop is unaffected. */
+article table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Confusion-matrix table (JS-injected): allow horizontal scroll on narrow
+   screens instead of crushing columns. */
+@media (max-width: 560px) {
+  .widget-cm-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+  .widget-cm-table th,
+  .widget-cm-table td {
+    padding: 8px;
+    font-size: 11.5px;
+  }
+  .widget-cm-table tbody th {
+    max-width: 92px;
+  }
+}
+
+/* Notched phones: respect safe areas (env() is 0 on desktop) */
+.ed-header {
+  padding-top: env(safe-area-inset-top);
+}
+.ed-foot-bar {
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+}
+
+/* Very small phones: keep brand + CTA + hamburger on one line */
+@media (max-width: 400px) {
+  .ed-brand {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+  }
+  .ed-nav-cta {
+    padding: 7px 12px;
+    font-size: 12.5px;
+  }
 }

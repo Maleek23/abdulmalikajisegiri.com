@@ -110,8 +110,11 @@ const moreActive = NAV_MORE.some((l) => isActive(l.HREF))
   function toggleDrawer() {
     const drawer = document.getElementById("drawer")
     const drawerButton = document.getElementById("header-drawer-button")
+    const willOpen = drawer ? !drawer.classList.contains("open") : false
     drawer?.classList.toggle("open")
     drawerButton?.classList.toggle("open")
+    // Lock background scroll while the drawer is open (mobile)
+    document.documentElement.style.overflow = willOpen ? "hidden" : ""
   }
 
   function initializeDrawerButton() {
